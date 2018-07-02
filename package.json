@@ -1,0 +1,22 @@
+{
+    "name": "angerboda",
+    "displayName": "Angerboda",
+    "description": "A purple-red-pinkish theme, inspired by the one who brings grief!",
+    "version": "0.0.1",
+    "publisher": "lokecarlsson",
+    "engines": {
+        "vscode": "^1.24.0"
+    },
+    "categories": [
+        "Themes"
+    ],
+    "contributes": {
+        "themes": [
+            {
+                "label": "Angerboda",
+                "uiTheme": "vs-dark",
+                "path": "./themes/Angerboda-color-theme.json"
+            }
+        ]
+    }
+}
