@@ -1,5 +1,5 @@
 # Angerboda
-_the one who brings grief_
+_the one who brings grief!_
 
 ## So, what is this
 
