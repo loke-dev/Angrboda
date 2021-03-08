@@ -13,7 +13,7 @@ export const colors = {
 
 // [dark, light]
 export const AngrbodaThemes = {
-  primary: ['#ff5c5c', '#9d1d1d'],
+  primary: ['#ff6262', '#9d1d1d'],
 
   foreground: ['#e0d7e9', '#393a34'],
   activeForeground: ['#e0d7e9', '#4e4f47'],
@@ -24,7 +24,7 @@ export const AngrbodaThemes = {
   activeBackground: ['#202020', '#e0e0e0'],
 
   comment: ['#5f535f', '#5f535f'],
-  string: ['#ff5c5c', '#9d1d1d'],
+  string: ['#ff6262', '#9d1d1d'],
   literal: ['#ee63e2', '#8f008f'],
   variable: ['#b08cf3', '#745e9e'],
   keyword: ['#ee63e2', '#8f008f'],
@@ -34,18 +34,18 @@ export const AngrbodaThemes = {
   constant: ['#b08cf3', '#745e9e'],
   class: ['#f4d7e5', '#393a34'],
   interface: ['#b08cf3', '#745e9e'],
-  builtin: ['#ff5c5c', '#bd1d1d'],
+  builtin: ['#ff6262', '#bd1d1d'],
   property: ['#ee63e2', '#8f008f'],
   namespace: ['#b08cf3', '#745e9e'],
   punctuation: ['#5c5157', '#5c5157'],
   decorator: ['#b08cf3', '#745e9e'],
-  regex: ['#ff5c5c', '#bd1d1d'],
+  regex: ['#ff6262', '#bd1d1d'],
 
   // colors
   green: ['#4d9375', '#28a745'],
   cyan: ['#24b1bf', '#147764'],
   blue: ['#79b8ff', '#0366d6'],
-  red: ['#ea4a5a', '#e33141'],
+  red: ['#ff6262', '#e33141'],
   orange: ['#fb8532', '#d15704'],
   yellow: ['#ffd33d', '#dbab09'],
   magenta: ['#ea4aaa', '#b93a86'],
