@@ -1,11 +1,12 @@
-# Angerboda
-_the one who brings grief!_
+<h1 align="center">Angrboða - VSCode Theme</h1>
 
-## So, what is this
+<p align="center">
+</p>
 
-So far, it's only a placeholder repo that might turn out to be a color theme for iTerm / Visual Studio Code!
+<p align="center">
+<img alt="Screen Shot 2021-03-08 at 12 32 54 AM" src="https://user-images.githubusercontent.com/14079937/110350535-1e4dc500-8034-11eb-931a-d6a0183ef37f.png">
+</p>
 
-### Ideas
+## Thanks
 
-Purple / pink / red
-Need italic for operator font
+This project is based on [vscode-theme-vitesse](https://github.com/antfu/vscode-theme-vitesse).

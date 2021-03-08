@@ -1,27 +1,42 @@
 {
-    "name": "angerboda",
-    "displayName": "Angerboda",
-    "description": "A purple-red-pinkish theme",
-    "version": "0.0.1",
-    "publisher": "lokecarlsson",
-    "keywords": [
-        "vs-code",
-        "theme",
-        "angerboda"  
-    ],
-    "engines": {
-        "vscode": "^1.24.0"
-    },
-    "categories": [
-        "Themes"
-    ],
-    "contributes": {
-        "themes": [
-            {
-                "label": "Angerboda",
-                "uiTheme": "vs-dark",
-                "path": "./themes/Angerboda-color-theme.json"
-            }
-        ]
-    }
+  "name": "angrboda",
+  "version": "0.0.1",
+  "categories": [
+    "Themes"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "esno src/index.ts",
+    "dev": "nodemon --watch src -e ts --exec \"esno src/index.ts\"",
+    "vscode:prepublish": "npm run build",
+    "release": "npx bumpp --commit --tag --push && vsce publish"
+  },
+  "contributes": {
+    "themes": [
+      {
+        "label": "Angrboda Light",
+        "uiTheme": "vs",
+        "path": "./themes/light.json"
+      },
+      {
+        "label": "Angrboda Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/dark.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.4.3",
+    "@types/color": "^3.0.1",
+    "color": "^3.1.2",
+    "eslint": "^7.21.0",
+    "esno": "^0.4.6",
+    "nodemon": "^2.0.3",
+    "tsup": "^4.6.1",
+    "typescript": "^4.2.3"
+  },
+  "engines": {
+    "vscode": "^1.43.0"
+  },
+  "icon": "https://user-images.githubusercontent.com/14079937/110350492-10983f80-8034-11eb-92dd-a1e069ade855.png"
 }
