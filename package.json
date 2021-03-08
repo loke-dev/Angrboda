@@ -1,8 +1,16 @@
 {
   "name": "angrboda",
+  "displayName": "Angrboða",
+  "description": "Pretty dark and light VSCode theme",
   "version": "1.0.5",
   "categories": [
     "Themes"
+  ],
+  "keywords": [
+    "theme",
+    "angrboda",
+    "light",
+    "dark"
   ],
   "license": "MIT",
   "publisher": "carlssonloke",
@@ -43,5 +51,6 @@
   "engines": {
     "vscode": "^1.43.0"
   },
-  "icon": "logo.png"
+  "icon": "logo.png",
+  "preview": true
 }
