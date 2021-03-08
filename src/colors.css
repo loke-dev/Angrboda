@@ -1,0 +1,28 @@
+:root {
+  --prism-scheme: dark;
+  --prism-foreground: #e0d7e9;
+  --prism-background: #141414;
+  --prism-comment: #5f535f;
+  --prism-string: #ff5c5c;
+  --prism-literal: #ff5c5c;
+  --prism-keyword: #ee63e2;
+  --prism-function: #ff5c5c;
+  --prism-deleted: #a14f55;
+  --prism-class: #f4d7e5;
+  --prism-builtin: #ff5c5c;
+  --prism-property: #ee63e2;
+  --prism-namespace: #b08cf3;
+  --prism-punctuation: #5c5157;
+  --prism-decorator: #a14f55;
+  --prism-operator: #ff5c5c;
+  --prism-number: #745e9e;
+  --prism-boolean: #ee63e2;
+  --prism-variable: #ee63e2;
+  --prism-regex: #ff5c5c;
+  --prism-json-property: #f4d7e5;
+  --prism-inline-background: #1c121c;
+  --prism-line-number: #888888;
+  --prism-line-number-gutter: #eeeeee;
+  --prism-line-highlight-background: #3c343c;
+  --prism-selection-background: #3c343c;
+}
