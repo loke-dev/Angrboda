@@ -51,6 +51,5 @@
   "engines": {
     "vscode": "^1.43.0"
   },
-  "icon": "logo.png",
-  "preview": true
+  "icon": "logo.png"
 }
