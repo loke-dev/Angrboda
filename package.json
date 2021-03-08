@@ -5,6 +5,7 @@
     "Themes"
   ],
   "license": "MIT",
+  "publisher": "lokecarlsson",
   "scripts": {
     "build": "esno src/index.ts",
     "dev": "nodemon --watch src -e ts --exec \"esno src/index.ts\"",
