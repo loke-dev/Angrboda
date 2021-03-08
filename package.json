@@ -1,11 +1,15 @@
 {
   "name": "angrboda",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "categories": [
     "Themes"
   ],
   "license": "MIT",
   "publisher": "carlssonloke",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lokecarlsson/Angrboda"
+  },
   "scripts": {
     "build": "esno src/index.ts",
     "dev": "nodemon --watch src -e ts --exec \"esno src/index.ts\"",
@@ -39,5 +43,5 @@
   "engines": {
     "vscode": "^1.43.0"
   },
-  "icon": "https://user-images.githubusercontent.com/14079937/110350492-10983f80-8034-11eb-92dd-a1e069ade855.png"
+  "icon": "logo.png"
 }
