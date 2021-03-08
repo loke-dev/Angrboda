@@ -3,12 +3,12 @@ import getTheme from './theme'
 
 const lightTheme = getTheme({
   style: 'light',
-  name: 'Vitesse Light',
+  name: 'Angrboda Light',
 })
 
 const darkTheme = getTheme({
   style: 'dark',
-  name: 'Vitesse Dark',
+  name: 'Angrboda Dark',
 })
 
 fs.mkdir('./themes', { recursive: true })
