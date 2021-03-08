@@ -1,6 +1,6 @@
 {
   "name": "angrboda",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "categories": [
     "Themes"
   ],
@@ -33,7 +33,8 @@
     "esno": "^0.4.6",
     "nodemon": "^2.0.3",
     "tsup": "^4.6.1",
-    "typescript": "^4.2.3"
+    "typescript": "^4.2.3",
+    "vsce": "^1.85.1"
   },
   "engines": {
     "vscode": "^1.43.0"
