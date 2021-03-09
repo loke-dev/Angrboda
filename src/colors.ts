@@ -13,15 +13,15 @@ export const colors = {
 
 // [dark, light]
 export const AngrbodaThemes = {
-  primary: ['#ff6262', '#9d1d1d'],
+  primary: ['#fa7373', '#9d1d1d'],
 
   foreground: ['#e0d7e9', '#393a34'],
   activeForeground: ['#e0d7e9', '#4e4f47'],
   secondaryForeground: ['#dedcd590', '#393a3490'],
   ignored: ['#a77df0', '#745e9e'],
-  border: ['#1f1f1f', '#f0f0f0'],
-  background: ['#1f1f1f', '#f0f0f0'],
-  activeBackground: ['#1f1f1f', '#e0e0e0'],
+  border: ['#1c1c1c', '#f0f0f0'],
+  background: ['#1c1c1c', '#f0f0f0'],
+  activeBackground: ['#252222', '#e0e0e0'],
 
   comment: ['#5f535f', '#5f535f'],
   string: ['#fa7373', '#9d1d1d'],
