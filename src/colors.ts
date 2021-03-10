@@ -18,7 +18,7 @@ export const AngrbodaThemes = {
   foreground: ['#e0d7e9', '#393a34'],
   activeForeground: ['#e0d7e9', '#4e4f47'],
   secondaryForeground: ['#dedcd590', '#393a3490'],
-  ignored: ['#a77df0', '#745e9e'],
+  ignored: ['#e0d7e960', '#393a3460'],
   border: ['#1c1c1c', '#f0f0f0'],
   background: ['#1c1c1c', '#f0f0f0'],
   activeBackground: ['#252222', '#e0e0e0'],
