@@ -76,7 +76,7 @@ export default function getTheme({ style, name }) {
       'sideBar.background': background,
       'sideBar.border': border,
       'sideBarTitle.foreground': foreground,
-      'sideBarSectionHeader.foreground': foreground,
+      'sideBarSectionHeader.foreground': secondary,
       'sideBarSectionHeader.background': background,
       'sideBarSectionHeader.border': border,
 
@@ -84,8 +84,8 @@ export default function getTheme({ style, name }) {
       'list.inactiveSelectionForeground': foreground,
       'list.activeSelectionForeground': foreground,
       'list.hoverBackground': activeBackground,
-      'list.inactiveSelectionBackground': background,
-      'list.activeSelectionBackground': activeBackground,
+      'list.inactiveSelectionBackground': activeBackground,
+      'list.activeSelectionBackground': strongBackground,
       'list.inactiveFocusBackground': background,
       'list.focusBackground': activeBackground,
 
@@ -139,8 +139,8 @@ export default function getTheme({ style, name }) {
       'editorWidget.background': background,
       'editor.foldBackground': background,
       'editor.lineHighlightBackground': activeBackground,
-      'editorLineNumber.foreground': '#a77df035',
-      'editorLineNumber.activeForeground': '#fa737370',
+      'editorLineNumber.foreground': '#a77df070',
+      'editorLineNumber.activeForeground': '#a77df0',
       'editorIndentGuide.background': pick({ light: '#eff2f6', dark: primer.gray[1] }),
       'editorIndentGuide.activeBackground': pick({ light: '#d7dbe0', dark: primer.gray[2] }),
       'editorWhitespace.foreground': pick({ light: primer.gray[3], dark: primer.gray[1] }),
@@ -155,8 +155,8 @@ export default function getTheme({ style, name }) {
       'editor.wordHighlightStrongBackground': pick({ light: '#fa737340', dark: '#fa737340' }),
       'editorBracketMatch.background': pick({ light: '#a77df01e', dark: '#a77df01e' }),
 
-      'diffEditor.insertedTextBackground': pick({ light: '#1c6b4822', dark: '#4d937522' }),
-      'diffEditor.removedTextBackground': pick({ light: '#ab595920', dark: '#ab595922' }),
+      'diffEditor.insertedTextBackground': pick({ light: '#1c6b4830', dark: '#3d833530' }),
+      'diffEditor.removedTextBackground': pick({ light: '#ab595930', dark: '#cb595930' }),
 
       'scrollbar.shadow': pick({ light: '#6a737d33', dark: '#0002' }),
       'scrollbarSlider.background': '#a77df015',
