@@ -15,7 +15,10 @@ export default function getTheme({ style, name }) {
   const border = angrboda('border')
   const activeForeground = angrboda('activeForeground')
   const activeBackground = angrboda('activeBackground')
+  const strongBackground = angrboda('strongBackground')
   const primary = angrboda('primary')
+  const secondary = angrboda('secondary')
+  const tertiary = angrboda('tertiary')
 
   return {
     name,

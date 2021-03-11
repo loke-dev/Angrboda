@@ -14,6 +14,8 @@ export const colors = {
 // [dark, light]
 export const AngrbodaThemes = {
   primary: ['#fa7373', '#9d1d1d'],
+  secondary: ['#a77df0', '#745e9e'],
+  tertiary: ['#ed82e4', '#8f008f'],
 
   foreground: ['#e0d7e9', '#393a34'],
   activeForeground: ['#e0d7e9', '#4e4f47'],
@@ -21,7 +23,8 @@ export const AngrbodaThemes = {
   ignored: ['#e0d7e960', '#393a3460'],
   border: ['#1c1c1c', '#f0f0f0'],
   background: ['#1c1c1c', '#f0f0f0'],
-  activeBackground: ['#252222', '#e0e0e0'],
+  activeBackground: ['#745e9e25', '#a77df025'],
+  strongBackground: ['#745e9e60', '#a77df060'],
 
   comment: ['#5f535f', '#5f535f'],
   string: ['#fa7373', '#9d1d1d'],
