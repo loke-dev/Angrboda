@@ -57,7 +57,7 @@ export default function getTheme({ style, name }) {
 
       'titleBar.activeForeground': activeForeground,
       'titleBar.activeBackground': background,
-      'titleBar.inactiveForeground': primer.gray[5],
+      'titleBar.inactiveForeground': angrboda('ignored'),
       'titleBar.inactiveBackground': background,
       'titleBar.border': activeBackground,
 
@@ -88,7 +88,7 @@ export default function getTheme({ style, name }) {
 
       'tree.indentGuidesStroke': pick({ light: primer.gray[2], dark: primer.gray[1] }),
 
-      'notificationCenterHeader.foreground': primer.gray[5],
+      'notificationCenterHeader.foreground': angrboda('ignored'),
       'notificationCenterHeader.background': background,
       'notifications.foreground': foreground,
       'notifications.background': background,
@@ -165,7 +165,7 @@ export default function getTheme({ style, name }) {
       'panel.border': border,
       'panelTitle.activeBorder': primary,
       'panelTitle.activeForeground': foreground,
-      'panelTitle.inactiveForeground': primer.gray[5],
+      'panelTitle.inactiveForeground': angrboda('ignored'),
       'panelInput.border': pick({ light: primer.gray[2], dark: primer.gray[1] }),
 
       'terminal.foreground': foreground,
@@ -217,7 +217,7 @@ export default function getTheme({ style, name }) {
       'problemsInfoIcon.foreground': angrboda('blue'),
 
       'editorError.foreground': angrboda('red'),
-      'editorWarning.foreground': angrboda('orange'),
+      'editorWarning.foreground': angrboda('ignored'),
       'editorInfo.foreground': angrboda('blue'),
       'editorHint.foreground': angrboda('green'),
 

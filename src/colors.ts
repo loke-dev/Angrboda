@@ -46,7 +46,7 @@ export const AngrbodaThemes = {
   cyan: ['#ed82e4', '#8f008f'],
   blue: ['#a77df0', '#745e9e'],
   red: ['#fa7373', '#bd1d1d'],
-  orange: ['#fa7373', '#bd1d1d'],
+  orange: ['#ed82e4', '#8f008f'],
   yellow: ['#e0d7e9', '#4e4f47'],
   magenta: ['#f4d7e5', '#393a34'],
 }
