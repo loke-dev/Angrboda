@@ -44,7 +44,6 @@ export const AngrbodaThemes = {
   decorator: ['#a77df0', '#745e9e'],
   regex: ['#fa7373', '#bd1d1d'],
 
-  // colors
   green: ['#a77df0', '#745e9e'],
   cyan: ['#ed82e4', '#8f008f'],
   blue: ['#a77df0', '#745e9e'],
