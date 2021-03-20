@@ -1,8 +1,3 @@
-- name: Publish to Open VSX Registry
-  uses: HaaLeo/publish-vscode-extension@v0
-  id: publishToOpenVSX
-  with:
-    pat: ${{ secrets.OPEN_VSX_TOKEN }}
 - name: Publish to Visual Studio Marketplace
   uses: HaaLeo/publish-vscode-extension@v0
   with:
