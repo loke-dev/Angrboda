@@ -1,4 +1,4 @@
-<h1 align="center">Angrboða - VSCode Theme</h1>
+<a href="https://marketplace.visualstudio.com/items?itemName=carlssonloke.angrboda"><h1 align="center">Angrboða - VSCode Theme</h1></a>
 
 <p align="center">
 </p>
