@@ -26,7 +26,7 @@ export const AngrbodaThemes = {
   activeBackground: ['#745e9e25', '#a77df025'],
   strongBackground: ['#745e9e60', '#a77df060'],
 
-  comment: ['#5f535f', '#5f535f'],
+  comment: ['#5f535f', '#5f535f80'],
   string: ['#fa7373', '#9d1d1d'],
   literal: ['#ed82e4', '#8f008e'],
   variable: ['#a77df0', '#745e9e'],
