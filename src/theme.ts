@@ -16,6 +16,7 @@ export default function getTheme({ style, name }) {
   const activeForeground = angrboda('activeForeground')
   const activeBackground = angrboda('activeBackground')
   const strongBackground = angrboda('strongBackground')
+  const tabBackground = angrboda('tabBackground')
   const primary = angrboda('primary')
   const secondary = angrboda('secondary')
   const tertiary = angrboda('tertiary')
@@ -118,10 +119,10 @@ export default function getTheme({ style, name }) {
       'editorGroup.border': border,
 
       'tab.activeForeground': foreground,
-      'tab.inactiveForeground': primer.gray[4],
-      'tab.inactiveBackground': background,
-      'tab.activeBackground': '#a77df015',
-      'tab.hoverBackground': '#a77df015',
+      'tab.inactiveForeground': primer.gray[5],
+      'tab.inactiveBackground': primer.gray[2],
+      'tab.activeBackground': background,
+      'tab.hoverBackground': tabBackground,
       'tab.unfocusedHoverBackground': background,
       'tab.border': border,
       'tab.unfocusedActiveBorderTop': border,

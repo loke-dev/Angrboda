@@ -17,7 +17,7 @@ export const AngrbodaThemes = {
   secondary: ['#a77df0', '#745e9e'],
   tertiary: ['#ed82e4', '#8f008e'],
 
-  foreground: ['#e0d7e9', '#393a34'],
+  foreground: ['#d0c7d9', '#393a34'],
   activeForeground: ['#e0d7e9', '#4e4f47'],
   secondaryForeground: ['#dedcd590', '#393a3490'],
   ignored: ['#e0d7e960', '#393a3460'],
@@ -25,6 +25,7 @@ export const AngrbodaThemes = {
   background: ['#1c1c1c', '#f0f0f0'],
   activeBackground: ['#745e9e25', '#a77df025'],
   strongBackground: ['#745e9e60', '#a77df060'],
+  tabBackground: ['#a77df015', '#a77df030'],
 
   comment: ['#5f535f', '#5f535f80'],
   string: ['#fa7373', '#9d1d1d'],
