@@ -147,7 +147,7 @@ export default function getTheme({ style, name }) {
       'editorCursor.foreground': pick({ light: '#00000080', dark: '#e0d7e980' }),
 
       'editor.findMatchBackground': pick({ light: '#fa737340', dark: '#fa737340' }),
-      'editor.findMatchHighlightBackground': pick({ light: '#312842', dark: '#312842' }),
+      'editor.findMatchHighlightBackground': pick({ light: '#31284230', dark: '#312842' }),
       'editor.inactiveSelectionBackground': pick({ light: '#a77df01e', dark: '#a77df01e' }),
       'editor.selectionBackground': pick({ light: '#a77df050', dark: '#a77df050' }),
       'editor.selectionHighlightBackground': pick({ light: '#a77df01e', dark: '#a77df01e' }),
