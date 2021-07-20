@@ -120,7 +120,7 @@ export default function getTheme({ style, name }) {
 
       'tab.activeForeground': foreground,
       'tab.inactiveForeground': primer.gray[5],
-      'tab.inactiveBackground': primer.gray[2],
+      'tab.inactiveBackground': activeBackground,
       'tab.activeBackground': background,
       'tab.hoverBackground': tabBackground,
       'tab.unfocusedHoverBackground': background,
