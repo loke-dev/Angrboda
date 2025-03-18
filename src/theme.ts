@@ -80,7 +80,7 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
       'activityBar.activeBorder': primary,
       'activityBar.border': border,
 
-      'sideBar.foreground': activeForeground,
+      'sideBar.foreground': foreground,
       'sideBar.background': background,
       'sideBar.border': border,
       'sideBarTitle.foreground': foreground,
@@ -102,7 +102,7 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
         dark: theme('indentGuide'),
       }),
 
-      'notificationCenterHeader.foreground': theme('ignored'),
+      'notificationCenterHeader.foreground': foreground,
       'notificationCenterHeader.background': background,
       'notifications.foreground': foreground,
       'notifications.background': background,
@@ -111,7 +111,7 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
       'notificationsWarningIcon.foreground': theme('orange'),
       'notificationsInfoIcon.foreground': theme('blue'),
 
-      'pickerGroup.border': pick({ light: theme('secondaryForeground'), dark: theme('secondaryForeground') }),
+      'pickerGroup.border': secondaryForeground,
       'pickerGroup.foreground': foreground,
       'quickInput.background': background,
       'quickInput.foreground': foreground,
@@ -129,7 +129,7 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
       'editorGroup.border': border,
 
       'tab.activeForeground': activeForeground,
-      'tab.inactiveForeground': pick({ light: theme('secondaryForeground'), dark: theme('secondaryForeground') }),
+      'tab.inactiveForeground': secondaryForeground,
       'tab.inactiveBackground': activeBackground,
       'tab.activeBackground': background,
       'tab.hoverBackground': tabBackground,
@@ -140,9 +140,9 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
       'tab.unfocusedActiveBorder': border,
       'tab.activeBorderTop': primary,
 
-      'breadcrumb.foreground': pick({ light: theme('secondaryForeground'), dark: theme('secondaryForeground') }),
+      'breadcrumb.foreground': secondaryForeground,
       'breadcrumb.focusForeground': foreground,
-      'breadcrumb.activeSelectionForeground': theme('secondaryForeground'),
+      'breadcrumb.activeSelectionForeground': secondaryForeground,
       'breadcrumbPicker.background': background,
 
       'editor.foreground': foreground,

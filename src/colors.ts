@@ -37,14 +37,8 @@ export const themeColors = {
   tertiary: colorPalette.white,
 
   // UI colors
-  foreground: [
-    `${colorPalette.lightGray[0]}${colorPalette.opacity90}`,
-    `${colorPalette.black[1]}${colorPalette.opacity90}`,
-  ],
-  activeForeground: [
-    `${colorPalette.lightGray[0]}${colorPalette.opacity90}`,
-    `${colorPalette.black[1]}${colorPalette.opacity90}`,
-  ],
+  foreground: [`${colorPalette.white[0]}`, `${colorPalette.black[1]}`],
+  activeForeground: [`${colorPalette.white[0]}`, `${colorPalette.black[1]}`],
   secondaryForeground: [
     `${colorPalette.white[0]}${colorPalette.opacity90}`,
     `${colorPalette.black[1]}${colorPalette.opacity90}`,
@@ -98,11 +92,9 @@ export const themeColors = {
   keyword: colorPalette.purple,
   function: colorPalette.purple,
   property: colorPalette.purple,
-  purple: colorPalette.purple,
 
   // Special/tertiary elements (using off-white with purple tint)
   special: colorPalette.white,
-  offWhite: colorPalette.white,
 
   // Special cases
   class: [colorPalette.purple[0], colorPalette.purple[1]],
@@ -116,6 +108,8 @@ export const themeColors = {
   orange: colorPalette.red,
   yellow: colorPalette.red,
   magenta: colorPalette.purple,
+  purple: colorPalette.purple,
+  offWhite: colorPalette.white,
 
   // Git & semantic indicators - still need to be recognizable
   gitAdded: colorPalette.success,
