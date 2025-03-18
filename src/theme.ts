@@ -1,24 +1,24 @@
-import { getColors } from './primer'
-import { AngrbodaThemes } from './colors'
+import { themeColors } from './colors'
 
-export default function getTheme({ style, name }) {
-  // Usage: `pick({ light: "lightblue", dark: "darkblue" })`
-  const pick = options => options[style]
+export default function getTheme({ style, name }: { style: 'light' | 'dark'; name: string }) {
+  const pick = (options: { light?: string; dark?: string }) => {
+    if (!options[style]) return style === 'light' ? options.dark : options.light
+    return options[style]
+  }
 
-  const angrboda = (key: keyof typeof AngrbodaThemes) => pick({ light: AngrbodaThemes[key][1], dark: AngrbodaThemes[key][0] })
+  const theme = (key: keyof typeof themeColors) => pick({ light: themeColors[key][1], dark: themeColors[key][0] })
 
-  const primer = getColors(style)
-
-  const foreground = angrboda('foreground')
-  const background = angrboda('background')
-  const secondaryForeground = angrboda('secondaryForeground')
-  const border = angrboda('border')
-  const activeForeground = angrboda('activeForeground')
-  const activeBackground = angrboda('activeBackground')
-  const strongBackground = angrboda('strongBackground')
-  const tabBackground = angrboda('tabBackground')
-  const primary = angrboda('primary')
-  const secondary = angrboda('secondary')
+  const foreground = theme('foreground')
+  const background = theme('background')
+  const secondaryForeground = theme('secondaryForeground')
+  const border = theme('border')
+  const activeForeground = theme('activeForeground')
+  const activeBackground = theme('activeBackground')
+  const strongBackground = theme('strongBackground')
+  const tabBackground = theme('tabBackground')
+  const primary = theme('primary')
+  const secondary = theme('secondary')
+  const tertiary = theme('tertiary')
 
   return {
     name,
@@ -26,30 +26,30 @@ export default function getTheme({ style, name }) {
       focusBorder: '#00000000',
       foreground,
       descriptionForeground: secondaryForeground,
-      errorForeground: angrboda('red'),
+      errorForeground: theme('red'),
 
       'textLink.foreground': primary,
       'textLink.activeForeground': primary,
       'textBlockQuote.background': background,
       'textBlockQuote.border': border,
       'textCodeBlock.background': background,
-      'textPreformat.foreground': primer.gray[6],
-      'textSeparator.foreground': primer.gray[3],
+      'textPreformat.foreground': theme('secondaryForeground'),
+      'textSeparator.foreground': theme('secondaryForeground'),
 
-      'editorBracketHighlight.foreground1': angrboda('comment'),
-      'editorBracketHighlight.foreground2': angrboda('comment'),
-      'editorBracketHighlight.foreground3': angrboda('comment'),
-      'editorBracketHighlight.foreground4': angrboda('comment'),
-      'editorBracketHighlight.foreground5': angrboda('comment'),
-      'editorBracketHighlight.foreground6': angrboda('comment'),
-      'editorBracketHighlight.unexpectedBracket.foreground': angrboda('tertiary'),
+      'editorBracketHighlight.foreground1': theme('bracket'),
+      'editorBracketHighlight.foreground2': theme('bracket'),
+      'editorBracketHighlight.foreground3': theme('bracket'),
+      'editorBracketHighlight.foreground4': theme('bracket'),
+      'editorBracketHighlight.foreground5': theme('bracket'),
+      'editorBracketHighlight.foreground6': theme('bracket'),
+      'editorBracketHighlight.unexpectedBracket.foreground': tertiary,
 
       'button.background': primary,
       'button.foreground': background,
-      'button.hoverBackground': pick({ light: '#ca3131', dark: '#ff7a7a' }),
+      'button.hoverBackground': pick({ light: theme('primary'), dark: theme('primary') }),
 
       'checkbox.background': activeBackground,
-      'checkbox.border': pick({ light: primer.gray[3], dark: primer.white }),
+      'checkbox.border': pick({ light: theme('border'), dark: theme('activeForeground') }),
 
       'dropdown.background': background,
       'dropdown.border': border,
@@ -68,12 +68,12 @@ export default function getTheme({ style, name }) {
 
       'titleBar.activeForeground': activeForeground,
       'titleBar.activeBackground': background,
-      'titleBar.inactiveForeground': angrboda('ignored'),
+      'titleBar.inactiveForeground': theme('ignored'),
       'titleBar.inactiveBackground': background,
       'titleBar.border': activeBackground,
 
       'activityBar.foreground': foreground,
-      'activityBar.inactiveForeground': angrboda('ignored'),
+      'activityBar.inactiveForeground': theme('ignored'),
       'activityBar.background': background,
       'activityBarBadge.foreground': background,
       'activityBarBadge.background': activeForeground,
@@ -98,20 +98,20 @@ export default function getTheme({ style, name }) {
       'list.focusBackground': activeBackground,
 
       'tree.indentGuidesStroke': pick({
-        light: '#e1e4e880',
-        dark: '#3a424a80',
+        light: theme('indentGuide'),
+        dark: theme('indentGuide'),
       }),
 
-      'notificationCenterHeader.foreground': angrboda('ignored'),
+      'notificationCenterHeader.foreground': theme('ignored'),
       'notificationCenterHeader.background': background,
       'notifications.foreground': foreground,
       'notifications.background': background,
       'notifications.border': border,
-      'notificationsErrorIcon.foreground': angrboda('red'),
-      'notificationsWarningIcon.foreground': angrboda('orange'),
-      'notificationsInfoIcon.foreground': angrboda('blue'),
+      'notificationsErrorIcon.foreground': theme('red'),
+      'notificationsWarningIcon.foreground': theme('orange'),
+      'notificationsInfoIcon.foreground': theme('blue'),
 
-      'pickerGroup.border': pick({ light: '#e1e4e880', dark: '#4d545980' }),
+      'pickerGroup.border': pick({ light: theme('secondaryForeground'), dark: theme('secondaryForeground') }),
       'pickerGroup.foreground': foreground,
       'quickInput.background': background,
       'quickInput.foreground': foreground,
@@ -129,7 +129,7 @@ export default function getTheme({ style, name }) {
       'editorGroup.border': border,
 
       'tab.activeForeground': activeForeground,
-      'tab.inactiveForeground': pick({ light: '#8f9498', dark: '#a8aeb3' }),
+      'tab.inactiveForeground': pick({ light: theme('secondaryForeground'), dark: theme('secondaryForeground') }),
       'tab.inactiveBackground': activeBackground,
       'tab.activeBackground': background,
       'tab.hoverBackground': tabBackground,
@@ -140,9 +140,9 @@ export default function getTheme({ style, name }) {
       'tab.unfocusedActiveBorder': border,
       'tab.activeBorderTop': primary,
 
-      'breadcrumb.foreground': pick({ light: '#8f9498', dark: '#7d858d' }),
+      'breadcrumb.foreground': pick({ light: theme('secondaryForeground'), dark: theme('secondaryForeground') }),
       'breadcrumb.focusForeground': foreground,
-      'breadcrumb.activeSelectionForeground': primer.gray[6],
+      'breadcrumb.activeSelectionForeground': theme('secondaryForeground'),
       'breadcrumbPicker.background': background,
 
       'editor.foreground': foreground,
@@ -159,19 +159,19 @@ export default function getTheme({ style, name }) {
         dark: `${secondary}cc`,
       }),
       'editorIndentGuide.background': pick({
-        light: '#eff2f660',
-        dark: '#3a424a40',
+        light: theme('indentGuide'),
+        dark: theme('indentGuide'),
       }),
       'editorIndentGuide.activeBackground': pick({
-        light: '#d7dbe080',
-        dark: '#4d545960',
+        light: theme('activeIndentGuide'),
+        dark: theme('activeIndentGuide'),
       }),
       'editorWhitespace.foreground': pick({
-        light: '#d1d5da60',
-        dark: '#3a424a40',
+        light: theme('indentGuide'),
+        dark: theme('indentGuide'),
       }),
       'editorCursor.foreground': pick({
-        light: '#000000cc',
+        light: theme('foreground'),
         dark: activeForeground,
       }),
 
@@ -180,8 +180,8 @@ export default function getTheme({ style, name }) {
         dark: `${primary}40`,
       }),
       'editor.findMatchHighlightBackground': pick({
-        light: '#31284235',
-        dark: '#312842',
+        light: theme('tabBackground'),
+        dark: theme('tabBackground'),
       }),
       'editor.inactiveSelectionBackground': pick({
         light: `${secondary}20`,
@@ -209,15 +209,15 @@ export default function getTheme({ style, name }) {
       }),
 
       'diffEditor.insertedTextBackground': pick({
-        light: '#1c6b4830',
-        dark: '#3d833530',
+        light: `${theme('gitAdded')}30`,
+        dark: `${theme('gitAdded')}30`,
       }),
       'diffEditor.removedTextBackground': pick({
-        light: '#ab595930',
-        dark: '#cb595930',
+        light: `${theme('gitDeleted')}30`,
+        dark: `${theme('gitDeleted')}30`,
       }),
 
-      'scrollbar.shadow': pick({ light: '#6a737d33', dark: '#0003' }),
+      'scrollbar.shadow': pick({ light: theme('secondaryForeground'), dark: theme('secondaryForeground') }),
       'scrollbarSlider.background': pick({
         light: `${secondary}18`,
         dark: `${secondary}18`,
@@ -236,145 +236,145 @@ export default function getTheme({ style, name }) {
       'panel.border': border,
       'panelTitle.activeBorder': primary,
       'panelTitle.activeForeground': activeForeground,
-      'panelTitle.inactiveForeground': angrboda('ignored'),
-      'panelInput.border': pick({ light: '#e1e4e880', dark: '#3a424a80' }),
+      'panelTitle.inactiveForeground': theme('ignored'),
+      'panelInput.border': pick({ light: theme('secondaryForeground'), dark: theme('secondaryForeground') }),
 
       'terminal.foreground': foreground,
       'terminal.ansiBrightBlack': pick({
-        light: pick({ light: '#484942', dark: AngrbodaThemes.foreground[1] }),
-        dark: pick({ light: AngrbodaThemes.background[0], dark: '#484942' }),
+        light: pick({ light: theme('foreground'), dark: theme('foreground') }),
+        dark: pick({ light: theme('background'), dark: theme('foreground') }),
       }),
-      'terminal.ansiBrightBlue': angrboda('blue'),
-      'terminal.ansiBrightCyan': angrboda('cyan'),
-      'terminal.ansiBrightGreen': angrboda('green'),
-      'terminal.ansiBrightMagenta': angrboda('magenta'),
-      'terminal.ansiBrightRed': angrboda('red'),
+      'terminal.ansiBrightBlue': theme('blue'),
+      'terminal.ansiBrightCyan': theme('cyan'),
+      'terminal.ansiBrightGreen': theme('green'),
+      'terminal.ansiBrightMagenta': theme('magenta'),
+      'terminal.ansiBrightRed': theme('red'),
       'terminal.ansiBrightWhite': pick({
-        light: pick({ light: AngrbodaThemes.foreground[0], dark: '#f6f6f6' }),
-        dark: pick({ light: AngrbodaThemes.background[1], dark: '#f6f6f6' }),
+        light: pick({ light: theme('foreground'), dark: theme('activeForeground') }),
+        dark: pick({ light: theme('background'), dark: theme('activeForeground') }),
       }),
-      'terminal.ansiBrightYellow': angrboda('yellow'),
+      'terminal.ansiBrightYellow': theme('yellow'),
       'terminal.ansiBlack': pick({
-        light: pick({ light: '#2e2e2a', dark: AngrbodaThemes.foreground[1] }),
-        dark: pick({ light: AngrbodaThemes.background[0], dark: '#2e2e2a' }),
+        light: pick({ light: theme('foreground'), dark: theme('foreground') }),
+        dark: pick({ light: theme('background'), dark: theme('foreground') }),
       }),
-      'terminal.ansiBlue': angrboda('blue'),
-      'terminal.ansiCyan': angrboda('cyan'),
-      'terminal.ansiGreen': angrboda('green'),
-      'terminal.ansiMagenta': angrboda('magenta'),
-      'terminal.ansiRed': angrboda('red'),
+      'terminal.ansiBlue': theme('blue'),
+      'terminal.ansiCyan': theme('cyan'),
+      'terminal.ansiGreen': theme('green'),
+      'terminal.ansiMagenta': theme('magenta'),
+      'terminal.ansiRed': theme('red'),
       'terminal.ansiWhite': pick({
-        light: AngrbodaThemes.foreground[0],
-        dark: AngrbodaThemes.background[1],
+        light: theme('foreground'),
+        dark: theme('background'),
       }),
-      'terminal.ansiYellow': angrboda('yellow'),
+      'terminal.ansiYellow': theme('yellow'),
 
       'gitDecoration.addedResourceForeground': pick({
-        light: angrboda('green'),
-        dark: `${angrboda('green')}cc`,
+        light: theme('gitAdded'),
+        dark: `${theme('gitAdded')}cc`,
       }),
       'gitDecoration.modifiedResourceForeground': pick({
-        light: angrboda('blue'),
-        dark: `${angrboda('blue')}cc`,
+        light: theme('gitModified'),
+        dark: `${theme('gitModified')}cc`,
       }),
       'gitDecoration.deletedResourceForeground': pick({
-        light: angrboda('red'),
-        dark: `${angrboda('red')}cc`,
+        light: theme('gitDeleted'),
+        dark: `${theme('gitDeleted')}cc`,
       }),
       'gitDecoration.untrackedResourceForeground': pick({
-        light: angrboda('cyan'),
-        dark: `${angrboda('cyan')}cc`,
+        light: theme('gitUntracked'),
+        dark: `${theme('gitUntracked')}cc`,
       }),
       'gitDecoration.ignoredResourceForeground': pick({
-        light: angrboda('ignored'),
-        dark: angrboda('ignored').replace('60', '40'),
+        light: theme('gitIgnored'),
+        dark: theme('gitIgnored').replace('60', '40'),
       }),
       'gitDecoration.conflictingResourceForeground': pick({
-        light: angrboda('orange'),
-        dark: `${angrboda('orange')}cc`,
+        light: theme('gitConflicting'),
+        dark: `${theme('gitConflicting')}cc`,
       }),
       'gitDecoration.submoduleResourceForeground': pick({
-        light: angrboda('secondaryForeground'),
-        dark: angrboda('secondaryForeground').replace('90', '80'),
+        light: theme('secondaryForeground'),
+        dark: theme('secondaryForeground').replace('90', '80'),
       }),
 
       'editorGutter.modifiedBackground': pick({
-        light: angrboda('blue'),
-        dark: `${angrboda('blue')}cc`,
+        light: theme('gitModified'),
+        dark: `${theme('gitModified')}cc`,
       }),
       'editorGutter.addedBackground': pick({
-        light: angrboda('green'),
-        dark: `${angrboda('green')}cc`,
+        light: theme('gitAdded'),
+        dark: `${theme('gitAdded')}cc`,
       }),
       'editorGutter.deletedBackground': pick({
-        light: angrboda('red'),
-        dark: `${angrboda('red')}cc`,
+        light: theme('gitDeleted'),
+        dark: `${theme('gitDeleted')}cc`,
       }),
 
       'debugToolBar.background': background,
       'editor.stackFrameHighlightBackground': pick({
-        light: primer.yellow[1],
-        dark: '#a7076a',
+        light: theme('yellow'),
+        dark: theme('purple'),
       }),
       'editor.focusedStackFrameHighlightBackground': pick({
-        light: primer.yellow[2],
-        dark: '#b8087d',
+        light: theme('yellow'),
+        dark: theme('purple'),
       }),
 
-      'peekViewEditor.matchHighlightBackground': pick({ dark: '#ffd33d33' }),
-      'peekViewResult.matchHighlightBackground': pick({ dark: '#ffd33d33' }),
+      'peekViewEditor.matchHighlightBackground': pick({ dark: theme('yellow') }),
+      'peekViewResult.matchHighlightBackground': pick({ dark: theme('yellow') }),
       'peekViewEditor.background': background,
       'peekViewResult.background': background,
 
       'settings.headerForeground': activeForeground,
       'settings.modifiedItemIndicator': primary,
       'welcomePage.buttonBackground': pick({
-        light: '#f6f8fa',
-        dark: '#3a424a',
+        light: theme('tabBackground'),
+        dark: theme('tabBackground'),
       }),
       'welcomePage.buttonHoverBackground': pick({
-        light: '#e1e4e8',
-        dark: '#4d5459',
+        light: theme('activeBackground'),
+        dark: theme('activeBackground'),
       }),
 
-      'problemsErrorIcon.foreground': angrboda('red'),
-      'problemsWarningIcon.foreground': angrboda('orange'),
-      'problemsInfoIcon.foreground': angrboda('blue'),
+      'problemsErrorIcon.foreground': theme('red'),
+      'problemsWarningIcon.foreground': theme('orange'),
+      'problemsInfoIcon.foreground': theme('blue'),
 
-      'editorError.foreground': angrboda('red'),
+      'editorError.foreground': theme('red'),
       'editorWarning.foreground': pick({
-        light: angrboda('orange'),
-        dark: angrboda('orange'),
+        light: theme('orange'),
+        dark: theme('orange'),
       }),
-      'editorInfo.foreground': angrboda('blue'),
-      'editorHint.foreground': angrboda('green'),
+      'editorInfo.foreground': theme('blue'),
+      'editorHint.foreground': theme('green'),
 
       'editorGutter.commentRangeForeground': pick({
-        light: angrboda('ignored'),
-        dark: angrboda('ignored').replace('60', '40'),
+        light: theme('ignored'),
+        dark: theme('ignored').replace('60', '40'),
       }),
       'editorGutter.foldingControlForeground': pick({
-        light: angrboda('secondaryForeground'),
-        dark: angrboda('secondaryForeground').replace('90', '80'),
+        light: theme('secondaryForeground'),
+        dark: theme('secondaryForeground').replace('90', '80'),
       }),
     },
     semanticHighlighting: true,
     semanticTokenColors: {
-      namespace: angrboda('namespace'),
-      interface: angrboda('interface'),
-      class: angrboda('class'),
+      namespace: theme('namespace'),
+      interface: theme('interface'),
+      class: theme('class'),
     },
     tokenColors: [
       {
         scope: ['comment', 'punctuation.definition.comment', 'string.comment'],
         settings: {
-          foreground: angrboda('comment'),
+          foreground: theme('comment'),
         },
       },
       {
         scope: ['punctuation', 'meta.tag.inline.any.html', 'meta.tag.block.any.html', 'meta.brace'],
         settings: {
-          foreground: angrboda('punctuation'),
+          foreground: theme('punctuation'),
         },
       },
       {
@@ -386,13 +386,13 @@ export default function getTheme({ style, name }) {
           'meta.definition.variable',
         ],
         settings: {
-          foreground: angrboda('constant'),
+          foreground: theme('constant'),
         },
       },
       {
         scope: ['entity', 'entity.name'],
         settings: {
-          foreground: angrboda('function'),
+          foreground: theme('function'),
         },
       },
       {
@@ -404,25 +404,25 @@ export default function getTheme({ style, name }) {
       {
         scope: 'entity.name.tag',
         settings: {
-          foreground: angrboda('literal'),
+          foreground: theme('literal'),
         },
       },
       {
         scope: 'entity.name.function',
         settings: {
-          foreground: angrboda('function'),
+          foreground: theme('function'),
         },
       },
       {
         scope: 'keyword',
         settings: {
-          foreground: angrboda('keyword'),
+          foreground: theme('keyword'),
         },
       },
       {
         scope: ['storage', 'storage.type'],
         settings: {
-          foreground: angrboda('builtin'),
+          foreground: theme('builtin'),
         },
       },
       {
@@ -434,80 +434,80 @@ export default function getTheme({ style, name }) {
       {
         scope: ['string', 'punctuation.definition.string', 'string punctuation.section.embedded source'],
         settings: {
-          foreground: angrboda('string'),
+          foreground: theme('string'),
         },
       },
       {
         scope: 'support',
         settings: {
-          foreground: angrboda('property'),
+          foreground: theme('property'),
         },
       },
       {
         scope: ['meta.property-name', 'entity.other.attribute-name', 'meta.object-literal.key'],
         settings: {
-          foreground: angrboda('property'),
+          foreground: theme('property'),
         },
       },
       {
         scope: 'variable',
         settings: {
-          foreground: angrboda('variable'),
+          foreground: theme('variable'),
         },
       },
       {
         scope: 'namespace',
         settings: {
-          foreground: angrboda('namespace'),
+          foreground: theme('namespace'),
         },
       },
       {
         scope: 'keyword.operator',
         settings: {
-          foreground: angrboda('builtin'),
+          foreground: theme('builtin'),
         },
       },
       {
         scope: 'invalid.broken',
         settings: {
           fontStyle: 'italic',
-          foreground: primer.red[7],
+          foreground: theme('red'),
         },
       },
       {
         scope: 'invalid.deprecated',
         settings: {
           fontStyle: 'italic',
-          foreground: primer.red[7],
+          foreground: theme('red'),
         },
       },
       {
         scope: 'invalid.illegal',
         settings: {
           fontStyle: 'italic',
-          foreground: primer.red[7],
+          foreground: theme('red'),
         },
       },
       {
         scope: 'invalid.unimplemented',
         settings: {
           fontStyle: 'italic',
-          foreground: primer.red[7],
+          foreground: theme('red'),
         },
       },
       {
         scope: 'carriage-return',
         settings: {
           fontStyle: 'italic underline',
-          background: pick({ light: primer.red[5], dark: primer.red[6] }),
-          foreground: primer.gray[0],
+          background: pick({ light: theme('red'), dark: theme('red') }),
+          foreground: theme('background'),
           content: '^M',
         },
       },
       {
         scope: 'message.error',
         settings: {
-          foreground: primer.red[7],
+          foreground: theme('red'),
         },
       },
       {
@@ -519,13 +519,13 @@ export default function getTheme({ style, name }) {
       {
         scope: 'string variable',
         settings: {
-          foreground: angrboda('string'),
+          foreground: theme('string'),
         },
       },
       {
         scope: ['source.regexp', 'string.regexp'],
         settings: {
-          foreground: angrboda('regex'),
+          foreground: theme('regex'),
         },
       },
       {
@@ -536,44 +536,44 @@ export default function getTheme({ style, name }) {
           'string.regexp string.regexp.arbitrary-repitition',
         ],
         settings: {
-          foreground: angrboda('string'),
+          foreground: theme('string'),
         },
       },
       {
         scope: 'string.regexp constant.character.escape',
         settings: {
           fontStyle: 'bold',
-          foreground: primer.green[6],
+          foreground: theme('green'),
         },
       },
       {
         scope: 'support.constant',
         settings: {
-          foreground: angrboda('constant'),
+          foreground: theme('constant'),
         },
       },
       {
         scope: 'support.variable',
         settings: {
-          foreground: angrboda('literal'),
+          foreground: theme('literal'),
         },
       },
       {
         scope: 'constant.numeric',
         settings: {
-          foreground: angrboda('number'),
+          foreground: theme('number'),
         },
       },
       {
         scope: 'keyword.other.unit',
         settings: {
-          foreground: angrboda('builtin'),
+          foreground: theme('builtin'),
         },
       },
       {
         scope: 'constant.language.boolean',
         settings: {
-          foreground: angrboda('boolean'),
+          foreground: theme('boolean'),
         },
       },
       {
@@ -585,7 +585,7 @@ export default function getTheme({ style, name }) {
       {
         scope: 'punctuation.definition.list.begin.markdown',
         settings: {
-          foreground: angrboda('orange'),
+          foreground: theme('orange'),
         },
       },
       {
@@ -624,55 +624,55 @@ export default function getTheme({ style, name }) {
       {
         scope: ['markup.deleted', 'meta.diff.header.from-file', 'punctuation.definition.deleted'],
         settings: {
-          background: primer.red[0],
-          foreground: primer.red[7],
+          background: theme('red'),
+          foreground: theme('background'),
         },
       },
       {
         scope: ['markup.inserted', 'meta.diff.header.to-file', 'punctuation.definition.inserted'],
         settings: {
-          background: primer.green[0],
-          foreground: primer.green[6],
+          background: theme('green'),
+          foreground: theme('background'),
         },
       },
       {
         scope: ['markup.changed', 'punctuation.definition.changed'],
         settings: {
-          background: primer.orange[1],
-          foreground: primer.orange[6],
+          background: theme('orange'),
+          foreground: theme('background'),
         },
       },
       {
         scope: ['markup.ignored', 'markup.untracked'],
         settings: {
-          foreground: primer.gray[1],
-          background: primer.blue[6],
+          foreground: theme('secondaryForeground'),
+          background: theme('blue'),
         },
       },
       {
         scope: 'meta.diff.range',
         settings: {
-          foreground: pick({ light: primer.purple[5], dark: primer.purple[6] }),
+          foreground: pick({ light: theme('purple'), dark: theme('purple') }),
           fontStyle: 'bold',
         },
       },
       {
         scope: 'meta.diff.header',
         settings: {
-          foreground: primer.blue[6],
+          foreground: theme('blue'),
         },
       },
       {
         scope: 'meta.separator',
         settings: {
           fontStyle: 'bold',
-          foreground: primer.blue[6],
+          foreground: theme('blue'),
         },
       },
       {
         scope: 'meta.output',
         settings: {
-          foreground: primer.blue[6],
+          foreground: theme('blue'),
         },
       },
       {
@@ -685,13 +685,13 @@ export default function getTheme({ style, name }) {
           'brackethighlighter.quote',
         ],
         settings: {
-          foreground: angrboda('tertiary'),
+          foreground: tertiary,
         },
       },
       {
         scope: 'brackethighlighter.unmatched',
         settings: {
-          foreground: primer.red[7],
+          foreground: theme('red'),
         },
       },
       {
@@ -702,7 +702,7 @@ export default function getTheme({ style, name }) {
           'punctuation.definition.string.end.markdown',
         ],
         settings: {
-          foreground: angrboda('string'),
+          foreground: theme('string'),
         },
       },
       {
