@@ -57,6 +57,7 @@ export const themeColors = {
     `${colorPalette.purple[0]}${colorPalette.opacity60}`,
     `${colorPalette.purple[1]}${colorPalette.opacity60}`,
   ],
+  dropdownBackground: [`${colorPalette.darkGray[0]}`, `${colorPalette.white[1]}`],
   tabBackground: [
     `${colorPalette.purple[0]}${colorPalette.opacity20}`,
     `${colorPalette.purple[1]}${colorPalette.opacity25}`,

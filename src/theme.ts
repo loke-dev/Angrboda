@@ -54,7 +54,7 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
       'dropdown.background': background,
       'dropdown.border': border,
       'dropdown.foreground': foreground,
-      'dropdown.listBackground': activeBackground,
+      'dropdown.listBackground': theme('dropdownBackground'),
 
       'input.background': activeBackground,
       'input.border': border,
