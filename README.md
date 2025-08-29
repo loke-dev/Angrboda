@@ -11,9 +11,6 @@
   <a href="https://marketplace.visualstudio.com/items?itemName=carlssonloke.angrboda">
     <img alt="VS Code Marketplace Installs" src="https://img.shields.io/visual-studio-marketplace/i/carlssonloke.angrboda?style=for-the-badge&labelColor=1e1e2e&color=f4b8e4">
   </a>
-  <a href="https://marketplace.visualstudio.com/items?itemName=carlssonloke.angrboda">
-    <img alt="VS Code Marketplace Rating" src="https://img.shields.io/visual-studio-marketplace/r/carlssonloke.angrboda?style=for-the-badge&labelColor=1e1e2e&color=f4b8e4">
-  </a>
   <a href="https://github.com/lokecarlsson/Angrboda/blob/main/LICENSE">
     <img alt="License" src="https://img.shields.io/github/license/lokecarlsson/Angrboda?style=for-the-badge&labelColor=1e1e2e&color=f4b8e4">
   </a>
