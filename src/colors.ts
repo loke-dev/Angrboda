@@ -1,15 +1,15 @@
 // Base color palette [dark mode, light mode]
 const colorPalette = {
   // Primary colors
-  red: ['#ff6478', '#a01818'],
-  purple: ['#c78fff', '#5a3b94'],
+  red: ['#F97385', '#a01818'],
+  purple: ['#CE9EFE', '#5a3b94'],
 
   // Neutrals
   white: ['#f0e8f5', '#ffffff'],
   lightGray: ['#f0eaf8', '#1a1a1a'],
   mediumGray: ['#b3a8bd', '#4a4146'],
-  darkGray: ['#2a2a2a', '#e5e5e5'],
-  black: ['#1e1e1e', '#1a1a1a'],
+  darkGray: ['#272424', '#e5e5e5'],
+  black: ['#1B1919', '#1a1a1a'],
 
   // Semantic colors
   success: ['#a1d6a1', '#3c9a3c'],
