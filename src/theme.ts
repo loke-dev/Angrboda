@@ -1,60 +1,75 @@
+import type { ThemeColorKey } from './colors'
 import { themeColors } from './colors'
 
-export default function getTheme({ style, name }: { style: 'light' | 'dark'; name: string }) {
-  const pick = (options: { light?: string; dark?: string }) => {
-    if (!options[style]) return style === 'light' ? options.dark : options.light
-    return options[style]
-  }
+type Style = 'light' | 'dark'
 
-  const theme = (key: keyof typeof themeColors) => pick({ light: themeColors[key][1], dark: themeColors[key][0] })
+/** Resolve a themed pair for the current VS Code appearance. */
+function t(style: Style, key: ThemeColorKey): string {
+  return themeColors[key][style === 'dark' ? 0 : 1]
+}
 
-  const foreground = theme('foreground')
-  const background = theme('background')
-  const secondaryForeground = theme('secondaryForeground')
-  const border = theme('border')
-  const activeForeground = theme('activeForeground')
-  const activeBackground = theme('activeBackground')
-  const strongBackground = theme('strongBackground')
-  const tabBackground = theme('tabBackground')
-  const primary = theme('primary')
-  const secondary = theme('secondary')
-  const tertiary = theme('tertiary')
+/**
+ * When light and dark need different strings (not from `themeColors`), branch explicitly.
+ * Only use where `t()` is not enough.
+ */
+function whenLightDark(style: Style, light: string, dark: string): string {
+  return style === 'light' ? light : dark
+}
+
+function bracketHighlightColors(style: Style): Record<string, string> {
+  const b = t(style, 'bracket')
+  return Object.fromEntries([1, 2, 3, 4, 5, 6].map((n) => [`editorBracketHighlight.foreground${n}`, b]))
+}
+
+export default function getTheme({ style, name }: { style: Style; name: string }) {
+  const w = (light: string, dark: string) => whenLightDark(style, light, dark)
+
+  const foreground = t(style, 'foreground')
+  const background = t(style, 'background')
+  const secondaryForeground = t(style, 'secondaryForeground')
+  const border = t(style, 'border')
+  const activeForeground = t(style, 'activeForeground')
+  const activeBackground = t(style, 'activeBackground')
+  const strongBackground = t(style, 'strongBackground')
+  const tabBackground = t(style, 'tabBackground')
+  const primary = t(style, 'primary')
+  const secondary = t(style, 'secondary')
+  const tertiary = t(style, 'tertiary')
+
+  const gitFg = (key: 'gitAdded' | 'gitModified' | 'gitDeleted' | 'gitUntracked') =>
+    w(t(style, key), `${t(style, key)}cc`)
 
   return {
     name,
     colors: {
       focusBorder: '#00000000',
+      ...bracketHighlightColors(style),
+
       foreground,
       descriptionForeground: secondaryForeground,
-      errorForeground: theme('red'),
+      errorForeground: t(style, 'red'),
 
       'textLink.foreground': primary,
       'textLink.activeForeground': primary,
       'textBlockQuote.background': background,
       'textBlockQuote.border': border,
       'textCodeBlock.background': background,
-      'textPreformat.foreground': theme('secondaryForeground'),
-      'textSeparator.foreground': theme('secondaryForeground'),
+      'textPreformat.foreground': secondaryForeground,
+      'textSeparator.foreground': secondaryForeground,
 
-      'editorBracketHighlight.foreground1': theme('bracket'),
-      'editorBracketHighlight.foreground2': theme('bracket'),
-      'editorBracketHighlight.foreground3': theme('bracket'),
-      'editorBracketHighlight.foreground4': theme('bracket'),
-      'editorBracketHighlight.foreground5': theme('bracket'),
-      'editorBracketHighlight.foreground6': theme('bracket'),
       'editorBracketHighlight.unexpectedBracket.foreground': tertiary,
 
       'button.background': primary,
       'button.foreground': background,
-      'button.hoverBackground': pick({ light: theme('primary'), dark: theme('primary') }),
+      'button.hoverBackground': primary,
 
       'checkbox.background': activeBackground,
-      'checkbox.border': pick({ light: theme('border'), dark: theme('activeForeground') }),
+      'checkbox.border': w(t(style, 'border'), t(style, 'activeForeground')),
 
       'dropdown.background': background,
       'dropdown.border': border,
       'dropdown.foreground': foreground,
-      'dropdown.listBackground': theme('dropdownBackground'),
+      'dropdown.listBackground': t(style, 'dropdownBackground'),
 
       'input.background': activeBackground,
       'input.border': border,
@@ -68,12 +83,12 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
 
       'titleBar.activeForeground': activeForeground,
       'titleBar.activeBackground': background,
-      'titleBar.inactiveForeground': theme('ignored'),
+      'titleBar.inactiveForeground': t(style, 'ignored'),
       'titleBar.inactiveBackground': background,
       'titleBar.border': activeBackground,
 
       'activityBar.foreground': foreground,
-      'activityBar.inactiveForeground': theme('ignored'),
+      'activityBar.inactiveForeground': t(style, 'ignored'),
       'activityBar.background': background,
       'activityBarBadge.foreground': background,
       'activityBarBadge.background': activeForeground,
@@ -97,19 +112,16 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
       'list.inactiveFocusBackground': background,
       'list.focusBackground': activeBackground,
 
-      'tree.indentGuidesStroke': pick({
-        light: theme('indentGuide'),
-        dark: theme('indentGuide'),
-      }),
+      'tree.indentGuidesStroke': t(style, 'indentGuide'),
 
       'notificationCenterHeader.foreground': foreground,
       'notificationCenterHeader.background': background,
       'notifications.foreground': foreground,
       'notifications.background': background,
       'notifications.border': border,
-      'notificationsErrorIcon.foreground': theme('red'),
-      'notificationsWarningIcon.foreground': theme('orange'),
-      'notificationsInfoIcon.foreground': theme('blue'),
+      'notificationsErrorIcon.foreground': t(style, 'red'),
+      'notificationsWarningIcon.foreground': t(style, 'orange'),
+      'notificationsInfoIcon.foreground': t(style, 'uiInfo'),
 
       'pickerGroup.border': secondaryForeground,
       'pickerGroup.foreground': foreground,
@@ -150,232 +162,108 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
       'editorWidget.background': background,
       'editor.foldBackground': background,
       'editor.lineHighlightBackground': activeBackground,
-      'editorLineNumber.foreground': pick({
-        light: `${secondary}50`,
-        dark: `${secondary}40`,
-      }),
-      'editorLineNumber.activeForeground': pick({
-        light: secondary,
-        dark: `${secondary}cc`,
-      }),
-      'editorIndentGuide.background': pick({
-        light: theme('indentGuide'),
-        dark: theme('indentGuide'),
-      }),
-      'editorIndentGuide.activeBackground': pick({
-        light: theme('activeIndentGuide'),
-        dark: theme('activeIndentGuide'),
-      }),
-      'editorWhitespace.foreground': pick({
-        light: theme('indentGuide'),
-        dark: theme('indentGuide'),
-      }),
-      'editorCursor.foreground': pick({
-        light: theme('foreground'),
-        dark: activeForeground,
-      }),
+      'editorLineNumber.foreground': w(`${secondary}50`, `${secondary}40`),
+      'editorLineNumber.activeForeground': w(secondary, `${secondary}cc`),
+      'editorIndentGuide.background': t(style, 'indentGuide'),
+      'editorIndentGuide.activeBackground': t(style, 'activeIndentGuide'),
+      'editorWhitespace.foreground': t(style, 'indentGuide'),
+      'editorCursor.foreground': w(t(style, 'foreground'), activeForeground),
 
-      'editor.findMatchBackground': pick({
-        light: `${primary}40`,
-        dark: `${primary}40`,
-      }),
-      'editor.findMatchHighlightBackground': pick({
-        light: theme('tabBackground'),
-        dark: theme('tabBackground'),
-      }),
-      'editor.inactiveSelectionBackground': pick({
-        light: `${secondary}20`,
-        dark: `${secondary}20`,
-      }),
-      'editor.selectionBackground': pick({
-        light: `${secondary}40`,
-        dark: `${secondary}40`,
-      }),
-      'editor.selectionHighlightBackground': pick({
-        light: `${secondary}20`,
-        dark: `${secondary}20`,
-      }),
-      'editor.wordHighlightBackground': pick({
-        light: `${secondary}40`,
-        dark: `${secondary}40`,
-      }),
-      'editor.wordHighlightStrongBackground': pick({
-        light: `${primary}35`,
-        dark: `${primary}35`,
-      }),
-      'editorBracketMatch.background': pick({
-        light: `${secondary}20`,
-        dark: `${secondary}20`,
-      }),
+      'editor.findMatchBackground': `${primary}40`,
+      'editor.findMatchHighlightBackground': t(style, 'tabBackground'),
+      'editor.inactiveSelectionBackground': `${secondary}20`,
+      'editor.selectionBackground': `${secondary}40`,
+      'editor.selectionHighlightBackground': `${secondary}20`,
+      'editor.wordHighlightBackground': `${secondary}40`,
+      'editor.wordHighlightStrongBackground': `${primary}35`,
+      'editorBracketMatch.background': `${secondary}20`,
 
-      'diffEditor.insertedTextBackground': pick({
-        light: `${theme('gitAdded')}30`,
-        dark: `${theme('gitAdded')}30`,
-      }),
-      'diffEditor.removedTextBackground': pick({
-        light: `${theme('gitDeleted')}30`,
-        dark: `${theme('gitDeleted')}30`,
-      }),
+      'diffEditor.insertedTextBackground': `${t(style, 'gitAdded')}30`,
+      'diffEditor.removedTextBackground': `${t(style, 'gitDeleted')}30`,
 
-      'scrollbar.shadow': pick({ light: theme('secondaryForeground'), dark: theme('secondaryForeground') }),
-      'scrollbarSlider.background': pick({
-        light: `${secondary}18`,
-        dark: `${secondary}18`,
-      }),
-      'scrollbarSlider.hoverBackground': pick({
-        light: `${secondary}25`,
-        dark: `${secondary}25`,
-      }),
-      'scrollbarSlider.activeBackground': pick({
-        light: `${secondary}35`,
-        dark: `${secondary}35`,
-      }),
+      'scrollbar.shadow': secondaryForeground,
+      'scrollbarSlider.background': `${secondary}18`,
+      'scrollbarSlider.hoverBackground': `${secondary}25`,
+      'scrollbarSlider.activeBackground': `${secondary}35`,
       'editorOverviewRuler.border': `${secondary}00`,
 
       'panel.background': background,
       'panel.border': border,
       'panelTitle.activeBorder': primary,
       'panelTitle.activeForeground': activeForeground,
-      'panelTitle.inactiveForeground': theme('ignored'),
-      'panelInput.border': pick({ light: theme('secondaryForeground'), dark: theme('secondaryForeground') }),
+      'panelTitle.inactiveForeground': t(style, 'ignored'),
+      'panelInput.border': secondaryForeground,
 
       'terminal.foreground': foreground,
-      'terminal.ansiBrightBlack': pick({
-        light: pick({ light: theme('foreground'), dark: theme('foreground') }),
-        dark: pick({ light: theme('background'), dark: theme('foreground') }),
-      }),
-      'terminal.ansiBrightBlue': theme('blue'),
-      'terminal.ansiBrightCyan': theme('cyan'),
-      'terminal.ansiBrightGreen': theme('green'),
-      'terminal.ansiBrightMagenta': theme('magenta'),
-      'terminal.ansiBrightRed': theme('red'),
-      'terminal.ansiBrightWhite': pick({
-        light: pick({ light: theme('foreground'), dark: theme('activeForeground') }),
-        dark: pick({ light: theme('background'), dark: theme('activeForeground') }),
-      }),
-      'terminal.ansiBrightYellow': theme('yellow'),
-      'terminal.ansiBlack': pick({
-        light: pick({ light: theme('foreground'), dark: theme('foreground') }),
-        dark: pick({ light: theme('background'), dark: theme('foreground') }),
-      }),
-      'terminal.ansiBlue': theme('blue'),
-      'terminal.ansiCyan': theme('cyan'),
-      'terminal.ansiGreen': theme('green'),
-      'terminal.ansiMagenta': theme('magenta'),
-      'terminal.ansiRed': theme('red'),
-      'terminal.ansiWhite': pick({
-        light: theme('foreground'),
-        dark: theme('background'),
-      }),
-      'terminal.ansiYellow': theme('yellow'),
+      'terminal.ansiBrightBlack': foreground,
+      'terminal.ansiBrightBlue': t(style, 'blue'),
+      'terminal.ansiBrightCyan': t(style, 'cyan'),
+      'terminal.ansiBrightGreen': t(style, 'green'),
+      'terminal.ansiBrightMagenta': t(style, 'magenta'),
+      'terminal.ansiBrightRed': t(style, 'red'),
+      'terminal.ansiBrightWhite': w(foreground, activeForeground),
+      'terminal.ansiBrightYellow': t(style, 'yellow'),
+      'terminal.ansiBlack': foreground,
+      'terminal.ansiBlue': t(style, 'blue'),
+      'terminal.ansiCyan': t(style, 'cyan'),
+      'terminal.ansiGreen': t(style, 'green'),
+      'terminal.ansiMagenta': t(style, 'magenta'),
+      'terminal.ansiRed': t(style, 'red'),
+      'terminal.ansiWhite': w(foreground, background),
+      'terminal.ansiYellow': t(style, 'yellow'),
 
-      'gitDecoration.addedResourceForeground': pick({
-        light: theme('gitAdded'),
-        dark: `${theme('gitAdded')}cc`,
-      }),
-      'gitDecoration.modifiedResourceForeground': pick({
-        light: theme('gitModified'),
-        dark: `${theme('gitModified')}cc`,
-      }),
-      'gitDecoration.deletedResourceForeground': pick({
-        light: theme('gitDeleted'),
-        dark: `${theme('gitDeleted')}cc`,
-      }),
-      'gitDecoration.untrackedResourceForeground': pick({
-        light: theme('gitUntracked'),
-        dark: `${theme('gitUntracked')}cc`,
-      }),
-      'gitDecoration.ignoredResourceForeground': pick({
-        light: theme('gitIgnored'),
-        dark: theme('gitIgnored').replace('60', '40'),
-      }),
-      'gitDecoration.conflictingResourceForeground': pick({
-        light: theme('gitConflicting'),
-        dark: `${theme('gitConflicting')}cc`,
-      }),
-      'gitDecoration.submoduleResourceForeground': pick({
-        light: theme('secondaryForeground'),
-        dark: theme('secondaryForeground').replace('90', '80'),
-      }),
+      'gitDecoration.addedResourceForeground': gitFg('gitAdded'),
+      'gitDecoration.modifiedResourceForeground': gitFg('gitModified'),
+      'gitDecoration.deletedResourceForeground': gitFg('gitDeleted'),
+      'gitDecoration.untrackedResourceForeground': gitFg('gitUntracked'),
+      'gitDecoration.ignoredResourceForeground': t(style, 'gitIgnoredDim'),
+      'gitDecoration.conflictingResourceForeground': w(t(style, 'gitConflicting'), `${t(style, 'gitConflicting')}cc`),
+      'gitDecoration.submoduleResourceForeground': t(style, 'submoduleResource'),
 
-      'editorGutter.modifiedBackground': pick({
-        light: theme('gitModified'),
-        dark: `${theme('gitModified')}cc`,
-      }),
-      'editorGutter.addedBackground': pick({
-        light: theme('gitAdded'),
-        dark: `${theme('gitAdded')}cc`,
-      }),
-      'editorGutter.deletedBackground': pick({
-        light: theme('gitDeleted'),
-        dark: `${theme('gitDeleted')}cc`,
-      }),
+      'editorGutter.modifiedBackground': gitFg('gitModified'),
+      'editorGutter.addedBackground': gitFg('gitAdded'),
+      'editorGutter.deletedBackground': gitFg('gitDeleted'),
 
       'debugToolBar.background': background,
-      'editor.stackFrameHighlightBackground': pick({
-        light: theme('yellow'),
-        dark: theme('purple'),
-      }),
-      'editor.focusedStackFrameHighlightBackground': pick({
-        light: theme('yellow'),
-        dark: theme('purple'),
-      }),
+      'editor.stackFrameHighlightBackground': w(t(style, 'yellow'), t(style, 'purple')),
+      'editor.focusedStackFrameHighlightBackground': w(t(style, 'yellow'), t(style, 'purple')),
 
-      'peekViewEditor.matchHighlightBackground': pick({ dark: theme('yellow') }),
-      'peekViewResult.matchHighlightBackground': pick({ dark: theme('yellow') }),
+      'peekViewEditor.matchHighlightBackground': t(style, 'yellow'),
+      'peekViewResult.matchHighlightBackground': t(style, 'yellow'),
       'peekViewEditor.background': background,
       'peekViewResult.background': background,
 
       'settings.headerForeground': activeForeground,
       'settings.modifiedItemIndicator': primary,
-      'welcomePage.buttonBackground': pick({
-        light: theme('tabBackground'),
-        dark: theme('tabBackground'),
-      }),
-      'welcomePage.buttonHoverBackground': pick({
-        light: theme('activeBackground'),
-        dark: theme('activeBackground'),
-      }),
+      'welcomePage.buttonBackground': t(style, 'tabBackground'),
+      'welcomePage.buttonHoverBackground': activeBackground,
 
-      'problemsErrorIcon.foreground': theme('red'),
-      'problemsWarningIcon.foreground': theme('orange'),
-      'problemsInfoIcon.foreground': theme('blue'),
+      'problemsErrorIcon.foreground': t(style, 'red'),
+      'problemsWarningIcon.foreground': t(style, 'orange'),
+      'problemsInfoIcon.foreground': t(style, 'uiInfo'),
 
-      'editorError.foreground': theme('red'),
-      'editorWarning.foreground': pick({
-        light: theme('orange'),
-        dark: theme('orange'),
-      }),
-      'editorInfo.foreground': theme('blue'),
-      'editorHint.foreground': theme('green'),
+      'editorError.foreground': t(style, 'red'),
+      'editorWarning.foreground': t(style, 'orange'),
+      'editorInfo.foreground': t(style, 'uiInfo'),
+      'editorHint.foreground': t(style, 'green'),
 
-      'editorGutter.commentRangeForeground': pick({
-        light: theme('ignored'),
-        dark: theme('ignored').replace('60', '40'),
-      }),
-      'editorGutter.foldingControlForeground': pick({
-        light: theme('secondaryForeground'),
-        dark: theme('secondaryForeground').replace('90', '80'),
-      }),
+      'editorGutter.commentRangeForeground': t(style, 'gitIgnoredDim'),
+      'editorGutter.foldingControlForeground': t(style, 'foldingControl'),
     },
     semanticHighlighting: true,
     semanticTokenColors: {
-      namespace: theme('namespace'),
-      interface: theme('interface'),
-      class: theme('class'),
+      namespace: t(style, 'namespace'),
+      interface: t(style, 'interface'),
+      class: t(style, 'class'),
     },
     tokenColors: [
       {
         scope: ['comment', 'punctuation.definition.comment', 'string.comment'],
-        settings: {
-          foreground: theme('comment'),
-        },
+        settings: { foreground: t(style, 'comment') },
       },
       {
         scope: ['punctuation', 'meta.tag.inline.any.html', 'meta.tag.block.any.html', 'meta.brace'],
-        settings: {
-          foreground: theme('punctuation'),
-        },
+        settings: { foreground: t(style, 'punctuation') },
       },
       {
         scope: [
@@ -385,149 +273,47 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
           'variable.language',
           'meta.definition.variable',
         ],
-        settings: {
-          foreground: theme('constant'),
-        },
+        settings: { foreground: t(style, 'constant') },
       },
-      {
-        scope: ['entity', 'entity.name'],
-        settings: {
-          foreground: theme('function'),
-        },
-      },
-      {
-        scope: 'variable.parameter.function',
-        settings: {
-          foreground,
-        },
-      },
-      {
-        scope: 'entity.name.tag',
-        settings: {
-          foreground: theme('literal'),
-        },
-      },
-      {
-        scope: 'entity.name.function',
-        settings: {
-          foreground: theme('function'),
-        },
-      },
-      {
-        scope: 'keyword',
-        settings: {
-          foreground: theme('keyword'),
-        },
-      },
-      {
-        scope: ['storage', 'storage.type'],
-        settings: {
-          foreground: theme('builtin'),
-        },
-      },
-      {
-        scope: ['storage.modifier.package', 'storage.modifier.import', 'storage.type.java'],
-        settings: {
-          foreground,
-        },
-      },
+      { scope: ['entity', 'entity.name'], settings: { foreground: t(style, 'function') } },
+      { scope: 'variable.parameter.function', settings: { foreground } },
+      { scope: 'entity.name.tag', settings: { foreground: t(style, 'literal') } },
+      { scope: 'entity.name.function', settings: { foreground: t(style, 'function') } },
+      { scope: 'keyword', settings: { foreground: t(style, 'keyword') } },
+      { scope: ['storage', 'storage.type'], settings: { foreground: t(style, 'builtin') } },
+      { scope: ['storage.modifier.package', 'storage.modifier.import', 'storage.type.java'], settings: { foreground } },
       {
         scope: ['string', 'punctuation.definition.string', 'string punctuation.section.embedded source'],
-        settings: {
-          foreground: theme('string'),
-        },
+        settings: { foreground: t(style, 'string') },
       },
-      {
-        scope: 'support',
-        settings: {
-          foreground: theme('property'),
-        },
-      },
+      { scope: 'support', settings: { foreground: t(style, 'property') } },
       {
         scope: ['meta.property-name', 'entity.other.attribute-name', 'meta.object-literal.key'],
-        settings: {
-          foreground: theme('property'),
-        },
+        settings: { foreground: t(style, 'property') },
+      },
+      { scope: 'variable', settings: { foreground: t(style, 'variable') } },
+      { scope: 'namespace', settings: { foreground: t(style, 'namespace') } },
+      { scope: 'keyword.operator', settings: { foreground: t(style, 'builtin') } },
+      {
+        scope: ['meta.decorator', 'punctuation.decorator', 'support.decorator'],
+        settings: { foreground: t(style, 'decorator') },
       },
       {
-        scope: 'variable',
-        settings: {
-          foreground: theme('variable'),
-        },
-      },
-      {
-        scope: 'namespace',
-        settings: {
-          foreground: theme('namespace'),
-        },
-      },
-      {
-        scope: 'keyword.operator',
-        settings: {
-          foreground: theme('builtin'),
-        },
-      },
-      {
-        scope: 'invalid.broken',
-        settings: {
-          fontStyle: 'italic',
-          foreground: theme('red'),
-        },
-      },
-      {
-        scope: 'invalid.deprecated',
-        settings: {
-          fontStyle: 'italic',
-          foreground: theme('red'),
-        },
-      },
-      {
-        scope: 'invalid.illegal',
-        settings: {
-          fontStyle: 'italic',
-          foreground: theme('red'),
-        },
-      },
-      {
-        scope: 'invalid.unimplemented',
-        settings: {
-          fontStyle: 'italic',
-          foreground: theme('red'),
-        },
+        scope: ['invalid.broken', 'invalid.deprecated', 'invalid.illegal', 'invalid.unimplemented', 'message.error'],
+        settings: { fontStyle: 'italic', foreground: t(style, 'red') },
       },
       {
         scope: 'carriage-return',
         settings: {
           fontStyle: 'italic underline',
-          background: pick({ light: theme('red'), dark: theme('red') }),
-          foreground: theme('background'),
+          background: t(style, 'red'),
+          foreground: background,
           content: '^M',
         },
       },
-      {
-        scope: 'message.error',
-        settings: {
-          foreground: theme('red'),
-        },
-      },
-      {
-        scope: 'string source',
-        settings: {
-          foreground,
-        },
-      },
-      {
-        scope: 'string variable',
-        settings: {
-          foreground: theme('string'),
-        },
-      },
-      {
-        scope: ['source.regexp', 'string.regexp'],
-        settings: {
-          foreground: theme('regex'),
-        },
-      },
+      { scope: 'string source', settings: { foreground } },
+      { scope: 'string variable', settings: { foreground: t(style, 'string') } },
+      { scope: ['source.regexp', 'string.regexp'], settings: { foreground: t(style, 'regex') } },
       {
         scope: [
           'string.regexp.character-class',
@@ -535,146 +321,44 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
           'string.regexp source.ruby.embedded',
           'string.regexp string.regexp.arbitrary-repitition',
         ],
-        settings: {
-          foreground: theme('string'),
-        },
+        settings: { foreground: t(style, 'string') },
       },
       {
         scope: 'string.regexp constant.character.escape',
-        settings: {
-          fontStyle: 'bold',
-          foreground: theme('green'),
-        },
+        settings: { fontStyle: 'bold', foreground: t(style, 'green') },
       },
-      {
-        scope: 'support.constant',
-        settings: {
-          foreground: theme('constant'),
-        },
-      },
-      {
-        scope: 'support.variable',
-        settings: {
-          foreground: theme('literal'),
-        },
-      },
-      {
-        scope: 'constant.numeric',
-        settings: {
-          foreground: theme('number'),
-        },
-      },
-      {
-        scope: 'keyword.other.unit',
-        settings: {
-          foreground: theme('builtin'),
-        },
-      },
-      {
-        scope: 'constant.language.boolean',
-        settings: {
-          foreground: theme('boolean'),
-        },
-      },
-      {
-        scope: 'meta.module-reference',
-        settings: {
-          foreground: primary,
-        },
-      },
-      {
-        scope: 'punctuation.definition.list.begin.markdown',
-        settings: {
-          foreground: theme('orange'),
-        },
-      },
-      {
-        scope: ['markup.heading', 'markup.heading entity.name'],
-        settings: {
-          fontStyle: 'bold',
-          foreground: primary,
-        },
-      },
-      {
-        scope: 'markup.quote',
-        settings: {
-          foreground: primary,
-        },
-      },
-      {
-        scope: 'markup.italic',
-        settings: {
-          fontStyle: 'italic',
-          foreground,
-        },
-      },
-      {
-        scope: 'markup.bold',
-        settings: {
-          fontStyle: 'bold',
-          foreground,
-        },
-      },
-      {
-        scope: 'markup.raw',
-        settings: {
-          foreground: primary,
-        },
-      },
+      { scope: 'support.constant', settings: { foreground: t(style, 'constant') } },
+      { scope: 'support.variable', settings: { foreground: t(style, 'literal') } },
+      { scope: 'constant.numeric', settings: { foreground: t(style, 'number') } },
+      { scope: 'keyword.other.unit', settings: { foreground: t(style, 'builtin') } },
+      { scope: 'constant.language.boolean', settings: { foreground: t(style, 'boolean') } },
+      { scope: 'meta.module-reference', settings: { foreground: primary } },
+      { scope: 'punctuation.definition.list.begin.markdown', settings: { foreground: t(style, 'orange') } },
+      { scope: ['markup.heading', 'markup.heading entity.name'], settings: { fontStyle: 'bold', foreground: primary } },
+      { scope: 'markup.quote', settings: { foreground: primary } },
+      { scope: 'markup.italic', settings: { fontStyle: 'italic', foreground } },
+      { scope: 'markup.bold', settings: { fontStyle: 'bold', foreground } },
+      { scope: 'markup.raw', settings: { foreground: primary } },
       {
         scope: ['markup.deleted', 'meta.diff.header.from-file', 'punctuation.definition.deleted'],
-        settings: {
-          background: theme('red'),
-          foreground: theme('background'),
-        },
+        settings: { background: t(style, 'red'), foreground: background },
       },
       {
         scope: ['markup.inserted', 'meta.diff.header.to-file', 'punctuation.definition.inserted'],
-        settings: {
-          background: theme('green'),
-          foreground: theme('background'),
-        },
+        settings: { background: t(style, 'green'), foreground: background },
       },
       {
         scope: ['markup.changed', 'punctuation.definition.changed'],
-        settings: {
-          background: theme('orange'),
-          foreground: theme('background'),
-        },
+        settings: { background: t(style, 'orange'), foreground: background },
       },
       {
         scope: ['markup.ignored', 'markup.untracked'],
-        settings: {
-          foreground: theme('secondaryForeground'),
-          background: theme('blue'),
-        },
+        settings: { foreground: secondaryForeground, background: t(style, 'blue') },
       },
-      {
-        scope: 'meta.diff.range',
-        settings: {
-          foreground: pick({ light: theme('purple'), dark: theme('purple') }),
-          fontStyle: 'bold',
-        },
-      },
-      {
-        scope: 'meta.diff.header',
-        settings: {
-          foreground: theme('blue'),
-        },
-      },
-      {
-        scope: 'meta.separator',
-        settings: {
-          fontStyle: 'bold',
-          foreground: theme('blue'),
-        },
-      },
-      {
-        scope: 'meta.output',
-        settings: {
-          foreground: theme('blue'),
-        },
-      },
+      { scope: 'meta.diff.range', settings: { foreground: t(style, 'purple'), fontStyle: 'bold' } },
+      { scope: 'meta.diff.header', settings: { foreground: t(style, 'uiInfo') } },
+      { scope: 'meta.separator', settings: { fontStyle: 'bold', foreground: t(style, 'uiInfo') } },
+      { scope: 'meta.output', settings: { foreground: t(style, 'uiInfo') } },
       {
         scope: [
           'brackethighlighter.tag',
@@ -684,16 +368,9 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
           'brackethighlighter.angle',
           'brackethighlighter.quote',
         ],
-        settings: {
-          foreground: tertiary,
-        },
+        settings: { foreground: tertiary },
       },
-      {
-        scope: 'brackethighlighter.unmatched',
-        settings: {
-          foreground: theme('red'),
-        },
-      },
+      { scope: 'brackethighlighter.unmatched', settings: { foreground: t(style, 'red') } },
       {
         scope: [
           'constant.other.reference.link',
@@ -701,16 +378,11 @@ export default function getTheme({ style, name }: { style: 'light' | 'dark'; nam
           'punctuation.definition.string.begin.markdown',
           'punctuation.definition.string.end.markdown',
         ],
-        settings: {
-          foreground: theme('string'),
-        },
+        settings: { foreground: t(style, 'string') },
       },
       {
         scope: ['markup.underline.link.markdown'],
-        settings: {
-          foreground: secondaryForeground,
-          fontStyle: 'underline',
-        },
+        settings: { foreground: secondaryForeground, fontStyle: 'underline' },
       },
     ],
   }
