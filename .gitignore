@@ -2,3 +2,4 @@
 node_modules/
 /themes/
 .vscode
+*.vsix
