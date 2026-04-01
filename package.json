@@ -1,7 +1,7 @@
 {
   "name": "angrboda",
   "displayName": "Angrboða",
-  "description": "Beautiful, Dark and Light VSCode theme ⌘",
+  "description": "Beautiful, dark and light theme for VS Code and Cursor ⌘",
   "version": "1.3.3",
   "categories": [
     "Themes"
@@ -22,7 +22,8 @@
     "build": "esno src/index.ts",
     "dev": "nodemon --watch src -e ts --exec \"esno src/index.ts\"",
     "vscode:prepublish": "npm run build",
-    "release": "npx bumpp --commit --tag --push && npx vsce publish"
+    "package:vsix": "npx --yes @vscode/vsce package --no-dependencies",
+    "release": "npx bumpp --commit --tag --push"
   },
   "contributes": {
     "themes": [

@@ -1,0 +1,40 @@
+# Packages the theme as a .vsix and uploads it to the GitHub Release that triggered
+# this run. No Visual Studio Marketplace account or PAT.
+#
+# How to ship a version:
+#   1. npm run release
+#      (bumpp bumps package.json, commits, tags v*, pushes to origin)
+#   2. GitHub → Releases → Draft a new release → choose that tag → Publish release
+#      Or: gh release create v1.2.3 --verify-tag --generate-notes
+#
+# The published release triggers this workflow; the VSIX appears on the release page.
+
+name: Release VSIX
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Package extension
+        run: npx --yes @vscode/vsce package --no-dependencies
+
+      - name: Attach VSIX to this release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: '*.vsix'
