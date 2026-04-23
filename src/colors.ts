@@ -17,7 +17,7 @@ const palette = {
   lightGray: pair('#f0eaf8', '#1a1a1a'),
   mediumGray: pair('#b3a8bd', '#4a4146'),
   darkGray: pair('#272424', '#e5e5e5'),
-  black: pair('#1B1919', '#1a1a1a'),
+  black: pair('#141313', '#1a1a1a'),
   success: pair('#5EB05E', '#3c9a3c'),
   warning: pair('#f9cf75', '#b38600'),
   info: pair('#8fbbf7', '#0366d6'),
@@ -35,7 +35,8 @@ export const themeColors = {
 
   foreground: pair(palette.white[0], palette.black[1]),
   activeForeground: pair(palette.white[0], palette.black[1]),
-  secondaryForeground: suf(palette.white, '90'),
+  /** Light: dark gray @ ~60% alpha — not `suf(white, …)` (invisible on white). */
+  secondaryForeground: pair(`${palette.white[0]}90`, `${palette.black[1]}9a`),
   ignored: mutedUi,
   border: palette.darkGray,
   background: pair(palette.black[0], palette.white[1]),

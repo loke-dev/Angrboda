@@ -162,7 +162,7 @@ export default function getTheme({ style, name }: { style: Style; name: string }
       'editorWidget.background': background,
       'editor.foldBackground': background,
       'editor.lineHighlightBackground': activeBackground,
-      'editorLineNumber.foreground': w(`${secondary}50`, `${secondary}40`),
+      'editorLineNumber.foreground': w(`${secondary}a8`, `${secondary}50`),
       'editorLineNumber.activeForeground': w(secondary, `${secondary}cc`),
       'editorIndentGuide.background': t(style, 'indentGuide'),
       'editorIndentGuide.activeBackground': t(style, 'activeIndentGuide'),
