@@ -52,7 +52,7 @@ export default function Home() {
     <main>
       <nav className="nav shell" aria-label="Primary navigation">
         <a className="brand" href="#top" aria-label="Angrboða home">
-          <Image src="/ironwood-mark-v2.svg" alt="" width={34} height={34} />
+          <Image src="/angrboda-mark-v3.svg" alt="" width={34} height={34} />
           <span>Angrboða</span>
         </a>
         <div className="nav-links">
@@ -159,7 +159,7 @@ export default function Home() {
 
       <section className="cta">
         <div className="shell cta-inner">
-          <Image src="/ironwood-mark-v2.svg" alt="" width={110} height={110} />
+          <Image src="/angrboda-mark-v3.svg" alt="" width={110} height={110} />
           <div>
             <span className="kicker">MIT licensed · community shaped</span>
             <h2>Bring the Ironwood with you.</h2>
@@ -172,7 +172,7 @@ export default function Home() {
 
       <footer className="shell">
         <a className="brand" href="#top">
-          <Image src="/ironwood-mark-v2.svg" alt="" width={34} height={34} />
+          <Image src="/angrboda-mark-v3.svg" alt="" width={34} height={34} />
           <span>Angrboða</span>
         </a>
         <p>Made by Loke · Built for long sessions.</p>

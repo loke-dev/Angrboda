@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.2
+
+- Restored the selected angular A mark with its pale and violet beams and coral
+  ember across the extension, website, favicon, and social artwork.
+- Removed the circular Ironwood mark from every active brand surface.
+
 ## 1.5.1
 
 - Fixed ANSI black being indistinguishable from the terminal background in both

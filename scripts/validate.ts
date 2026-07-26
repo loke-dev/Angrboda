@@ -84,6 +84,29 @@ await Promise.all(
   }),
 )
 
+const brandMark = await fs.readFile('assets/logo-mark.svg', 'utf8')
+assert.match(brandMark, /An angular A formed by pale and violet beams above a coral ember/)
+assert.doesNotMatch(brandMark, /Ironwood branches|stroke-linecap/)
+for (const path of [
+  'website/public/logo.svg',
+  'website/public/favicon.svg',
+  'website/public/ironwood-mark-v2.svg',
+  'website/public/ironwood-favicon-v2.svg',
+  'website/public/angrboda-mark-v3.svg',
+  'website/public/angrboda-favicon-v3.svg',
+]) {
+  assert.equal(await fs.readFile(path, 'utf8'), brandMark, `${path} must use the canonical Angrboða mark`)
+}
+
+const socialCard = await fs.readFile('assets/marketing/angrboda-social-card.png')
+for (const path of [
+  'website/public/og.png',
+  'website/public/angrboda-social-v2.png',
+  'website/public/angrboda-social-v3.png',
+]) {
+  assert.deepEqual(await fs.readFile(path), socialCard, `${path} must use the canonical Angrboða social artwork`)
+}
+
 JSON.parse(await fs.readFile('themes/angrboda-dark-color-theme.json', 'utf8'))
 JSON.parse(await fs.readFile('themes/angrboda-light-color-theme.json', 'utf8'))
 JSON.parse(await fs.readFile('ports/chrome/manifest.json', 'utf8'))

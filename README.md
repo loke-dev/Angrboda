@@ -32,9 +32,9 @@ or download the `.vsix` from the
 [latest GitHub release](https://github.com/loke-dev/Angrboda/releases/latest):
 
 ```sh
-code --install-extension angrboda-1.5.1.vsix
+code --install-extension angrboda-1.5.2.vsix
 # or
-cursor --install-extension angrboda-1.5.1.vsix
+cursor --install-extension angrboda-1.5.2.vsix
 ```
 
 Then choose **Angrboda Dark** or **Angrboda Light** from
@@ -42,7 +42,7 @@ Then choose **Angrboda Dark** or **Angrboda Light** from
 
 ### Everywhere else
 
-Download `angrboda-themes-1.5.1.zip` from the
+Download `angrboda-themes-1.5.2.zip` from the
 [latest release](https://github.com/loke-dev/Angrboda/releases/latest), or use
 the generated files in [`ports/`](ports):
 
