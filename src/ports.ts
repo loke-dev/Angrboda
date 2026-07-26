@@ -229,6 +229,142 @@ function geminiCli(mode: Mode) {
   )}\n`
 }
 
+function codexCliTheme(mode: Mode) {
+  const title = mode[0]?.toUpperCase() + mode.slice(1)
+  const rule = (scope: string, settings: Array<[string, string]>, name?: string) => {
+    const scopeSettings = settings
+      .map(([key, value]) => [`      <key>${key}</key>`, `      <string>${value}</string>`].join('\n'))
+      .join('\n')
+
+    return [
+      '    <dict>',
+      ...(name ? ['      <key>name</key>', `      <string>${name}</string>`] : []),
+      '      <key>scope</key>',
+      `      <string>${scope}</string>`,
+      '      <key>settings</key>',
+      '      <dict>',
+      ...scopeSettings.split('\n').map((line) => `        ${line}`),
+      '      </dict>',
+      '    </dict>',
+    ].join('\n')
+  }
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>name</key>
+  <string>Angrboða ${title}</string>
+  <key>settings</key>
+  <array>
+    <dict>
+      <key>settings</key>
+      <dict>
+        <key>background</key>
+        <string>${color('background', mode)}</string>
+        <key>foreground</key>
+        <string>${color('foreground', mode)}</string>
+        <key>caret</key>
+        <string>${color('red', mode)}</string>
+        <key>invisibles</key>
+        <string>${color('subtle', mode)}</string>
+        <key>selection</key>
+        <string>${color('surfaceRaised', mode)}</string>
+        <key>selectionForeground</key>
+        <string>${color('foreground', mode)}</string>
+        <key>lineHighlight</key>
+        <string>${color('surface', mode)}</string>
+        <key>findHighlight</key>
+        <string>${color('violet', mode)}</string>
+        <key>findHighlightForeground</key>
+        <string>${color('foreground', mode)}</string>
+        <key>inactiveSelection</key>
+        <string>${color('surface', mode)}</string>
+        <key>gutterForeground</key>
+        <string>${color('muted', mode)}</string>
+        <key>gutterForegroundHighlight</key>
+        <string>${color('foreground', mode)}</string>
+      </dict>
+    </dict>
+${rule(
+  'comment',
+  [
+    ['foreground', color('muted', mode)],
+    ['fontStyle', 'italic'],
+  ],
+  'Comments',
+)}
+${rule('constant', [['foreground', color('cyan', mode)]], 'Constants')}
+${rule('constant.numeric', [['foreground', color('orange', mode)]], 'Numbers')}
+${rule('entity.name.function', [['foreground', color('violet', mode)]], 'Functions')}
+${rule('entity.name.type', [['foreground', color('yellow', mode)]], 'Types')}
+${rule('entity.name.tag', [['foreground', color('red', mode)]], 'Tags')}
+${rule(
+  'markup.changed',
+  [
+    ['background', color('yellow', mode)],
+    ['foreground', color('foreground', mode)],
+  ],
+  'Changed',
+)}
+${rule(
+  'markup.inserted',
+  [
+    ['background', color('green', mode)],
+    ['foreground', color('foreground', mode)],
+  ],
+  'Inserted',
+)}
+${rule(
+  'markup.deleted',
+  [
+    ['background', color('red', mode)],
+    ['foreground', color('foreground', mode)],
+  ],
+  'Deleted',
+)}
+${rule('keyword', [['foreground', color('violet', mode)]], 'Keywords')}
+${rule('keyword.operator', [['foreground', color('cyan', mode)]], 'Operators')}
+${rule('support.function', [['foreground', color('violet', mode)]], 'Support')}
+${rule('string', [['foreground', color('red', mode)]], 'Strings')}
+${rule('variable', [['foreground', color('foreground', mode)]], 'Variables')}
+${rule('punctuation', [['foreground', color('subtle', mode)]], 'Punctuation')}
+${rule('diff.header', [['foreground', color('violet', mode)]], 'Diff Headers')}
+${rule('diff.deleted', [['foreground', color('red', mode)]], 'Diff Deleted')}
+${rule('diff.inserted', [['foreground', color('green', mode)]], 'Diff Inserted')}
+  </array>
+</dict>
+</plist>
+`
+}
+
+function codexAppTheme(mode: Mode) {
+  return `codex-theme-v1:${JSON.stringify(
+    {
+      codeThemeId: 'one',
+      theme: {
+        accent: color('red', mode),
+        contrast: 48,
+        fonts: {
+          code: null,
+          ui: null,
+        },
+        ink: color('foreground', mode),
+        opaqueWindows: true,
+        semanticColors: {
+          diffAdded: color('green', mode),
+          diffRemoved: color('red', mode),
+          skill: color('violet', mode),
+        },
+        surface: color('surface', mode),
+      },
+      variant: mode,
+    },
+    null,
+    2,
+  )}`
+}
+
 function chromeTheme() {
   const rgb = (value: string) => [1, 3, 5].map((offset) => Number.parseInt(value.slice(offset, offset + 2), 16))
   return `${JSON.stringify(
@@ -511,6 +647,10 @@ export async function generatePorts() {
     'ports/kitty/angrboda-light.conf': kitty('light'),
     'ports/gemini-cli/angrboda-dark.json': geminiCli('dark'),
     'ports/gemini-cli/angrboda-light.json': geminiCli('light'),
+    'ports/codex/angrboda-dark.tmTheme': codexCliTheme('dark'),
+    'ports/codex/angrboda-light.tmTheme': codexCliTheme('light'),
+    'ports/codex/angrboda-app-dark.txt': codexAppTheme('dark'),
+    'ports/codex/angrboda-app-light.txt': codexAppTheme('light'),
     'ports/opencode/angrboda.json': openCode(),
     'ports/sublime-text/Angrboda Dark.sublime-color-scheme': sublime('dark'),
     'ports/sublime-text/Angrboda Light.sublime-color-scheme': sublime('light'),

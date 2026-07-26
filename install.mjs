@@ -41,6 +41,16 @@ const tools = {
     next: ({ directory }) =>
       `Set ui.theme in ~/.gemini/settings.json to "${path.join(directory, 'angrboda-dark.json')}" or "${path.join(directory, 'angrboda-light.json')}".`,
   },
+  codex: {
+    description: 'Codex CLI TextMate themes',
+    directory: () => path.join(homeDirectory, '.codex', 'themes'),
+    files: [
+      ['ports/codex/angrboda-dark.tmTheme', 'angrboda-dark.tmTheme'],
+      ['ports/codex/angrboda-light.tmTheme', 'angrboda-light.tmTheme'],
+    ],
+    next: ({ directory }) =>
+      `Run /theme in Codex CLI and choose ${path.join(directory, 'angrboda-dark.tmTheme')} or ${path.join(directory, 'angrboda-light.tmTheme')}.`,
+  },
   helix: {
     description: 'Helix editor themes',
     directory: () => path.join(windows ? appData : xdgConfig, 'helix', 'themes'),

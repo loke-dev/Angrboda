@@ -14,8 +14,9 @@ npx angrboda ghostty --dry-run
 npx angrboda ghostty
 ```
 
-It supports Alacritty, Gemini CLI, Ghostty, Helix, Kitty, OpenCode, WezTerm, and
-Zed. Pass `--target <directory>` to use a custom config location. The installer
+It supports Alacritty, Codex, Gemini CLI, Ghostty, Helix, Kitty, OpenCode,
+WezTerm, and Zed. Pass `--target <directory>` to use a custom config location.
+The installer
 does not edit activation settings; it prints the exact final step for the
 selected tool. It refuses differing existing files by default. `--force`
 creates a timestamped backup before replacing them.
@@ -116,6 +117,20 @@ The installer prints the full path to each theme. Set `ui.theme` in
 `~/.gemini/settings.json` to the dark or light JSON path, or select the theme
 with `/theme` after registering it in `ui.customThemes`.
 
+## Codex
+
+Copy both `.tmTheme` files to `~/.codex/themes/`:
+
+```sh
+mkdir -p ~/.codex/themes
+cp ports/codex/angrboda-dark.tmTheme ports/codex/angrboda-light.tmTheme ~/.codex/themes/
+```
+
+Open Codex CLI and run `/theme` to switch between `angrboda-dark` and
+`angrboda-light`. For the Codex desktop app, open Settings → Appearance and
+use the `codex-theme-v1:` payload from either
+`ports/codex/angrboda-app-dark.txt` or `ports/codex/angrboda-app-light.txt`.
+
 ## Chrome and DevTools
 
 Chrome DevTools does not expose a third-party full-theme API. Angrboða uses the
@@ -140,7 +155,8 @@ of additional applications.
 ## AI coding tools
 
 Gemini CLI has native dark and light custom themes, and OpenCode has a native
-adaptive port. Cursor and Windsurf can use the VSIX, Zed's assistant uses the
-Zed theme, and terminal-native tools such as Codex CLI and Claude Code inherit
-Angrboða from the surrounding terminal. This avoids fragile or unsupported UI
-overrides while keeping the full session visually coherent.
+adaptive port. Codex is supported through `.tmTheme` files for CLI and
+codex-theme-v1 payloads for the app. Cursor and Windsurf can use the VSIX,
+Zed's assistant uses the Zed theme, and terminal-native tools such as Claude
+Code inherit Angrboða from the surrounding terminal. This avoids fragile or
+unsupported UI overrides while keeping the full session visually coherent.

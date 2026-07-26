@@ -17,6 +17,7 @@ const platforms = [
   ['Windows Terminal', 'Importable color schemes', 'ports/windows-terminal'],
   ['Gemini CLI', 'Native dark and light AI harness themes', 'ports/gemini-cli'],
   ['OpenCode', 'A native adaptive AI harness theme', 'ports/opencode'],
+  ['Codex', 'CLI and app theme surfaces', 'ports/codex'],
   ['Chrome', 'Browser chrome with matching DevTools', 'ports/chrome'],
   ['Base16', 'Universal palettes for dozens more tools', 'ports/base16'],
 ]
@@ -134,7 +135,7 @@ export default function Home() {
 
       <section className="installer-section shell" id="install">
         <div className="installer-copy">
-          <span className="kicker">One bundle · eight direct installs</span>
+          <span className="kicker">One bundle · nine direct installs</span>
           <h2>Skip the config scavenger hunt.</h2>
           <p>
             Install directly with npx—no cloning, global package, or config scavenger hunt. Preview every change first;
@@ -157,7 +158,7 @@ export default function Home() {
               <span>$</span> npx angrboda zed
             </code>
           </pre>
-          <p>Alacritty · Gemini CLI · Ghostty · Helix · Kitty · OpenCode · WezTerm · Zed</p>
+          <p>Alacritty · Codex · Gemini CLI · Ghostty · Helix · Kitty · OpenCode · WezTerm · Zed</p>
         </div>
       </section>
 
