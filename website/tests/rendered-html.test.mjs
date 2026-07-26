@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 
 async function render(path = '/') {
@@ -36,7 +37,7 @@ test('server-renders the Angrboða marketing site', async () => {
   assert.match(html, /Install for VS Code/)
   assert.match(html, /Download the complete bundle/)
   assert.match(html, /Skip the config scavenger hunt/)
-  assert.match(html, /npx angrboda zed --dry-run/)
+  assert.match(html, /node install\.mjs zed --dry-run/)
   assert.match(html, /angrboda-mark-v3\.svg/)
   assert.match(html, /angrboda-social-v3\.png/)
   assert.doesNotMatch(html, /ironwood-(?:mark|favicon)/)
@@ -51,4 +52,13 @@ test('server-renders deterministic dark and light capture surfaces', async () =>
     assert.match(html, new RegExp(`capture-page ${mode}`))
     assert.match(html, new RegExp(`Angrboða ${mode} theme preview`))
   }
+})
+
+test('keeps the decorative hero glow inside the mobile viewport', async () => {
+  const css = await readFile(new URL('../app/globals.css', import.meta.url), 'utf8')
+
+  assert.match(
+    css,
+    /@media \(max-width: 800px\)[\s\S]*?\.hero::before\s*\{[\s\S]*?width:\s*100vw;[\s\S]*?right:\s*-15px;/,
+  )
 })
