@@ -7,7 +7,6 @@ type PaletteKey = keyof typeof palette
 
 const index = (mode: Mode) => (mode === 'dark' ? 0 : 1)
 const color = (key: PaletteKey, mode: Mode) => palette[key][index(mode)]
-const bare = (value: string) => value.slice(1)
 
 const ansiKeys = ['background', 'red', 'green', 'yellow', 'blue', 'violet', 'cyan', 'foreground'] as const
 
@@ -232,30 +231,283 @@ function chromeTheme() {
   )}\n`
 }
 
+function zed() {
+  const terminalNames = ['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white'] as const
+  const theme = (mode: Mode) => {
+    const terminal = Object.fromEntries([
+      ...terminalNames.map((name, i) => [`terminal.ansi.${name}`, ansi(mode)[i]]),
+      ...terminalNames.map((name, i) => [`terminal.ansi.bright_${name}`, brightAnsi(mode)[i]]),
+    ])
+
+    return {
+      name: `Angrboða ${mode[0]?.toUpperCase()}${mode.slice(1)}`,
+      appearance: mode,
+      style: {
+        background: color('background', mode),
+        'surface.background': color('surface', mode),
+        'elevated_surface.background': color('surfaceRaised', mode),
+        border: color('border', mode),
+        'border.variant': color('border', mode),
+        'border.focused': color('violet', mode),
+        'element.background': color('surface', mode),
+        'element.hover': color('surfaceRaised', mode),
+        'element.selected': color('surfaceRaised', mode),
+        text: color('foreground', mode),
+        'text.muted': color('muted', mode),
+        'text.accent': color('red', mode),
+        'editor.background': color('background', mode),
+        'editor.foreground': color('foreground', mode),
+        'editor.gutter.background': color('background', mode),
+        'editor.line_number': color('subtle', mode),
+        'editor.active_line_number': color('foreground', mode),
+        'editor.active_line.background': color('surface', mode),
+        'editor.indent_guide': color('border', mode),
+        'editor.indent_guide_active': color('subtle', mode),
+        'status_bar.background': color('surface', mode),
+        'tab_bar.background': color('surface', mode),
+        'tab.active_background': color('background', mode),
+        'tab.inactive_background': color('surface', mode),
+        'terminal.background': color('background', mode),
+        'terminal.foreground': color('foreground', mode),
+        ...terminal,
+        syntax: {
+          comment: { color: color('muted', mode), font_style: 'italic' },
+          keyword: { color: color('violet', mode) },
+          function: { color: color('violet', mode) },
+          type: { color: color('yellow', mode) },
+          string: { color: color('red', mode) },
+          number: { color: color('orange', mode) },
+          constant: { color: color('cyan', mode) },
+          variable: { color: color('foreground', mode) },
+          property: { color: color('cyan', mode) },
+          operator: { color: color('cyan', mode) },
+          punctuation: { color: color('subtle', mode) },
+        },
+      },
+    }
+  }
+
+  return `${JSON.stringify(
+    {
+      $schema: 'https://zed.dev/schema/themes/v0.2.0.json',
+      name: 'Angrboða',
+      author: 'Loke Carlsson',
+      themes: [theme('dark'), theme('light')],
+    },
+    null,
+    2,
+  )}\n`
+}
+
+function helix(mode: Mode) {
+  const roles: Array<[string, PaletteKey]> = [
+    ['attribute', 'red'],
+    ['type', 'yellow'],
+    ['constructor', 'yellow'],
+    ['constant', 'cyan'],
+    ['string', 'red'],
+    ['variable', 'foreground'],
+    ['label', 'cyan'],
+    ['punctuation', 'subtle'],
+    ['keyword', 'violet'],
+    ['operator', 'cyan'],
+    ['function', 'violet'],
+    ['tag', 'red'],
+    ['namespace', 'foreground'],
+    ['special', 'orange'],
+    ['error', 'red'],
+    ['warning', 'yellow'],
+    ['info', 'blue'],
+    ['hint', 'cyan'],
+    ['diff.plus', 'green'],
+    ['diff.minus', 'red'],
+    ['diff.delta', 'violet'],
+  ]
+  const lines = roles.map(([role, key]) => `"${role}" = "${key}"`)
+  return [
+    `# Angrboða ${mode[0]?.toUpperCase()}${mode.slice(1)} for Helix`,
+    ...lines,
+    `"comment" = { fg = "muted", modifiers = ["italic"] }`,
+    `"ui.background" = { bg = "background" }`,
+    `"ui.text" = "foreground"`,
+    `"ui.text.focus" = { fg = "foreground", bg = "surface-raised" }`,
+    `"ui.text.inactive" = "muted"`,
+    `"ui.cursor" = { fg = "background", bg = "red" }`,
+    `"ui.cursor.match" = { fg = "background", bg = "violet" }`,
+    `"ui.cursorline.primary" = { bg = "surface" }`,
+    `"ui.selection" = { bg = "surface-raised" }`,
+    `"ui.selection.primary" = { bg = "surface-raised" }`,
+    `"ui.gutter" = { bg = "background" }`,
+    `"ui.linenr" = "subtle"`,
+    `"ui.linenr.selected" = "foreground"`,
+    `"ui.statusline" = { fg = "foreground", bg = "surface" }`,
+    `"ui.statusline.inactive" = { fg = "muted", bg = "surface" }`,
+    `"ui.menu" = { fg = "foreground", bg = "surface" }`,
+    `"ui.menu.selected" = { fg = "foreground", bg = "surface-raised" }`,
+    `"ui.popup" = { fg = "foreground", bg = "surface" }`,
+    `"ui.window" = "border"`,
+    `"ui.virtual.indent-guide" = "border"`,
+    `"ui.virtual.inlay-hint" = "muted"`,
+    '',
+    '[palette]',
+    ...Object.entries(palette).map(
+      ([name, values]) => `${name.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)} = "${values[index(mode)]}"`,
+    ),
+    '',
+  ].join('\n')
+}
+
+function sublime(mode: Mode) {
+  const variables = Object.fromEntries(Object.entries(palette).map(([key, values]) => [key, values[index(mode)]]))
+  const rule = (name: string, scope: string, foreground: PaletteKey, fontStyle?: string) => ({
+    name,
+    scope,
+    foreground: `var(${foreground})`,
+    ...(fontStyle ? { font_style: fontStyle } : {}),
+  })
+
+  return `${JSON.stringify(
+    {
+      name: `Angrboða ${mode[0]?.toUpperCase()}${mode.slice(1)}`,
+      variables,
+      globals: {
+        background: 'var(background)',
+        foreground: 'var(foreground)',
+        caret: 'var(red)',
+        block_caret: 'var(red)',
+        line_highlight: 'var(surface)',
+        selection: 'var(surfaceRaised)',
+        selection_foreground: 'var(foreground)',
+        gutter: 'var(background)',
+        gutter_foreground: 'var(subtle)',
+        gutter_foreground_highlight: 'var(foreground)',
+        guide: 'var(border)',
+        active_guide: 'var(subtle)',
+        accent: 'var(red)',
+        line_diff_added: 'var(green)',
+        line_diff_modified: 'var(violet)',
+        line_diff_deleted: 'var(red)',
+      },
+      rules: [
+        rule('Comments', 'comment', 'muted', 'italic'),
+        rule('Keywords', 'keyword, storage', 'violet'),
+        rule('Functions', 'entity.name.function, support.function', 'violet'),
+        rule('Types', 'entity.name.type, support.type, storage.type', 'yellow'),
+        rule('Strings', 'string', 'red'),
+        rule('Numbers', 'constant.numeric', 'orange'),
+        rule('Constants', 'constant, support.constant', 'cyan'),
+        rule('Properties', 'variable.other.member, meta.object-literal.key', 'cyan'),
+        rule('Operators', 'keyword.operator', 'cyan'),
+        rule('Punctuation', 'punctuation', 'subtle'),
+        rule('Invalid', 'invalid', 'red', 'bold'),
+      ],
+    },
+    null,
+    2,
+  )}\n`
+}
+
+function iTerm2(mode: Mode) {
+  const component = (hex: string) => {
+    const values = [1, 3, 5].map((offset) => Number.parseInt(hex.slice(offset, offset + 2), 16) / 255)
+    return `<dict>
+      <key>Blue Component</key><real>${values[2]?.toFixed(6)}</real>
+      <key>Color Space</key><string>sRGB</string>
+      <key>Green Component</key><real>${values[1]?.toFixed(6)}</real>
+      <key>Red Component</key><real>${values[0]?.toFixed(6)}</real>
+    </dict>`
+  }
+  const entries: Array<[string, string]> = [
+    ['Background Color', color('background', mode)],
+    ['Foreground Color', color('foreground', mode)],
+    ['Bold Color', color('foreground', mode)],
+    ['Cursor Color', color('red', mode)],
+    ['Cursor Text Color', color('background', mode)],
+    ['Selection Color', color('surfaceRaised', mode)],
+    ['Selected Text Color', color('foreground', mode)],
+    ...ansi(mode).map((value, i) => [`Ansi ${i} Color`, value] as [string, string]),
+    ...brightAnsi(mode).map((value, i) => [`Ansi ${i + 8} Color`, value] as [string, string]),
+  ]
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+${entries.map(([key, value]) => `  <key>${key}</key>\n  ${component(value)}`).join('\n')}
+</dict>
+</plist>
+`
+}
+
+function base16(mode: Mode) {
+  const values = {
+    base00: color('background', mode),
+    base01: color('surface', mode),
+    base02: color('surfaceRaised', mode),
+    base03: color('subtle', mode),
+    base04: color('muted', mode),
+    base05: color('foreground', mode),
+    base06: color('foreground', mode),
+    base07: color('foreground', mode),
+    base08: color('red', mode),
+    base09: color('orange', mode),
+    base0A: color('yellow', mode),
+    base0B: color('green', mode),
+    base0C: color('cyan', mode),
+    base0D: color('blue', mode),
+    base0E: color('violet', mode),
+    base0F: color('red', mode),
+  }
+  return [
+    `system: "base16"`,
+    `name: "Angrboða ${mode[0]?.toUpperCase()}${mode.slice(1)}"`,
+    `author: "Loke Carlsson"`,
+    `variant: "${mode}"`,
+    `palette:`,
+    ...Object.entries(values).map(([key, value]) => `  ${key}: "${value}"`),
+    '',
+  ].join('\n')
+}
+
 export async function generatePorts() {
   const prettierConfig = (await resolveConfig('package.json')) ?? {}
   const files: Record<string, string> = {
     'ports/alacritty/angrboda-dark.toml': alacritty('dark'),
     'ports/alacritty/angrboda-light.toml': alacritty('light'),
+    'ports/base16/angrboda-dark.yaml': base16('dark'),
+    'ports/base16/angrboda-light.yaml': base16('light'),
     'ports/chrome/manifest.json': chromeTheme(),
     'ports/ghostty/Angrboda Dark': ghostty('dark'),
     'ports/ghostty/Angrboda Light': ghostty('light'),
+    'ports/helix/angrboda-dark.toml': helix('dark'),
+    'ports/helix/angrboda-light.toml': helix('light'),
+    'ports/iterm2/Angrboda Dark.itermcolors': iTerm2('dark'),
+    'ports/iterm2/Angrboda Light.itermcolors': iTerm2('light'),
     'ports/kitty/angrboda-dark.conf': kitty('dark'),
     'ports/kitty/angrboda-light.conf': kitty('light'),
     'ports/opencode/angrboda.json': openCode(),
+    'ports/sublime-text/Angrboda Dark.sublime-color-scheme': sublime('dark'),
+    'ports/sublime-text/Angrboda Light.sublime-color-scheme': sublime('light'),
     'ports/warp/angrboda-dark.yaml': warp('dark'),
     'ports/warp/angrboda-light.yaml': warp('light'),
     'ports/wezterm/angrboda.lua': wezterm(),
     'ports/windows-terminal/angrboda.json': windowsTerminal(),
+    'ports/zed/angrboda.json': zed(),
   }
 
   await Promise.all(
     Object.entries(files).map(async ([path, contents]) => {
       await fs.mkdir(path.slice(0, path.lastIndexOf('/')), { recursive: true })
-      const output = path.endsWith('.json')
+      const parser = path.endsWith('.sublime-color-scheme')
+        ? 'jsonc'
+        : path.endsWith('.json')
+          ? 'json'
+          : path.endsWith('.yaml') || path.endsWith('.yml')
+            ? 'yaml'
+            : undefined
+      const output = parser
         ? await format(contents, {
             ...prettierConfig,
-            parser: 'json',
+            parser,
           })
         : contents
       await fs.writeFile(path, output)

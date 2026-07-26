@@ -1,0 +1,175 @@
+{
+  "$schema": "https://zed.dev/schema/themes/v0.2.0.json",
+  "name": "Angrboða",
+  "author": "Loke Carlsson",
+  "themes": [
+    {
+      "name": "Angrboða Dark",
+      "appearance": "dark",
+      "style": {
+        "background": "#141216",
+        "surface.background": "#1D1920",
+        "elevated_surface.background": "#29222D",
+        "border": "#332B37",
+        "border.variant": "#332B37",
+        "border.focused": "#D6A4FF",
+        "element.background": "#1D1920",
+        "element.hover": "#29222D",
+        "element.selected": "#29222D",
+        "text": "#F5EFF8",
+        "text.muted": "#B3A8B8",
+        "text.accent": "#FF718A",
+        "editor.background": "#141216",
+        "editor.foreground": "#F5EFF8",
+        "editor.gutter.background": "#141216",
+        "editor.line_number": "#827686",
+        "editor.active_line_number": "#F5EFF8",
+        "editor.active_line.background": "#1D1920",
+        "editor.indent_guide": "#332B37",
+        "editor.indent_guide_active": "#827686",
+        "status_bar.background": "#1D1920",
+        "tab_bar.background": "#1D1920",
+        "tab.active_background": "#141216",
+        "tab.inactive_background": "#1D1920",
+        "terminal.background": "#141216",
+        "terminal.foreground": "#F5EFF8",
+        "terminal.ansi.black": "#141216",
+        "terminal.ansi.red": "#FF718A",
+        "terminal.ansi.green": "#78C98D",
+        "terminal.ansi.yellow": "#F4C86A",
+        "terminal.ansi.blue": "#78B9F2",
+        "terminal.ansi.magenta": "#D6A4FF",
+        "terminal.ansi.cyan": "#80CBC4",
+        "terminal.ansi.white": "#F5EFF8",
+        "terminal.ansi.bright_black": "#827686",
+        "terminal.ansi.bright_red": "#FF718A",
+        "terminal.ansi.bright_green": "#78C98D",
+        "terminal.ansi.bright_yellow": "#F4C86A",
+        "terminal.ansi.bright_blue": "#78B9F2",
+        "terminal.ansi.bright_magenta": "#D6A4FF",
+        "terminal.ansi.bright_cyan": "#80CBC4",
+        "terminal.ansi.bright_white": "#F5EFF8",
+        "syntax": {
+          "comment": {
+            "color": "#B3A8B8",
+            "font_style": "italic"
+          },
+          "keyword": {
+            "color": "#D6A4FF"
+          },
+          "function": {
+            "color": "#D6A4FF"
+          },
+          "type": {
+            "color": "#F4C86A"
+          },
+          "string": {
+            "color": "#FF718A"
+          },
+          "number": {
+            "color": "#F39A70"
+          },
+          "constant": {
+            "color": "#80CBC4"
+          },
+          "variable": {
+            "color": "#F5EFF8"
+          },
+          "property": {
+            "color": "#80CBC4"
+          },
+          "operator": {
+            "color": "#80CBC4"
+          },
+          "punctuation": {
+            "color": "#827686"
+          }
+        }
+      }
+    },
+    {
+      "name": "Angrboða Light",
+      "appearance": "light",
+      "style": {
+        "background": "#FCF9FD",
+        "surface.background": "#F3EDF5",
+        "elevated_surface.background": "#E9DFED",
+        "border": "#DED2E2",
+        "border.variant": "#DED2E2",
+        "border.focused": "#68459B",
+        "element.background": "#F3EDF5",
+        "element.hover": "#E9DFED",
+        "element.selected": "#E9DFED",
+        "text": "#211B24",
+        "text.muted": "#665B6A",
+        "text.accent": "#B52643",
+        "editor.background": "#FCF9FD",
+        "editor.foreground": "#211B24",
+        "editor.gutter.background": "#FCF9FD",
+        "editor.line_number": "#807384",
+        "editor.active_line_number": "#211B24",
+        "editor.active_line.background": "#F3EDF5",
+        "editor.indent_guide": "#DED2E2",
+        "editor.indent_guide_active": "#807384",
+        "status_bar.background": "#F3EDF5",
+        "tab_bar.background": "#F3EDF5",
+        "tab.active_background": "#FCF9FD",
+        "tab.inactive_background": "#F3EDF5",
+        "terminal.background": "#FCF9FD",
+        "terminal.foreground": "#211B24",
+        "terminal.ansi.black": "#FCF9FD",
+        "terminal.ansi.red": "#B52643",
+        "terminal.ansi.green": "#25723A",
+        "terminal.ansi.yellow": "#805C00",
+        "terminal.ansi.blue": "#25659A",
+        "terminal.ansi.magenta": "#68459B",
+        "terminal.ansi.cyan": "#176E6B",
+        "terminal.ansi.white": "#211B24",
+        "terminal.ansi.bright_black": "#807384",
+        "terminal.ansi.bright_red": "#B52643",
+        "terminal.ansi.bright_green": "#25723A",
+        "terminal.ansi.bright_yellow": "#805C00",
+        "terminal.ansi.bright_blue": "#25659A",
+        "terminal.ansi.bright_magenta": "#68459B",
+        "terminal.ansi.bright_cyan": "#176E6B",
+        "terminal.ansi.bright_white": "#211B24",
+        "syntax": {
+          "comment": {
+            "color": "#665B6A",
+            "font_style": "italic"
+          },
+          "keyword": {
+            "color": "#68459B"
+          },
+          "function": {
+            "color": "#68459B"
+          },
+          "type": {
+            "color": "#805C00"
+          },
+          "string": {
+            "color": "#B52643"
+          },
+          "number": {
+            "color": "#98401D"
+          },
+          "constant": {
+            "color": "#176E6B"
+          },
+          "variable": {
+            "color": "#211B24"
+          },
+          "property": {
+            "color": "#176E6B"
+          },
+          "operator": {
+            "color": "#176E6B"
+          },
+          "punctuation": {
+            "color": "#807384"
+          }
+        }
+      }
+    }
+  ]
+}

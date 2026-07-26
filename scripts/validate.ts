@@ -38,13 +38,26 @@ const requiredFiles = [
   'themes/angrboda-dark-color-theme.json',
   'themes/angrboda-light-color-theme.json',
   'ports/alacritty/angrboda-dark.toml',
+  'ports/alacritty/angrboda-light.toml',
+  'ports/base16/angrboda-dark.yaml',
+  'ports/base16/angrboda-light.yaml',
   'ports/chrome/manifest.json',
   'ports/ghostty/Angrboda Dark',
+  'ports/ghostty/Angrboda Light',
+  'ports/helix/angrboda-dark.toml',
+  'ports/helix/angrboda-light.toml',
+  'ports/iterm2/Angrboda Dark.itermcolors',
+  'ports/iterm2/Angrboda Light.itermcolors',
   'ports/kitty/angrboda-dark.conf',
+  'ports/kitty/angrboda-light.conf',
   'ports/opencode/angrboda.json',
+  'ports/sublime-text/Angrboda Dark.sublime-color-scheme',
+  'ports/sublime-text/Angrboda Light.sublime-color-scheme',
   'ports/warp/angrboda-dark.yaml',
+  'ports/warp/angrboda-light.yaml',
   'ports/wezterm/angrboda.lua',
   'ports/windows-terminal/angrboda.json',
+  'ports/zed/angrboda.json',
 ]
 
 await Promise.all(
@@ -59,5 +72,42 @@ JSON.parse(await fs.readFile('themes/angrboda-light-color-theme.json', 'utf8'))
 JSON.parse(await fs.readFile('ports/chrome/manifest.json', 'utf8'))
 JSON.parse(await fs.readFile('ports/opencode/angrboda.json', 'utf8'))
 JSON.parse(await fs.readFile('ports/windows-terminal/angrboda.json', 'utf8'))
+const zed = JSON.parse(await fs.readFile('ports/zed/angrboda.json', 'utf8')) as {
+  $schema: string
+  themes: Array<{ appearance: string; style: Record<string, unknown> }>
+}
+assert.equal(zed.$schema, 'https://zed.dev/schema/themes/v0.2.0.json')
+assert.deepEqual(
+  zed.themes.map(({ appearance }) => appearance),
+  ['dark', 'light'],
+)
+for (const theme of zed.themes) {
+  assert.ok(theme.style.syntax)
+  assert.ok(theme.style['terminal.ansi.bright_white'])
+}
+
+for (const mode of ['Dark', 'Light']) {
+  const sublimeSource = await fs.readFile(`ports/sublime-text/Angrboda ${mode}.sublime-color-scheme`, 'utf8')
+  const sublime = JSON.parse(sublimeSource.replace(/,\s*([}\]])/g, '$1')) as {
+    globals: Record<string, string>
+    rules: unknown[]
+  }
+  assert.ok(sublime.globals.background)
+  assert.ok(sublime.rules.length >= 10)
+
+  const iTerm = await fs.readFile(`ports/iterm2/Angrboda ${mode}.itermcolors`, 'utf8')
+  assert.match(iTerm, /^<\?xml version="1\.0"/)
+  assert.match(iTerm, /<plist version="1\.0">/)
+  assert.equal(iTerm.match(/<key>Ansi \d+ Color<\/key>/g)?.length, 16)
+}
+
+for (const mode of ['dark', 'light']) {
+  const helix = await fs.readFile(`ports/helix/angrboda-${mode}.toml`, 'utf8')
+  assert.match(helix, /\[palette\]/)
+  assert.match(helix, /"ui\.background"/)
+
+  const base16 = await fs.readFile(`ports/base16/angrboda-${mode}.yaml`, 'utf8')
+  assert.equal(base16.match(/  base[0-9A-F]{2}: ['"]#[0-9A-F]{6}['"]/g)?.length, 16)
+}
 
 console.log('Validated palette contrast and generated theme formats.')

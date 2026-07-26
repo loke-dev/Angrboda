@@ -4,14 +4,19 @@ import { ThemeShowcase } from './theme-showcase'
 const platforms = [
   ['VS Code', 'Two complete workbench and syntax themes', 'themes'],
   ['Cursor', 'Install the same extension from a VSIX', 'themes'],
+  ['Zed', 'Native theme family with integrated terminal colors', 'ports/zed'],
+  ['Sublime Text', 'Complete dark and light color schemes', 'ports/sublime-text'],
+  ['Helix', 'Native editor and tree-sitter theme files', 'ports/helix'],
   ['Ghostty', 'Native light and dark theme files', 'ports/ghostty'],
   ['Kitty', 'Drop-in terminal configuration', 'ports/kitty'],
   ['Alacritty', 'Modern TOML color imports', 'ports/alacritty'],
   ['Warp', 'Custom YAML themes', 'ports/warp'],
   ['WezTerm', 'A ready-to-require Lua module', 'ports/wezterm'],
+  ['iTerm2', 'Importable macOS color presets', 'ports/iterm2'],
   ['Windows Terminal', 'Importable color schemes', 'ports/windows-terminal'],
   ['OpenCode', 'A native adaptive AI harness theme', 'ports/opencode'],
   ['Chrome', 'Browser chrome with matching DevTools', 'ports/chrome'],
+  ['Base16', 'Universal palettes for dozens more tools', 'ports/base16'],
 ]
 
 const code = [
@@ -80,6 +85,9 @@ export default function Home() {
           </a>
           <a className="button secondary" href="#everywhere">
             Explore every port
+          </a>
+          <a className="text-link" href="https://github.com/loke-dev/Angrboda/releases/latest">
+            Download the complete bundle <span aria-hidden="true">↓</span>
           </a>
         </div>
 
@@ -156,8 +164,8 @@ export default function Home() {
             <span className="kicker">MIT licensed · community shaped</span>
             <h2>Bring the Ironwood with you.</h2>
           </div>
-          <a className="button primary" href="https://github.com/loke-dev/Angrboda">
-            View on GitHub <span aria-hidden="true">↗</span>
+          <a className="button primary" href="https://github.com/loke-dev/Angrboda/releases/latest">
+            Download every port <span aria-hidden="true">↓</span>
           </a>
         </div>
       </section>

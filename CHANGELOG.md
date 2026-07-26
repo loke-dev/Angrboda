@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.0
+
+- Added generated Zed, Sublime Text, Helix, iTerm2, and Base16 ports.
+- Added a checksummed cross-tool ZIP bundle to builds and GitHub releases.
+- Expanded format validation, installation guidance, and AI harness support
+  documentation.
+
 ## 1.4.0
 
 - Rebuilt the dark and light palette around accessible opaque text colors.

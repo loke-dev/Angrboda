@@ -1,0 +1,59 @@
+# Angrboða Light for Helix
+"attribute" = "red"
+"type" = "yellow"
+"constructor" = "yellow"
+"constant" = "cyan"
+"string" = "red"
+"variable" = "foreground"
+"label" = "cyan"
+"punctuation" = "subtle"
+"keyword" = "violet"
+"operator" = "cyan"
+"function" = "violet"
+"tag" = "red"
+"namespace" = "foreground"
+"special" = "orange"
+"error" = "red"
+"warning" = "yellow"
+"info" = "blue"
+"hint" = "cyan"
+"diff.plus" = "green"
+"diff.minus" = "red"
+"diff.delta" = "violet"
+"comment" = { fg = "muted", modifiers = ["italic"] }
+"ui.background" = { bg = "background" }
+"ui.text" = "foreground"
+"ui.text.focus" = { fg = "foreground", bg = "surface-raised" }
+"ui.text.inactive" = "muted"
+"ui.cursor" = { fg = "background", bg = "red" }
+"ui.cursor.match" = { fg = "background", bg = "violet" }
+"ui.cursorline.primary" = { bg = "surface" }
+"ui.selection" = { bg = "surface-raised" }
+"ui.selection.primary" = { bg = "surface-raised" }
+"ui.gutter" = { bg = "background" }
+"ui.linenr" = "subtle"
+"ui.linenr.selected" = "foreground"
+"ui.statusline" = { fg = "foreground", bg = "surface" }
+"ui.statusline.inactive" = { fg = "muted", bg = "surface" }
+"ui.menu" = { fg = "foreground", bg = "surface" }
+"ui.menu.selected" = { fg = "foreground", bg = "surface-raised" }
+"ui.popup" = { fg = "foreground", bg = "surface" }
+"ui.window" = "border"
+"ui.virtual.indent-guide" = "border"
+"ui.virtual.inlay-hint" = "muted"
+
+[palette]
+background = "#FCF9FD"
+surface = "#F3EDF5"
+surface-raised = "#E9DFED"
+foreground = "#211B24"
+muted = "#665B6A"
+subtle = "#807384"
+border = "#DED2E2"
+red = "#B52643"
+violet = "#68459B"
+green = "#25723A"
+yellow = "#805C00"
+blue = "#25659A"
+cyan = "#176E6B"
+orange = "#98401D"

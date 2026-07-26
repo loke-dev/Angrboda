@@ -2,6 +2,7 @@
 node_modules/
 .vscode
 *.vsix
+dist/
 website/.next/
 website/.vinext/
 website/.wrangler/

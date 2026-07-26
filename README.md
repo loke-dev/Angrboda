@@ -12,7 +12,7 @@
 <p align="center">
   <a href="https://angrboda.loke.dev">Website</a> ·
   <a href="https://marketplace.visualstudio.com/items?itemName=carlssonloke.angrboda">VS Code Marketplace</a> ·
-  <a href="https://github.com/loke-dev/Angrboda/releases/latest">Latest release</a>
+  <a href="https://github.com/loke-dev/Angrboda/releases/latest">Download every port</a>
 </p>
 
 ![Angrboða dark theme preview](assets/screenshots/editor-preview.png)
@@ -32,9 +32,9 @@ or download the `.vsix` from the
 [latest GitHub release](https://github.com/loke-dev/Angrboda/releases/latest):
 
 ```sh
-code --install-extension angrboda-1.4.0.vsix
+code --install-extension angrboda-1.5.0.vsix
 # or
-cursor --install-extension angrboda-1.4.0.vsix
+cursor --install-extension angrboda-1.5.0.vsix
 ```
 
 Then choose **Angrboda Dark** or **Angrboda Light** from
@@ -42,18 +42,26 @@ Then choose **Angrboda Dark** or **Angrboda Light** from
 
 ### Everywhere else
 
-Generated ports live in [`ports/`](ports):
+Download `angrboda-themes-1.5.0.zip` from the
+[latest release](https://github.com/loke-dev/Angrboda/releases/latest), or use
+the generated files in [`ports/`](ports):
 
-| Tool              | Format                | Modes        |
-| ----------------- | --------------------- | ------------ |
-| Ghostty           | native theme          | dark + light |
-| Kitty             | `.conf`               | dark + light |
-| Alacritty         | TOML import           | dark + light |
-| Warp              | custom theme YAML     | dark + light |
-| WezTerm           | Lua color schemes     | dark + light |
-| Windows Terminal  | JSON schemes          | dark + light |
-| OpenCode          | native adaptive theme | automatic    |
-| Chrome + DevTools | unpacked Chrome theme | dark         |
+| Tool              | Format                    | Modes        |
+| ----------------- | ------------------------- | ------------ |
+| VS Code + Cursor  | VSIX / native themes      | dark + light |
+| Zed               | native theme family       | dark + light |
+| Sublime Text      | `.sublime-color-scheme`   | dark + light |
+| Helix             | native TOML theme         | dark + light |
+| Ghostty           | native theme              | dark + light |
+| Kitty             | `.conf`                   | dark + light |
+| Alacritty         | TOML import               | dark + light |
+| Warp              | custom theme YAML         | dark + light |
+| WezTerm           | Lua color schemes         | dark + light |
+| iTerm2            | importable color presets  | dark + light |
+| Windows Terminal  | JSON schemes              | dark + light |
+| OpenCode          | native adaptive AI theme  | automatic    |
+| Chrome + DevTools | unpacked Chrome theme     | dark         |
+| Base16            | universal scheme palettes | dark + light |
 
 See the [port installation guide](ports/README.md) for exact paths and setup.
 
@@ -84,7 +92,9 @@ themes and every port, keeping the system in sync. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for the project workflow.
 
 Tagged releases are packaged automatically. If repository secrets are present,
-the same workflow also publishes to the VS Code Marketplace and Open VSX.
+the same workflow also publishes to the VS Code Marketplace and Open VSX. Each
+release contains both the editor VSIX and a checksummed ZIP with every generated
+port, its documentation, and source themes.
 
 ## Name
 
