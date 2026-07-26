@@ -1,11 +1,15 @@
 # Changelog
 
-## Unreleased
+## 1.6.0
 
 - Replaced the rough editor crop with polished, mode-matched dark and light
   screenshots.
 - Added a deterministic website capture surface so marketing previews can be
   reproduced without manual cropping.
+- Added a dependency-free installer for Alacritty, Ghostty, Helix, Kitty,
+  OpenCode, WezTerm, and Zed.
+- Added dry runs, conflict refusal, recoverable forced replacements, and
+  installer regression tests.
 
 ## 1.5.2
 

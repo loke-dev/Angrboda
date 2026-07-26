@@ -88,6 +88,7 @@ const sourcePaths = [
   'README.md',
   'CONTRIBUTING.md',
   'CHANGELOG.md',
+  'install.mjs',
   'LICENSE',
   'logo.png',
 ].sort()

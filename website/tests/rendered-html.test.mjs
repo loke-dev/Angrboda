@@ -35,6 +35,8 @@ test('server-renders the Angrboða marketing site', async () => {
   assert.match(html, /Base16/)
   assert.match(html, /Install for VS Code/)
   assert.match(html, /Download the complete bundle/)
+  assert.match(html, /Skip the config scavenger hunt/)
+  assert.match(html, /node install\.mjs zed --dry-run/)
   assert.match(html, /angrboda-mark-v3\.svg/)
   assert.match(html, /angrboda-social-v3\.png/)
   assert.doesNotMatch(html, /ironwood-(?:mark|favicon)/)

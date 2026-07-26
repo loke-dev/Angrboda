@@ -2,7 +2,7 @@
   "name": "angrboda",
   "displayName": "Angrboða",
   "description": "A mythic red and violet theme system for focused work across editors, terminals, and AI tools.",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "categories": [
     "Themes"
   ],
@@ -27,7 +27,7 @@
   },
   "scripts": {
     "build": "tsx src/index.ts",
-    "check": "npm run build && npm run typecheck && npm run validate && npm run format:check",
+    "check": "npm run build && npm run typecheck && npm run test:installer && npm run validate && npm run format:check",
     "dev": "tsx watch src/index.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -36,6 +36,7 @@
     "package:vsix": "vsce package --no-dependencies",
     "publish:marketplace": "vsce publish",
     "publish:openvsx": "ovsx publish",
+    "test:installer": "node --test tests/installer.test.mjs",
     "typecheck": "tsc --noEmit",
     "validate": "tsx scripts/validate.ts"
   },

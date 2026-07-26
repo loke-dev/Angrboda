@@ -29,6 +29,7 @@ export default function Home() {
           <span>Angrboða</span>
         </a>
         <div className="nav-links">
+          <a href="#install">Install</a>
           <a href="#palette">Palette</a>
           <a href="#everywhere">Everywhere</a>
           <a href="https://github.com/loke-dev/Angrboda">GitHub</a>
@@ -127,6 +128,35 @@ export default function Home() {
               </a>
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="installer-section shell" id="install">
+        <div className="installer-copy">
+          <span className="kicker">One bundle · seven direct installs</span>
+          <h2>Skip the config scavenger hunt.</h2>
+          <p>
+            The bundle now includes a dependency-free installer for the ports with stable theme locations. Preview every
+            change first; existing files are protected and forced replacements are backed up.
+          </p>
+        </div>
+        <div className="command-card" aria-label="Angrboða installer commands">
+          <div className="command-bar">
+            <div className="traffic-lights" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </div>
+            <span>angrboda / install</span>
+          </div>
+          <pre>
+            <code>
+              <span>$</span> node install.mjs list{'\n'}
+              <span>$</span> node install.mjs zed --dry-run{'\n'}
+              <span>$</span> node install.mjs zed
+            </code>
+          </pre>
+          <p>Alacritty · Ghostty · Helix · Kitty · OpenCode · WezTerm · Zed</p>
         </div>
       </section>
 

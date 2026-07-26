@@ -54,6 +54,7 @@ for (const mode of [0, 1] as const) {
 const requiredFiles = [
   'themes/angrboda-dark-color-theme.json',
   'themes/angrboda-light-color-theme.json',
+  'install.mjs',
   'ports/alacritty/angrboda-dark.toml',
   'ports/alacritty/angrboda-light.toml',
   'ports/base16/angrboda-dark.yaml',
