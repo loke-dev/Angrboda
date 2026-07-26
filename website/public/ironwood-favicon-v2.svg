@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Angrboða</title>
+  <desc id="desc">Two mirrored Ironwood branches cradle an ember.</desc>
+  <rect width="256" height="256" rx="56" fill="#141216"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M92 202C60 183 46 151 53 116c6-31 22-56 50-75" stroke="#F5EFF8" stroke-width="24"/>
+    <path d="M164 202c32-19 46-51 39-86-6-31-22-56-50-75" stroke="#D6A4FF" stroke-width="24"/>
+    <path d="M111 181c-22-17-29-42-18-65 6-13 15-23 27-32" stroke="#F5EFF8" stroke-width="17"/>
+    <path d="M145 181c22-17 29-42 18-65-6-13-15-23-27-32" stroke="#D6A4FF" stroke-width="17"/>
+  </g>
+  <path d="M128 119c14 12 21 23 21 34 0 12-8 23-21 31-13-8-21-19-21-31 0-11 7-22 21-34Z" fill="#FF718A"/>
+</svg>
