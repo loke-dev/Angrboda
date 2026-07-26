@@ -1,40 +1,63 @@
-# Packages the theme as a .vsix and uploads it to the GitHub Release that triggered
-# this run. No Visual Studio Marketplace account or PAT.
-#
-# How to ship a version:
-#   1. npm run release
-#      (bumpp bumps package.json, commits, tags v*, pushes to origin)
-#   2. GitHub → Releases → Draft a new release → choose that tag → Publish release
-#      Or: gh release create v1.2.3 --verify-tag --generate-notes
-#
-# The published release triggers this workflow; the VSIX appears on the release page.
-
-name: Release VSIX
+name: Build and release
 
 on:
-  release:
-    types: [published]
+  push:
+    branches: [master]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  package:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run package:vsix
+      - uses: actions/upload-artifact@v4
+        with:
+          name: angrboda-vsix
+          path: '*.vsix'
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: quality
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: angrboda-vsix
+      - uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: '*.vsix'
 
+  publish-registries:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: quality
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
-
       - run: npm ci
-
-      - name: Package extension
-        run: npx --yes @vscode/vsce package --no-dependencies
-
-      - name: Attach VSIX to this release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: '*.vsix'
+      - run: npm run publish:marketplace -- --pat "$VSCE_PAT"
+        if: env.VSCE_PAT != ''
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      - run: npm run publish:openvsx -- --pat "$OVSX_PAT"
+        if: env.OVSX_PAT != ''
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}

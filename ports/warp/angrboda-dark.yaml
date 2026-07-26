@@ -1,0 +1,25 @@
+name: Angrboða Dark
+accent: '#FF718A'
+cursor: '#FF718A'
+background: '#141216'
+foreground: '#F5EFF8'
+details: 'darker'
+terminal_colors:
+  normal:
+    - '#141216'
+    - '#FF718A'
+    - '#78C98D'
+    - '#F4C86A'
+    - '#78B9F2'
+    - '#D6A4FF'
+    - '#80CBC4'
+    - '#F5EFF8'
+  bright:
+    - '#827686'
+    - '#FF718A'
+    - '#78C98D'
+    - '#F4C86A'
+    - '#78B9F2'
+    - '#D6A4FF'
+    - '#80CBC4'
+    - '#F5EFF8'

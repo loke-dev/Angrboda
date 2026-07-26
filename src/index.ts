@@ -1,4 +1,6 @@
 import { promises as fs } from 'fs'
+import { format, resolveConfig } from 'prettier'
+import { generatePorts } from './ports'
 import getTheme from './theme'
 
 const lightTheme = getTheme({
@@ -11,9 +13,23 @@ const darkTheme = getTheme({
   name: 'Angrboda Dark',
 })
 
-fs.mkdir('./themes', { recursive: true })
-  .then(() => Promise.all([
-    fs.writeFile('./themes/light.json', JSON.stringify(lightTheme, null, 2)),
-    fs.writeFile('./themes/dark.json', JSON.stringify(darkTheme, null, 2)),
-  ]))
-  .catch(() => process.exit(1))
+async function build() {
+  const prettierConfig = (await resolveConfig('package.json')) ?? {}
+  const json = (value: unknown) =>
+    format(JSON.stringify(value), {
+      ...prettierConfig,
+      parser: 'json',
+    })
+
+  await fs.mkdir('./themes', { recursive: true })
+  await Promise.all([
+    fs.writeFile('./themes/angrboda-light-color-theme.json', await json(lightTheme)),
+    fs.writeFile('./themes/angrboda-dark-color-theme.json', await json(darkTheme)),
+    generatePorts(),
+  ])
+}
+
+build().catch((error: unknown) => {
+  console.error(error)
+  process.exitCode = 1
+})

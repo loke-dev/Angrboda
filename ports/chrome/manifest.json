@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Angrboða for Chrome",
+  "version": "1.0.0",
+  "description": "Angrboða colors for Chrome and its dynamic DevTools appearance.",
+  "theme": {
+    "colors": {
+      "frame": [20, 18, 22],
+      "frame_inactive": [29, 25, 32],
+      "toolbar": [29, 25, 32],
+      "tab_text": [245, 239, 248],
+      "tab_background_text": [179, 168, 184],
+      "bookmark_text": [245, 239, 248],
+      "ntp_background": [20, 18, 22],
+      "ntp_text": [245, 239, 248],
+      "button_background": [41, 34, 45]
+    }
+  }
+}

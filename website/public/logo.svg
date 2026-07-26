@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Angrboða</title>
+  <desc id="desc">A geometric A formed by two mirrored peaks and a glowing ember.</desc>
+  <rect width="256" height="256" rx="56" fill="#141216"/>
+  <path d="M42 190 112 52h32l70 138h-38l-19-40H99l-19 40H42Zm72-72h28l-14-31-14 31Z" fill="#F5EFF8"/>
+  <path d="m128 52 86 138h-38l-48-103V52Z" fill="#D6A4FF"/>
+  <circle cx="128" cy="164" r="14" fill="#FF718A"/>
+</svg>

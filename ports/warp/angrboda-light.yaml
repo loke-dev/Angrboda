@@ -1,0 +1,25 @@
+name: Angrboða Light
+accent: '#B52643'
+cursor: '#B52643'
+background: '#FCF9FD'
+foreground: '#211B24'
+details: 'lighter'
+terminal_colors:
+  normal:
+    - '#FCF9FD'
+    - '#B52643'
+    - '#25723A'
+    - '#805C00'
+    - '#25659A'
+    - '#68459B'
+    - '#176E6B'
+    - '#211B24'
+  bright:
+    - '#807384'
+    - '#B52643'
+    - '#25723A'
+    - '#805C00'
+    - '#25659A'
+    - '#68459B'
+    - '#176E6B'
+    - '#211B24'

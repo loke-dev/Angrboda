@@ -1,50 +1,96 @@
+<p align="center">
+  <img src="logo.png" width="128" alt="Angrboða logo">
+</p>
+
 <h1 align="center">Angrboða</h1>
 
 <p align="center">
-  <img alt="Logo" src="https://github.com/user-attachments/assets/5b89e445-6397-49a3-936b-468bfb306548" width="200">
+  <strong>Color for the bright and the buried.</strong><br>
+  A mythic red and violet theme system for editors, terminals, browsers, and AI coding tools.
 </p>
 
 <p align="center">
-  <a href="https://github.com/lokecarlsson/Angrboda/releases/latest">
-    <img alt="GitHub release" src="https://img.shields.io/github/v/release/lokecarlsson/Angrboda?style=for-the-badge&labelColor=1e1e2e&color=f4b8e4">
-  </a>
-  <a href="https://github.com/lokecarlsson/Angrboda/blob/main/LICENSE">
-    <img alt="License" src="https://img.shields.io/github/license/lokecarlsson/Angrboda?style=for-the-badge&labelColor=1e1e2e&color=f4b8e4">
-  </a>
+  <a href="https://angrboda.loke.dev">Website</a> ·
+  <a href="https://marketplace.visualstudio.com/items?itemName=carlssonloke.angrboda">VS Code Marketplace</a> ·
+  <a href="https://github.com/loke-dev/Angrboda/releases/latest">Latest release</a>
 </p>
 
-<p align="center">
-  <strong>A dark and light theme for long coding sessions — built for VS Code and Cursor.</strong>
-</p>
+![Angrboða dark theme preview](assets/screenshots/editor-preview.png)
 
-<p align="center">
-  Inspired by the giantess from Norse mythology, this theme brings a touch of myth and magic to your editor. Pick the shadowy dark variant or the crisp light variant; both are tuned for readability.
-</p>
+Angrboða is expressive without shouting and calm without disappearing. Its
+ember-red and spectral-violet accents sit on a neutral foundation tuned for long
+sessions. Dark and light modes share one typed source palette, with measured
+contrast for ordinary text and consistent generated ports.
 
-<p align="center">
-<img alt="Preview" src="https://user-images.githubusercontent.com/14079937/110474445-f4ea7300-80df-11eb-88d3-db2bb57ac7e9.png">
-</p>
+## Install
 
-## Installation
+### VS Code and Cursor
 
-Releases ship as a **`.vsix`** file attached to each [GitHub Release](https://github.com/lokecarlsson/Angrboda/releases).
+Install `carlssonloke.angrboda` from the
+[VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=carlssonloke.angrboda),
+or download the `.vsix` from the
+[latest GitHub release](https://github.com/loke-dev/Angrboda/releases/latest):
 
-1. Open the **latest release** and download **`angrboda-&lt;version&gt;.vsix`**.
-2. In **Cursor** or **VS Code**: open the **Extensions** view → **⋯** menu → **Install from VSIX…** (or run the “Install from VSIX” command in the palette).
-3. Choose the downloaded file. Reload the window if prompted.
-4. Run **Preferences: Color Theme** and select **Angrboða Light** or **Angrboða Dark**.
+```sh
+code --install-extension angrboda-1.4.0.vsix
+# or
+cursor --install-extension angrboda-1.4.0.vsix
+```
 
-## Releasing (maintainers)
+Then choose **Angrboda Dark** or **Angrboda Light** from
+**Preferences: Color Theme**.
 
-1. Run **`npm run release`** — [bumpp](https://github.com/antfu/bumpp) updates `package.json`, commits, creates tag `v*`, and pushes.
-2. On GitHub, open **Releases** → **Draft a new release** → select that tag → **Publish release**.  
-   Alternatively: `gh release create vX.Y.Z --verify-tag --generate-notes`
-3. GitHub Actions attaches the built **`.vsix`** to that release automatically.
+### Everywhere else
 
-## Thanks
+Generated ports live in [`ports/`](ports):
 
-Based on the excellent [vscode-theme-vitesse](https://github.com/antfu/vscode-theme-vitesse) by Anthony Fu.
+| Tool              | Format                | Modes        |
+| ----------------- | --------------------- | ------------ |
+| Ghostty           | native theme          | dark + light |
+| Kitty             | `.conf`               | dark + light |
+| Alacritty         | TOML import           | dark + light |
+| Warp              | custom theme YAML     | dark + light |
+| WezTerm           | Lua color schemes     | dark + light |
+| Windows Terminal  | JSON schemes          | dark + light |
+| OpenCode          | native adaptive theme | automatic    |
+| Chrome + DevTools | unpacked Chrome theme | dark         |
+
+See the [port installation guide](ports/README.md) for exact paths and setup.
+
+## Palette
+
+| Role       | Dark      | Light     |
+| ---------- | --------- | --------- |
+| Background | `#141216` | `#FCF9FD` |
+| Foreground | `#F5EFF8` | `#211B24` |
+| Ember      | `#FF718A` | `#B52643` |
+| Violet     | `#D6A4FF` | `#68459B` |
+| Cyan       | `#80CBC4` | `#176E6B` |
+| Green      | `#78C98D` | `#25723A` |
+
+The build validates the primary text and syntax colors against WCAG AA contrast.
+
+## Development
+
+```sh
+npm ci
+npm run dev
+npm run check
+npm run package:vsix
+```
+
+Edit `src/colors.ts` and `src/theme.ts`. The build regenerates both VS Code
+themes and every port, keeping the system in sync. See
+[CONTRIBUTING.md](CONTRIBUTING.md) for the project workflow.
+
+Tagged releases are packaged automatically. If repository secrets are present,
+the same workflow also publishes to the VS Code Marketplace and Open VSX.
+
+## Name
+
+Angrboða is the giantess of the Ironwood in Norse mythology—a fitting namesake
+for a theme that holds light and shadow in the same system.
 
 ## License
 
-[MIT](LICENSE).
+[MIT](LICENSE) © Loke Carlsson.
