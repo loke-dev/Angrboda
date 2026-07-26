@@ -14,11 +14,11 @@ node install.mjs ghostty --dry-run
 node install.mjs ghostty
 ```
 
-It supports Alacritty, Ghostty, Helix, Kitty, OpenCode, WezTerm, and Zed. Pass
-`--target <directory>` to use a custom config location. The installer does not
-edit activation settings; it prints the exact final step for the selected tool.
-It refuses differing existing files by default. `--force` creates a timestamped
-backup before replacing them.
+It supports Alacritty, Gemini CLI, Ghostty, Helix, Kitty, OpenCode, WezTerm, and
+Zed. Pass `--target <directory>` to use a custom config location. The installer
+does not edit activation settings; it prints the exact final step for the
+selected tool. It refuses differing existing files by default. `--force`
+creates a timestamped backup before replacing them.
 
 ## Zed
 
@@ -101,6 +101,18 @@ Copy `opencode/angrboda.json` to
 `~/.config/opencode/themes/angrboda.json`, then run `/theme` and choose
 `angrboda`. The single file adapts to dark and light appearances.
 
+## Gemini CLI
+
+Install both native custom-theme files:
+
+```sh
+node install.mjs gemini
+```
+
+The installer prints the full path to each theme. Set `ui.theme` in
+`~/.gemini/settings.json` to the dark or light JSON path, or select the theme
+with `/theme` after registering it in `ui.customThemes`.
+
 ## Chrome and DevTools
 
 Chrome DevTools does not expose a third-party full-theme API. Angrboða uses the
@@ -124,7 +136,8 @@ of additional applications.
 
 ## AI coding tools
 
-OpenCode has a native adaptive port. Cursor and Windsurf can use the VSIX, Zed's
-assistant uses the Zed theme, and terminal-native tools such as Codex CLI and
-Claude Code inherit Angrboða from the surrounding terminal. This avoids fragile
-or unsupported UI overrides while keeping the full session visually coherent.
+Gemini CLI has native dark and light custom themes, and OpenCode has a native
+adaptive port. Cursor and Windsurf can use the VSIX, Zed's assistant uses the
+Zed theme, and terminal-native tools such as Codex CLI and Claude Code inherit
+Angrboða from the surrounding terminal. This avoids fragile or unsupported UI
+overrides while keeping the full session visually coherent.

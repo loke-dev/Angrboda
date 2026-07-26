@@ -62,6 +62,8 @@ const requiredFiles = [
   'ports/chrome/manifest.json',
   'ports/ghostty/Angrboda Dark',
   'ports/ghostty/Angrboda Light',
+  'ports/gemini-cli/angrboda-dark.json',
+  'ports/gemini-cli/angrboda-light.json',
   'ports/helix/angrboda-dark.toml',
   'ports/helix/angrboda-light.toml',
   'ports/iterm2/Angrboda Dark.itermcolors',
@@ -123,6 +125,23 @@ JSON.parse(await fs.readFile('themes/angrboda-dark-color-theme.json', 'utf8'))
 JSON.parse(await fs.readFile('themes/angrboda-light-color-theme.json', 'utf8'))
 JSON.parse(await fs.readFile('ports/chrome/manifest.json', 'utf8'))
 JSON.parse(await fs.readFile('ports/opencode/angrboda.json', 'utf8'))
+for (const mode of ['dark', 'light']) {
+  const gemini = JSON.parse(await fs.readFile(`ports/gemini-cli/angrboda-${mode}.json`, 'utf8')) as {
+    name: string
+    type: string
+    background: { primary: string }
+    text: Record<string, string>
+    status: Record<string, string>
+  }
+  assert.equal(gemini.type, 'custom')
+  assert.equal(gemini.name, `Angrboða ${mode[0]?.toUpperCase()}${mode.slice(1)}`)
+  assert.equal(gemini.background.primary, palette.background[mode === 'dark' ? 0 : 1])
+  assert.ok(gemini.text.primary)
+  assert.ok(gemini.text.secondary)
+  assert.ok(gemini.status.success)
+  assert.ok(gemini.status.warning)
+  assert.ok(gemini.status.error)
+}
 const windowsTerminal = JSON.parse(await fs.readFile('ports/windows-terminal/angrboda.json', 'utf8')) as {
   schemes: Array<{ background: string; black: string; brightBlack: string }>
 }

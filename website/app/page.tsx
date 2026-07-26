@@ -15,6 +15,7 @@ const platforms = [
   ['WezTerm', 'A ready-to-require Lua module', 'ports/wezterm'],
   ['iTerm2', 'Importable macOS color presets', 'ports/iterm2'],
   ['Windows Terminal', 'Importable color schemes', 'ports/windows-terminal'],
+  ['Gemini CLI', 'Native dark and light AI harness themes', 'ports/gemini-cli'],
   ['OpenCode', 'A native adaptive AI harness theme', 'ports/opencode'],
   ['Chrome', 'Browser chrome with matching DevTools', 'ports/chrome'],
   ['Base16', 'Universal palettes for dozens more tools', 'ports/base16'],
@@ -133,7 +134,7 @@ export default function Home() {
 
       <section className="installer-section shell" id="install">
         <div className="installer-copy">
-          <span className="kicker">One bundle · seven direct installs</span>
+          <span className="kicker">One bundle · eight direct installs</span>
           <h2>Skip the config scavenger hunt.</h2>
           <p>
             The bundle now includes a dependency-free installer for the ports with stable theme locations. Preview every
@@ -156,7 +157,7 @@ export default function Home() {
               <span>$</span> node install.mjs zed
             </code>
           </pre>
-          <p>Alacritty · Ghostty · Helix · Kitty · OpenCode · WezTerm · Zed</p>
+          <p>Alacritty · Gemini CLI · Ghostty · Helix · Kitty · OpenCode · WezTerm · Zed</p>
         </div>
       </section>
 

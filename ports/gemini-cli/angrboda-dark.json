@@ -1,0 +1,28 @@
+{
+  "name": "Angrboða Dark",
+  "type": "custom",
+  "background": {
+    "primary": "#141216"
+  },
+  "text": {
+    "primary": "#F5EFF8",
+    "secondary": "#B3A8B8",
+    "link": "#80CBC4",
+    "accent": "#D6A4FF",
+    "response": "#F5EFF8"
+  },
+  "border": {
+    "default": "#332B37",
+    "focused": "#D6A4FF"
+  },
+  "status": {
+    "success": "#78C98D",
+    "warning": "#F4C86A",
+    "error": "#FF718A"
+  },
+  "ui": {
+    "comment": "#B3A8B8",
+    "symbol": "#80CBC4",
+    "gradient": ["#FF718A", "#D6A4FF", "#80CBC4"]
+  }
+}

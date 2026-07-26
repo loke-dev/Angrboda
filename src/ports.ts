@@ -193,6 +193,42 @@ function openCode() {
   )}\n`
 }
 
+function geminiCli(mode: Mode) {
+  const title = mode[0]?.toUpperCase() + mode.slice(1)
+  return `${JSON.stringify(
+    {
+      name: `Angrboða ${title}`,
+      type: 'custom',
+      background: {
+        primary: color('background', mode),
+      },
+      text: {
+        primary: color('foreground', mode),
+        secondary: color('muted', mode),
+        link: color('cyan', mode),
+        accent: color('violet', mode),
+        response: color('foreground', mode),
+      },
+      border: {
+        default: color('border', mode),
+        focused: color('violet', mode),
+      },
+      status: {
+        success: color('green', mode),
+        warning: color('yellow', mode),
+        error: color('red', mode),
+      },
+      ui: {
+        comment: color('muted', mode),
+        symbol: color('cyan', mode),
+        gradient: [color('red', mode), color('violet', mode), color('cyan', mode)],
+      },
+    },
+    null,
+    2,
+  )}\n`
+}
+
 function chromeTheme() {
   const rgb = (value: string) => [1, 3, 5].map((offset) => Number.parseInt(value.slice(offset, offset + 2), 16))
   return `${JSON.stringify(
@@ -473,6 +509,8 @@ export async function generatePorts() {
     'ports/iterm2/Angrboda Light.itermcolors': iTerm2('light'),
     'ports/kitty/angrboda-dark.conf': kitty('dark'),
     'ports/kitty/angrboda-light.conf': kitty('light'),
+    'ports/gemini-cli/angrboda-dark.json': geminiCli('dark'),
+    'ports/gemini-cli/angrboda-light.json': geminiCli('light'),
     'ports/opencode/angrboda.json': openCode(),
     'ports/sublime-text/Angrboda Dark.sublime-color-scheme': sublime('dark'),
     'ports/sublime-text/Angrboda Light.sublime-color-scheme': sublime('light'),

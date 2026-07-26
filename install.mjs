@@ -31,6 +31,16 @@ const tools = {
     ],
     next: () => 'Set theme = dark:Angrboda Dark,light:Angrboda Light in your Ghostty config.',
   },
+  gemini: {
+    description: 'Gemini CLI custom themes',
+    directory: () => path.join(homeDirectory, '.gemini', 'themes'),
+    files: [
+      ['ports/gemini-cli/angrboda-dark.json', 'angrboda-dark.json'],
+      ['ports/gemini-cli/angrboda-light.json', 'angrboda-light.json'],
+    ],
+    next: ({ directory }) =>
+      `Set ui.theme in ~/.gemini/settings.json to "${path.join(directory, 'angrboda-dark.json')}" or "${path.join(directory, 'angrboda-light.json')}".`,
+  },
   helix: {
     description: 'Helix editor themes',
     directory: () => path.join(windows ? appData : xdgConfig, 'helix', 'themes'),

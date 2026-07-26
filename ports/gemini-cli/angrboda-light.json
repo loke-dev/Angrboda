@@ -1,0 +1,28 @@
+{
+  "name": "Angrboða Light",
+  "type": "custom",
+  "background": {
+    "primary": "#FCF9FD"
+  },
+  "text": {
+    "primary": "#211B24",
+    "secondary": "#665B6A",
+    "link": "#176E6B",
+    "accent": "#68459B",
+    "response": "#211B24"
+  },
+  "border": {
+    "default": "#DED2E2",
+    "focused": "#68459B"
+  },
+  "status": {
+    "success": "#25723A",
+    "warning": "#805C00",
+    "error": "#B52643"
+  },
+  "ui": {
+    "comment": "#665B6A",
+    "symbol": "#176E6B",
+    "gradient": ["#B52643", "#68459B", "#176E6B"]
+  }
+}

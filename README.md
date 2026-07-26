@@ -35,9 +35,9 @@ or download the `.vsix` from the
 [latest GitHub release](https://github.com/loke-dev/Angrboda/releases/latest):
 
 ```sh
-code --install-extension angrboda-1.6.0.vsix
+code --install-extension angrboda-1.7.0.vsix
 # or
-cursor --install-extension angrboda-1.6.0.vsix
+cursor --install-extension angrboda-1.7.0.vsix
 ```
 
 Then choose **Angrboda Dark** or **Angrboda Light** from
@@ -45,20 +45,20 @@ Then choose **Angrboda Dark** or **Angrboda Light** from
 
 ### Everywhere else
 
-Download `angrboda-themes-1.6.0.zip` from the
+Download `angrboda-themes-1.7.0.zip` from the
 [latest release](https://github.com/loke-dev/Angrboda/releases/latest), or use
 the generated files in [`ports/`](ports):
 
 ```sh
-unzip angrboda-themes-1.6.0.zip
+unzip angrboda-themes-1.7.0.zip
 cd angrboda
 node install.mjs list
 node install.mjs zed --dry-run
 node install.mjs zed
 ```
 
-The installer supports Alacritty, Ghostty, Helix, Kitty, OpenCode, WezTerm, and
-Zed. It never edits an application's main configuration file. Existing
+The installer supports Alacritty, Gemini CLI, Ghostty, Helix, Kitty, OpenCode,
+WezTerm, and Zed. It never edits an application's main configuration file. Existing
 different files are refused unless `--force` is supplied, and forced
 replacements receive a timestamped backup first.
 
@@ -75,6 +75,7 @@ replacements receive a timestamped backup first.
 | WezTerm           | Lua color schemes         | dark + light |
 | iTerm2            | importable color presets  | dark + light |
 | Windows Terminal  | JSON schemes              | dark + light |
+| Gemini CLI        | native AI harness themes  | dark + light |
 | OpenCode          | native adaptive AI theme  | automatic    |
 | Chrome + DevTools | unpacked Chrome theme     | dark         |
 | Base16            | universal scheme palettes | dark + light |

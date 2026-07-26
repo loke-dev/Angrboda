@@ -30,7 +30,7 @@ function run(args, env) {
 test('lists every safely automated port', () => {
   const result = run(['list'], process.env)
   assert.equal(result.status, 0, result.stderr)
-  for (const tool of ['alacritty', 'ghostty', 'helix', 'kitty', 'opencode', 'wezterm', 'zed']) {
+  for (const tool of ['alacritty', 'gemini', 'ghostty', 'helix', 'kitty', 'opencode', 'wezterm', 'zed']) {
     assert.match(result.stdout, new RegExp(`^${tool}\\s`, 'm'))
   }
 })
@@ -88,7 +88,7 @@ test('dry-run reports actions without touching the filesystem', async () => {
 
 test('every supported port resolves its bundled source files', async () => {
   const { env, root } = await fixture()
-  for (const tool of ['alacritty', 'ghostty', 'helix', 'kitty', 'opencode', 'wezterm', 'zed']) {
+  for (const tool of ['alacritty', 'gemini', 'ghostty', 'helix', 'kitty', 'opencode', 'wezterm', 'zed']) {
     const result = run([tool, '--target', path.join(root, tool), '--dry-run'], env)
     assert.equal(result.status, 0, `${tool}: ${result.stderr}`)
   }

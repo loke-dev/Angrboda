@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.7.0
+
+- Added native dark and light custom themes for Gemini CLI.
+- Added safe Gemini CLI installation to the cross-tool installer.
+- Expanded AI-harness guidance and public site coverage.
+
 ## 1.6.0
 
 - Replaced the rough editor crop with polished, mode-matched dark and light
