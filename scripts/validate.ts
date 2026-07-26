@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { promises as fs } from 'node:fs'
-import { palette } from '../src/colors'
+import { ansiPalette, brightAnsiPalette, palette } from '../src/colors'
 
 type Rgb = readonly [number, number, number]
 
@@ -26,10 +26,27 @@ const contrast = (a: string, b: string) => {
 
 for (const mode of [0, 1] as const) {
   const background = palette.background[mode]
-  for (const key of ['foreground', 'muted', 'red', 'violet', 'green', 'blue', 'cyan', 'orange'] as const) {
+  for (const key of [
+    'foreground',
+    'muted',
+    'terminalBlack',
+    'red',
+    'violet',
+    'green',
+    'blue',
+    'cyan',
+    'orange',
+  ] as const) {
     assert.ok(
       contrast(palette[key][mode], background) >= 4.5,
       `${key} must meet WCAG AA contrast in ${mode === 0 ? 'dark' : 'light'} mode`,
+    )
+  }
+
+  for (const [index, pair] of [...ansiPalette, ...brightAnsiPalette].entries()) {
+    assert.ok(
+      contrast(pair[mode], background) >= 4.5,
+      `ANSI color ${index} must meet WCAG AA contrast in ${mode === 0 ? 'dark' : 'light'} mode`,
     )
   }
 }
@@ -71,10 +88,19 @@ JSON.parse(await fs.readFile('themes/angrboda-dark-color-theme.json', 'utf8'))
 JSON.parse(await fs.readFile('themes/angrboda-light-color-theme.json', 'utf8'))
 JSON.parse(await fs.readFile('ports/chrome/manifest.json', 'utf8'))
 JSON.parse(await fs.readFile('ports/opencode/angrboda.json', 'utf8'))
-JSON.parse(await fs.readFile('ports/windows-terminal/angrboda.json', 'utf8'))
+const windowsTerminal = JSON.parse(await fs.readFile('ports/windows-terminal/angrboda.json', 'utf8')) as {
+  schemes: Array<{ background: string; black: string; brightBlack: string }>
+}
+assert.equal(windowsTerminal.schemes.length, 2)
+for (const scheme of windowsTerminal.schemes) {
+  assert.notEqual(scheme.black, scheme.background)
+  assert.ok(contrast(scheme.black, scheme.background) >= 4.5)
+  assert.ok(contrast(scheme.brightBlack, scheme.background) >= 4.5)
+}
+
 const zed = JSON.parse(await fs.readFile('ports/zed/angrboda.json', 'utf8')) as {
   $schema: string
-  themes: Array<{ appearance: string; style: Record<string, unknown> }>
+  themes: Array<{ appearance: string; style: Record<string, unknown> & { 'terminal.background': string } }>
 }
 assert.equal(zed.$schema, 'https://zed.dev/schema/themes/v0.2.0.json')
 assert.deepEqual(
@@ -84,6 +110,13 @@ assert.deepEqual(
 for (const theme of zed.themes) {
   assert.ok(theme.style.syntax)
   assert.ok(theme.style['terminal.ansi.bright_white'])
+  const terminalBackground = theme.style['terminal.background']
+  for (const key of ['terminal.ansi.black', 'terminal.ansi.bright_black'] as const) {
+    const terminalColor = theme.style[key]
+    assert.ok(typeof terminalColor === 'string')
+    assert.notEqual(terminalColor, terminalBackground)
+    assert.ok(contrast(terminalColor, terminalBackground) >= 4.5)
+  }
 }
 
 for (const mode of ['Dark', 'Light']) {

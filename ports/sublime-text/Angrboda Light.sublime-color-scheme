@@ -7,6 +7,7 @@
     "foreground": "#211B24",
     "muted": "#665B6A",
     "subtle": "#807384",
+    "terminalBlack": "#453B49",
     "border": "#DED2E2",
     "red": "#B52643",
     "violet": "#68459B",

@@ -1,6 +1,6 @@
 import { promises as fs } from 'node:fs'
 import { format, resolveConfig } from 'prettier'
-import { palette } from './colors'
+import { ansiPalette, brightAnsiPalette, palette } from './colors'
 
 type Mode = 'dark' | 'light'
 type PaletteKey = keyof typeof palette
@@ -8,19 +8,8 @@ type PaletteKey = keyof typeof palette
 const index = (mode: Mode) => (mode === 'dark' ? 0 : 1)
 const color = (key: PaletteKey, mode: Mode) => palette[key][index(mode)]
 
-const ansiKeys = ['background', 'red', 'green', 'yellow', 'blue', 'violet', 'cyan', 'foreground'] as const
-
-const ansi = (mode: Mode) => ansiKeys.map((key) => color(key, mode))
-const brightAnsi = (mode: Mode) => [
-  color('subtle', mode),
-  color('red', mode),
-  color('green', mode),
-  color('yellow', mode),
-  color('blue', mode),
-  color('violet', mode),
-  color('cyan', mode),
-  color('foreground', mode),
-]
+const ansi = (mode: Mode) => ansiPalette.map((pair) => pair[index(mode)])
+const brightAnsi = (mode: Mode) => brightAnsiPalette.map((pair) => pair[index(mode)])
 
 function ghostty(mode: Mode) {
   return [

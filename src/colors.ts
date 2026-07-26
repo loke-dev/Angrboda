@@ -18,6 +18,7 @@ export const palette = {
   foreground: pair('#F5EFF8', '#211B24'),
   muted: pair('#B3A8B8', '#665B6A'),
   subtle: pair('#827686', '#807384'),
+  terminalBlack: pair('#94899A', '#453B49'),
   border: pair('#332B37', '#DED2E2'),
   red: pair('#FF718A', '#B52643'),
   violet: pair('#D6A4FF', '#68459B'),
@@ -27,6 +28,33 @@ export const palette = {
   cyan: pair('#80CBC4', '#176E6B'),
   orange: pair('#F39A70', '#98401D'),
 } as const
+
+/**
+ * ANSI colors are text colors, so every entry must remain distinguishable from
+ * the terminal background. In particular, ANSI black must not reuse the
+ * background color: shells and TUIs legitimately render visible text with it.
+ */
+export const ansiPalette = [
+  palette.terminalBlack,
+  palette.red,
+  palette.green,
+  palette.yellow,
+  palette.blue,
+  palette.violet,
+  palette.cyan,
+  palette.foreground,
+] as const
+
+export const brightAnsiPalette = [
+  palette.muted,
+  palette.red,
+  palette.green,
+  palette.yellow,
+  palette.blue,
+  palette.violet,
+  palette.cyan,
+  palette.foreground,
+] as const
 
 export const themeColors = {
   primary: palette.red,

@@ -6,7 +6,7 @@ foreground: '#211B24'
 details: 'lighter'
 terminal_colors:
   normal:
-    - '#FCF9FD'
+    - '#453B49'
     - '#B52643'
     - '#25723A'
     - '#805C00'
@@ -15,7 +15,7 @@ terminal_colors:
     - '#176E6B'
     - '#211B24'
   bright:
-    - '#807384'
+    - '#665B6A'
     - '#B52643'
     - '#25723A'
     - '#805C00'

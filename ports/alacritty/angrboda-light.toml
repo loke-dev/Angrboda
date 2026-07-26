@@ -11,7 +11,7 @@ background = "#E9DFED"
 text = "#211B24"
 
 [colors.normal]
-black = "#FCF9FD"
+black = "#453B49"
 red = "#B52643"
 green = "#25723A"
 yellow = "#805C00"
@@ -21,7 +21,7 @@ cyan = "#176E6B"
 white = "#211B24"
 
 [colors.bright]
-black = "#807384"
+black = "#665B6A"
 red = "#B52643"
 green = "#25723A"
 yellow = "#805C00"

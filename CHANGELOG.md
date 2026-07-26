@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.1
+
+- Fixed ANSI black being indistinguishable from the terminal background in both
+  dark and light modes.
+- Added WCAG AA contrast validation for every normal and bright ANSI color.
+- Regenerated all terminal-aware ports from the corrected canonical palette.
+
 ## 1.5.0
 
 - Added generated Zed, Sublime Text, Helix, iTerm2, and Base16 ports.

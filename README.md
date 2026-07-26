@@ -32,9 +32,9 @@ or download the `.vsix` from the
 [latest GitHub release](https://github.com/loke-dev/Angrboda/releases/latest):
 
 ```sh
-code --install-extension angrboda-1.5.0.vsix
+code --install-extension angrboda-1.5.1.vsix
 # or
-cursor --install-extension angrboda-1.5.0.vsix
+cursor --install-extension angrboda-1.5.1.vsix
 ```
 
 Then choose **Angrboda Dark** or **Angrboda Light** from
@@ -42,7 +42,7 @@ Then choose **Angrboda Dark** or **Angrboda Light** from
 
 ### Everywhere else
 
-Download `angrboda-themes-1.5.0.zip` from the
+Download `angrboda-themes-1.5.1.zip` from the
 [latest release](https://github.com/loke-dev/Angrboda/releases/latest), or use
 the generated files in [`ports/`](ports):
 
@@ -71,12 +71,14 @@ See the [port installation guide](ports/README.md) for exact paths and setup.
 | ---------- | --------- | --------- |
 | Background | `#141216` | `#FCF9FD` |
 | Foreground | `#F5EFF8` | `#211B24` |
+| ANSI black | `#94899A` | `#453B49` |
 | Ember      | `#FF718A` | `#B52643` |
 | Violet     | `#D6A4FF` | `#68459B` |
 | Cyan       | `#80CBC4` | `#176E6B` |
 | Green      | `#78C98D` | `#25723A` |
 
-The build validates the primary text and syntax colors against WCAG AA contrast.
+The build validates primary text, syntax colors, and all 16 terminal ANSI colors
+against WCAG AA contrast.
 
 ## Development
 
