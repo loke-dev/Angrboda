@@ -92,17 +92,7 @@ footer a:hover {
 .hero {
   padding: 92px 0 112px;
   position: relative;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  right: -120px;
-  top: 0;
-  background: radial-gradient(circle, #d6a4ff18 0, transparent 68%);
-  pointer-events: none;
+  background: radial-gradient(circle 250px at 100% 250px, #d6a4ff18 0, transparent 68%);
 }
 
 .eyebrow,
@@ -721,11 +711,6 @@ footer p {
 
   .hero {
     padding: 64px 0 78px;
-  }
-
-  .hero::before {
-    width: 100vw;
-    right: -15px;
   }
 
   h1 {

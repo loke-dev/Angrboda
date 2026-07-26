@@ -54,11 +54,9 @@ test('server-renders deterministic dark and light capture surfaces', async () =>
   }
 })
 
-test('keeps the decorative hero glow inside the mobile viewport', async () => {
+test('renders the decorative hero glow without an overflowing pseudo-element', async () => {
   const css = await readFile(new URL('../app/globals.css', import.meta.url), 'utf8')
 
-  assert.match(
-    css,
-    /@media \(max-width: 800px\)[\s\S]*?\.hero::before\s*\{[\s\S]*?width:\s*100vw;[\s\S]*?right:\s*-15px;/,
-  )
+  assert.match(css, /\.hero\s*\{[\s\S]*?background:\s*radial-gradient\(/)
+  assert.doesNotMatch(css, /\.hero::before/)
 })
