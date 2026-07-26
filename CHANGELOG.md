@@ -4,6 +4,8 @@
 
 - Added generated Zed, Sublime Text, Helix, iTerm2, and Base16 ports.
 - Added a checksummed cross-tool ZIP bundle to builds and GitHub releases.
+- Replaced the original angular letterform with the crafted Ironwood-and-ember
+  brand mark across the extension, website, favicon, and social artwork.
 - Expanded format validation, installation guidance, and AI harness support
   documentation.
 
