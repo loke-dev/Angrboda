@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.8.0
+
+- Added dependency-free installation through `npx angrboda`.
+- Added npm package-content validation so installer themes cannot be omitted
+  from a release.
+- Added optional npm publishing to the tagged release workflow.
+
 ## 1.7.0
 
 - Added native dark and light custom themes for Gemini CLI.

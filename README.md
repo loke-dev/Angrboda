@@ -35,9 +35,9 @@ or download the `.vsix` from the
 [latest GitHub release](https://github.com/loke-dev/Angrboda/releases/latest):
 
 ```sh
-code --install-extension angrboda-1.7.0.vsix
+code --install-extension angrboda-1.8.0.vsix
 # or
-cursor --install-extension angrboda-1.7.0.vsix
+cursor --install-extension angrboda-1.8.0.vsix
 ```
 
 Then choose **Angrboda Dark** or **Angrboda Light** from
@@ -45,12 +45,23 @@ Then choose **Angrboda Dark** or **Angrboda Light** from
 
 ### Everywhere else
 
-Download `angrboda-themes-1.7.0.zip` from the
+For supported terminals, editors, and AI tools, install directly from npm:
+
+```sh
+npx angrboda list
+npx angrboda zed --dry-run
+npx angrboda zed
+```
+
+No global package or project dependency is added. The installer protects
+existing files and creates backups only when you explicitly use `--force`.
+
+Alternatively, download `angrboda-themes-1.8.0.zip` from the
 [latest release](https://github.com/loke-dev/Angrboda/releases/latest), or use
 the generated files in [`ports/`](ports):
 
 ```sh
-unzip angrboda-themes-1.7.0.zip
+unzip angrboda-themes-1.8.0.zip
 cd angrboda
 node install.mjs list
 node install.mjs zed --dry-run
@@ -58,9 +69,7 @@ node install.mjs zed
 ```
 
 The installer supports Alacritty, Gemini CLI, Ghostty, Helix, Kitty, OpenCode,
-WezTerm, and Zed. It never edits an application's main configuration file. Existing
-different files are refused unless `--force` is supplied, and forced
-replacements receive a timestamped backup first.
+WezTerm, and Zed. It never edits an application's main configuration file.
 
 | Tool              | Format                    | Modes        |
 | ----------------- | ------------------------- | ------------ |

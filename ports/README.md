@@ -5,13 +5,13 @@ file for your tool; do not edit generated files directly.
 
 ## Automatic installation
 
-The release bundle includes a dependency-free Node installer for ports whose
-theme files have stable user-level locations:
+The npm package and release bundle include a dependency-free Node installer for
+ports whose theme files have stable user-level locations:
 
 ```sh
-node install.mjs list
-node install.mjs ghostty --dry-run
-node install.mjs ghostty
+npx angrboda list
+npx angrboda ghostty --dry-run
+npx angrboda ghostty
 ```
 
 It supports Alacritty, Gemini CLI, Ghostty, Helix, Kitty, OpenCode, WezTerm, and
@@ -19,6 +19,9 @@ Zed. Pass `--target <directory>` to use a custom config location. The installer
 does not edit activation settings; it prints the exact final step for the
 selected tool. It refuses differing existing files by default. `--force`
 creates a timestamped backup before replacing them.
+
+If you downloaded the release ZIP, replace `npx angrboda` with
+`node install.mjs` in these commands.
 
 ## Zed
 
@@ -106,7 +109,7 @@ Copy `opencode/angrboda.json` to
 Install both native custom-theme files:
 
 ```sh
-node install.mjs gemini
+npx angrboda gemini
 ```
 
 The installer prints the full path to each theme. Set `ui.theme` in

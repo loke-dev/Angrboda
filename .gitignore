@@ -2,6 +2,7 @@
 node_modules/
 .vscode
 *.vsix
+*.tgz
 dist/
 website/.next/
 website/.vinext/

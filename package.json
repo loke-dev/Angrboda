@@ -2,7 +2,7 @@
   "name": "angrboda",
   "displayName": "Angrboða",
   "description": "A mythic red and violet theme system for focused work across editors, terminals, and AI tools.",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "categories": [
     "Themes"
   ],
@@ -27,21 +27,29 @@
   },
   "scripts": {
     "build": "tsx src/index.ts",
-    "check": "npm run build && npm run typecheck && npm run test:installer && npm run validate && npm run format:check",
+    "check": "npm run build && npm run typecheck && npm run test:installer && npm run test:package && npm run validate && npm run format:check",
     "dev": "tsx watch src/index.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "package:bundle": "npm run build && tsx scripts/package-bundle.ts",
+    "package:npm": "npm pack",
     "vscode:prepublish": "npm run build",
     "package:vsix": "vsce package --no-dependencies",
     "publish:marketplace": "vsce publish",
+    "publish:npm": "npm publish --access public",
     "publish:openvsx": "ovsx publish",
     "test:installer": "node --test tests/installer.test.mjs",
+    "test:package": "tsx scripts/validate-npm-package.ts",
     "typecheck": "tsc --noEmit",
     "validate": "tsx scripts/validate.ts"
   },
+  "bin": {
+    "angrboda": "./install.mjs"
+  },
   "files": [
     "themes",
+    "ports",
+    "install.mjs",
     "logo.png",
     "LICENSE",
     "README.md"
@@ -69,6 +77,7 @@
     "typescript": "^5.9.2"
   },
   "engines": {
+    "node": ">=18",
     "vscode": "^1.85.0"
   },
   "galleryBanner": {
