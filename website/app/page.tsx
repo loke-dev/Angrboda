@@ -137,8 +137,8 @@ export default function Home() {
           <span className="kicker">One bundle · eight direct installs</span>
           <h2>Skip the config scavenger hunt.</h2>
           <p>
-            The bundle includes a dependency-free installer for the ports with stable theme locations. Preview every
-            change first; existing files are protected and forced replacements are backed up.
+            Install directly with npx—no cloning, global package, or config scavenger hunt. Preview every change first;
+            existing files are protected and forced replacements are backed up.
           </p>
         </div>
         <div className="command-card" aria-label="Angrboða installer commands">
@@ -152,9 +152,9 @@ export default function Home() {
           </div>
           <pre>
             <code>
-              <span>$</span> node install.mjs list{'\n'}
-              <span>$</span> node install.mjs zed --dry-run{'\n'}
-              <span>$</span> node install.mjs zed
+              <span>$</span> npx angrboda list{'\n'}
+              <span>$</span> npx angrboda zed --dry-run{'\n'}
+              <span>$</span> npx angrboda zed
             </code>
           </pre>
           <p>Alacritty · Gemini CLI · Ghostty · Helix · Kitty · OpenCode · WezTerm · Zed</p>

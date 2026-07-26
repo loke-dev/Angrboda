@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.8.1
+
+- Fixed horizontal page overflow at mobile widths.
+- Added npm Trusted Publishing through GitHub Actions with short-lived OIDC
+  credentials and automatic provenance.
+- Normalized npm executable and repository metadata.
+
 ## 1.8.0
 
 - Added dependency-free installation through `npx angrboda`.
