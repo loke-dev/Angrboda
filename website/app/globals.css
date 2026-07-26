@@ -401,6 +401,35 @@ h1 strong {
   font-size: 11px;
 }
 
+.capture-page {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 99px 50px;
+}
+
+.capture-page.dark {
+  background:
+    radial-gradient(circle at 18% 18%, #d6a4ff1f, transparent 28%),
+    radial-gradient(circle at 84% 82%, #ff718a17, transparent 30%), #0f0d12;
+}
+
+.capture-page.light {
+  background:
+    radial-gradient(circle at 18% 18%, #68459b14, transparent 28%),
+    radial-gradient(circle at 84% 82%, #b5264312, transparent 30%), #f3edf5;
+}
+
+.capture-frame {
+  width: min(1180px, calc(100vw - 100px));
+}
+
+.capture-frame .showcase {
+  width: 100%;
+}
+
 .manifesto {
   display: grid;
   grid-template-columns: 2fr 1fr;

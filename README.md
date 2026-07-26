@@ -15,7 +15,10 @@
   <a href="https://github.com/loke-dev/Angrboda/releases/latest">Download every port</a>
 </p>
 
-![Angrboða dark theme preview](assets/screenshots/editor-preview.png)
+<p align="center">
+  <img src="assets/screenshots/editor-preview.png" width="49%" alt="Angrboða dark theme preview">
+  <img src="assets/screenshots/editor-preview-light.png" width="49%" alt="Angrboða light theme preview">
+</p>
 
 Angrboða is expressive without shouting and calm without disappearing. Its
 ember-red and spectral-violet accents sit on a neutral foundation tuned for long

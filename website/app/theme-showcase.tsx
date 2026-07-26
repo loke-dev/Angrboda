@@ -1,14 +1,18 @@
 'use client'
 
 import { useState } from 'react'
+import type { ShowcaseToken } from './showcase-data'
 
-type Token = readonly [
-  'keyword' | 'plain' | 'operator' | 'function' | 'punctuation' | 'string' | 'comment' | 'property' | 'number',
-  string,
-]
+export type ShowcaseMode = 'dark' | 'light'
 
-export function ThemeShowcase({ code }: { code: readonly Token[] }) {
-  const [mode, setMode] = useState<'dark' | 'light'>('dark')
+export function ThemeShowcase({
+  code,
+  initialMode = 'dark',
+}: {
+  code: readonly ShowcaseToken[]
+  initialMode?: ShowcaseMode
+}) {
+  const [mode, setMode] = useState<ShowcaseMode>(initialMode)
   const lines = [code.slice(0, 9), code.slice(9, 10), code.slice(10, 18), code.slice(18, 24), code.slice(24)]
 
   return (

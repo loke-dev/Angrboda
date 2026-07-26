@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Replaced the rough editor crop with polished, mode-matched dark and light
+  screenshots.
+- Added a deterministic website capture surface so marketing previews can be
+  reproduced without manual cropping.
+
 ## 1.5.2
 
 - Restored the selected angular A mark with its pale and violet beams and coral

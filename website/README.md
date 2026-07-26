@@ -3,6 +3,14 @@
 The official Angrboða product and installation site, built with React, vinext,
 and Cloudflare Sites.
 
+## Theme captures
+
+The `/preview` route renders the theme showcase in a deterministic 1280×720
+composition for repository and release artwork:
+
+- `/preview?mode=dark`
+- `/preview?mode=light`
+
 ```sh
 npm ci
 npm run dev

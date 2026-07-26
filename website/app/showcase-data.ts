@@ -1,0 +1,32 @@
+export type ShowcaseToken = readonly [
+  'keyword' | 'plain' | 'operator' | 'function' | 'punctuation' | 'string' | 'comment' | 'property' | 'number',
+  string,
+]
+
+export const showcaseCode = [
+  ['keyword', 'const'],
+  ['plain', ' prophecy '],
+  ['operator', '='],
+  ['plain', ' '],
+  ['function', 'await awaken'],
+  ['punctuation', '('],
+  ['string', '"Ironwood"'],
+  ['punctuation', ')'],
+  ['plain', ''],
+  ['comment', '// Build softly. Ship boldly.'],
+  ['keyword', 'if'],
+  ['plain', ' '],
+  ['punctuation', '('],
+  ['plain', 'prophecy'],
+  ['operator', '.'],
+  ['property', 'isReady'],
+  ['punctuation', ') {'],
+  ['plain', ''],
+  ['plain', '  '],
+  ['function', 'release'],
+  ['punctuation', '('],
+  ['number', '3'],
+  ['punctuation', ')'],
+  ['plain', ''],
+  ['punctuation', '}'],
+] as const satisfies readonly ShowcaseToken[]

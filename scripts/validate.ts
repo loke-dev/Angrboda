@@ -107,6 +107,17 @@ for (const path of [
   assert.deepEqual(await fs.readFile(path), socialCard, `${path} must use the canonical Angrboða social artwork`)
 }
 
+for (const path of ['assets/screenshots/editor-preview.png', 'assets/screenshots/editor-preview-light.png']) {
+  const screenshot = await fs.readFile(path)
+  assert.deepEqual(
+    screenshot.subarray(0, 8),
+    Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+    `${path} must be a real PNG`,
+  )
+  assert.equal(screenshot.readUInt32BE(16), 1280, `${path} must be 1280 px wide`)
+  assert.equal(screenshot.readUInt32BE(20), 720, `${path} must be 720 px high`)
+}
+
 JSON.parse(await fs.readFile('themes/angrboda-dark-color-theme.json', 'utf8'))
 JSON.parse(await fs.readFile('themes/angrboda-light-color-theme.json', 'utf8'))
 JSON.parse(await fs.readFile('ports/chrome/manifest.json', 'utf8'))

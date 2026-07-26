@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { showcaseCode } from './showcase-data'
 import { ThemeShowcase } from './theme-showcase'
 
 const platforms = [
@@ -18,34 +19,6 @@ const platforms = [
   ['Chrome', 'Browser chrome with matching DevTools', 'ports/chrome'],
   ['Base16', 'Universal palettes for dozens more tools', 'ports/base16'],
 ]
-
-const code = [
-  ['keyword', 'const'],
-  ['plain', ' prophecy '],
-  ['operator', '='],
-  ['plain', ' '],
-  ['function', 'await awaken'],
-  ['punctuation', '('],
-  ['string', '"Ironwood"'],
-  ['punctuation', ')'],
-  ['plain', ''],
-  ['comment', '// Build softly. Ship boldly.'],
-  ['keyword', 'if'],
-  ['plain', ' '],
-  ['punctuation', '('],
-  ['plain', 'prophecy'],
-  ['operator', '.'],
-  ['property', 'isReady'],
-  ['punctuation', ') {'],
-  ['plain', ''],
-  ['plain', '  '],
-  ['function', 'release'],
-  ['punctuation', '('],
-  ['number', '3'],
-  ['punctuation', ')'],
-  ['plain', ''],
-  ['punctuation', '}'],
-] as const
 
 export default function Home() {
   return (
@@ -91,7 +64,7 @@ export default function Home() {
           </a>
         </div>
 
-        <ThemeShowcase code={code} />
+        <ThemeShowcase code={showcaseCode} />
       </section>
 
       <section className="manifesto shell">

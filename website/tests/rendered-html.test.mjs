@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 
-async function render() {
+async function render(path = '/') {
   const workerUrl = new URL('../dist/server/index.js', import.meta.url)
-  workerUrl.searchParams.set('test', `${process.pid}-${Date.now()}`)
+  workerUrl.searchParams.set('test', `${process.pid}-${Date.now()}-${path}`)
   const { default: worker } = await import(workerUrl.href)
 
   return worker.fetch(
-    new Request('http://localhost/', {
+    new Request(`http://localhost${path}`, {
       headers: { accept: 'text/html' },
     }),
     {
@@ -39,4 +39,14 @@ test('server-renders the Angrboða marketing site', async () => {
   assert.match(html, /angrboda-social-v3\.png/)
   assert.doesNotMatch(html, /ironwood-(?:mark|favicon)/)
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/)
+})
+
+test('server-renders deterministic dark and light capture surfaces', async () => {
+  for (const mode of ['dark', 'light']) {
+    const response = await render(`/preview?mode=${mode}`)
+    assert.equal(response.status, 200)
+    const html = await response.text()
+    assert.match(html, new RegExp(`capture-page ${mode}`))
+    assert.match(html, new RegExp(`Angrboða ${mode} theme preview`))
+  }
 })
