@@ -54,7 +54,8 @@ npx angrboda zed
 ```
 
 No global package or project dependency is added. The installer protects
-existing files and creates backups only when you explicitly use `--force`.
+existing files, identifies conflicts during `--dry-run`, and creates backups
+only when you explicitly use `--force`.
 
 Alternatively, download `angrboda-themes-1.8.1.zip` from the
 [latest release](https://github.com/loke-dev/Angrboda/releases/latest), or use

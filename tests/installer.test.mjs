@@ -86,6 +86,20 @@ test('dry-run reports actions without touching the filesystem', async () => {
   await assert.rejects(fs.stat(target), { code: 'ENOENT' })
 })
 
+test('dry-run reports conflicts that require force without replacing them', async () => {
+  const { env, target } = await fixture()
+  const destination = path.join(target, 'angrboda.json')
+  await fs.mkdir(target, { recursive: true })
+  await fs.writeFile(destination, 'personal theme\n')
+
+  const result = run(['zed', '--target', target, '--dry-run'], env)
+
+  assert.equal(result.status, 0, result.stderr)
+  assert.match(result.stdout, /would require --force/)
+  assert.doesNotMatch(result.stdout, /would back up and replace/)
+  assert.equal(await fs.readFile(destination, 'utf8'), 'personal theme\n')
+})
+
 test('every supported port resolves its bundled source files', async () => {
   const { env, root } = await fixture()
   for (const tool of ['alacritty', 'codex', 'gemini', 'ghostty', 'helix', 'kitty', 'opencode', 'wezterm', 'zed']) {

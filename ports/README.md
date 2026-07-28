@@ -19,7 +19,8 @@ WezTerm, and Zed. Pass `--target <directory>` to use a custom config location.
 The installer
 does not edit activation settings; it prints the exact final step for the
 selected tool. It refuses differing existing files by default. `--force`
-creates a timestamped backup before replacing them.
+creates a timestamped backup before replacing them, while `--dry-run` identifies
+the files that would require `--force`.
 
 If you downloaded the release ZIP, replace `npx angrboda` with
 `node install.mjs` in these commands.

@@ -193,7 +193,9 @@ async function install(toolName, options) {
     }
 
     if (options.dryRun) {
-      console.log(`${action.state === 'create' ? 'would add' : 'would back up and replace'}  ${action.destination}`)
+      const description =
+        action.state === 'create' ? 'would add' : options.force ? 'would back up and replace' : 'would require --force'
+      console.log(`${description}  ${action.destination}`)
       continue
     }
 
