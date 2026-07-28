@@ -233,7 +233,7 @@ function codexCliTheme(mode: Mode) {
   const title = mode[0]?.toUpperCase() + mode.slice(1)
   const rule = (scope: string, settings: Array<[string, string]>, name?: string) => {
     const scopeSettings = settings
-      .map(([key, value]) => [`      <key>${key}</key>`, `      <string>${value}</string>`].join('\n'))
+      .map(([key, value]) => [`<key>${key}</key>`, `<string>${value}</string>`].join('\n'))
       .join('\n')
 
     return [
@@ -339,30 +339,26 @@ ${rule('diff.inserted', [['foreground', color('green', mode)]], 'Diff Inserted')
 }
 
 function codexAppTheme(mode: Mode) {
-  return `codex-theme-v1:${JSON.stringify(
-    {
-      codeThemeId: 'one',
-      theme: {
-        accent: color('red', mode),
-        contrast: 48,
-        fonts: {
-          code: null,
-          ui: null,
-        },
-        ink: color('foreground', mode),
-        opaqueWindows: true,
-        semanticColors: {
-          diffAdded: color('green', mode),
-          diffRemoved: color('red', mode),
-          skill: color('violet', mode),
-        },
-        surface: color('surface', mode),
+  return `codex-theme-v1:${JSON.stringify({
+    codeThemeId: 'one',
+    theme: {
+      accent: color('red', mode),
+      contrast: 48,
+      fonts: {
+        code: null,
+        ui: null,
       },
-      variant: mode,
+      ink: color('foreground', mode),
+      opaqueWindows: true,
+      semanticColors: {
+        diffAdded: color('green', mode),
+        diffRemoved: color('red', mode),
+        skill: color('violet', mode),
+      },
+      surface: color('surface', mode),
     },
-    null,
-    2,
-  )}`
+    variant: mode,
+  })}\n`
 }
 
 function chromeTheme() {
