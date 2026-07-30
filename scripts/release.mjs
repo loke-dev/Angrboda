@@ -2,8 +2,9 @@ import { readFileSync } from 'node:fs'
 import { spawnSync } from 'node:child_process'
 
 const allowedLevels = ['patch', 'minor', 'major']
-const rawLevel = process.argv[2]
-const requestedLevel = rawLevel?.startsWith('--') ? rawLevel.slice(2) : rawLevel
+const args = process.argv.slice(2)
+const rawLevel = args[0] === '--' ? args[1] : args[0]
+const requestedLevel = rawLevel
 const bumpLevel = allowedLevels.includes(requestedLevel) ? requestedLevel : null
 
 function run(command, args, options = {}) {
@@ -24,7 +25,8 @@ function getPackageVersion() {
 }
 
 if (process.argv.includes('--help') || process.argv.includes('-h')) {
-  console.log('Usage: pnpm run release [-- <patch|minor|major>]')
+  console.log('Usage: pnpm run release [patch|minor|major]')
+  console.log('Use `pnpm run release -- minor` for explicit level arguments.')
   process.exit(0)
 }
 
