@@ -1,0 +1,7 @@
+# Keep `pnpm run release` as a convenient entry point while npm remains the
+# repository's package manager and package-lock.json remains authoritative.
+lockfile: false
+
+allowBuilds:
+  '@vscode/vsce-sign': true
+  esbuild: true

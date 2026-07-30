@@ -34,7 +34,7 @@ const initialVersion = getPackageVersion()
 console.log(`Preparing release from v${initialVersion}...`)
 
 console.log('• Running full checks')
-run('pnpm', ['run', 'check'])
+run('npm', ['run', 'check'])
 
 if (rawLevel) {
   if (!bumpLevel) {
@@ -48,22 +48,22 @@ if (rawLevel) {
     console.log('• Bumping patch version')
   }
 
-  run('pnpm', ['version', bumpLevel])
+  run('npm', ['version', bumpLevel])
 } else {
   console.log('• Bumping patch version (default)')
-  run('pnpm', ['version', 'patch'])
+  run('npm', ['version', 'patch'])
 }
 
 const nextVersion = getPackageVersion()
 const tag = `v${nextVersion}`
 
 console.log(`• Packaging Angrboða ${tag}`)
-run('pnpm', ['run', 'package:vsix'])
-run('pnpm', ['run', 'package:bundle'])
+run('npm', ['run', 'package:vsix'])
+run('npm', ['run', 'package:bundle'])
 
 if (process.env.VSCE_PAT) {
   console.log('• Publishing to VS Code Marketplace')
-  run('pnpm', ['run', 'publish:marketplace', '--', '--pat', process.env.VSCE_PAT])
+  run('npm', ['run', 'publish:marketplace', '--', '--pat', process.env.VSCE_PAT])
 } else {
   console.log('• Skipped marketplace publish (set VSCE_PAT to enable)')
 }
