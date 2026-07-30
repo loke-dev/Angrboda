@@ -29,6 +29,7 @@
     "build": "tsx src/index.ts",
     "check": "npm run build && npm run typecheck && npm run test:installer && npm run test:package && npm run validate && npm run format:check",
     "dev": "tsx watch src/index.ts",
+    "release": "node scripts/release.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "package:bundle": "npm run build && tsx scripts/package-bundle.ts",

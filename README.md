@@ -118,6 +118,25 @@ npm run check
 npm run package:vsix
 ```
 
+### Release fallback (GitHub Actions minutes backup)
+
+For a local fallback release flow:
+
+```sh
+pnpm run release
+# or
+pnpm run release -- minor
+pnpm run release -- major
+```
+
+This runs full checks, bumps the version (default `patch`), builds packages,
+and publishes to VS Code Marketplace if `VSCE_PAT` is set in your shell.
+Then create the GitHub release from the printed tag:
+
+```sh
+gh release create vX.Y.Z --generate-notes --title vX.Y.Z *.vsix dist/*.zip
+```
+
 Edit `src/colors.ts` and `src/theme.ts`. The build regenerates both VS Code
 themes and every port, keeping the system in sync. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for the project workflow.
