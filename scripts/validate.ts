@@ -257,6 +257,71 @@ for (const mode of ['dark', 'light'] as const) {
   }
 }
 
+// The mockup must not claim a color the editor never produces. Resolve the
+// TextMate scope each demo token stands for and compare it to the CSS.
+type TokenRule = { scope?: string | string[]; settings: { foreground?: string } }
+const editorTheme = JSON.parse(await fs.readFile('themes/angrboda-dark-color-theme.json', 'utf8')) as {
+  colors: Record<string, string>
+  tokenColors: TokenRule[]
+}
+// VS Code wins on the longest dot-prefix of the token scope, later rules breaking ties.
+const resolveScope = (scope: string) => {
+  let best: { depth: number; color: string } | undefined
+  for (const rule of editorTheme.tokenColors) {
+    const scopes = typeof rule.scope === 'string' ? [rule.scope] : (rule.scope ?? [])
+    for (const candidate of scopes) {
+      if (scope !== candidate && !scope.startsWith(`${candidate}.`)) continue
+      const depth = candidate.split('.').length
+      const color = rule.settings.foreground
+      if (color && (!best || depth >= best.depth)) best = { depth, color }
+    }
+  }
+  return (best?.color ?? editorTheme.colors['editor.foreground'])?.toLowerCase()
+}
+// The scope each showcase token type represents in the sample TypeScript.
+const tokenScopes: Record<string, string> = {
+  keyword: 'keyword.control.flow',
+  function: 'entity.name.function',
+  string: 'string.quoted.double',
+  comment: 'comment.line.double-slash',
+  number: 'constant.numeric.decimal',
+  operator: 'keyword.operator.assignment',
+  punctuation: 'punctuation.accessor',
+  plain: 'variable.other.property',
+}
+const showcaseData = await fs.readFile('website/app/showcase-data.ts', 'utf8')
+const usedTokens = new Set([...showcaseData.matchAll(/\[\s*'([a-z]+)'\s*,/g)].map((match) => match[1] ?? ''))
+const darkShowcase = siteCss.match(/\.showcase\.dark\s*\{([^}]*)\}/)?.[1] ?? ''
+const previewValue = (name: string) =>
+  darkShowcase.match(new RegExp(`--preview-${name}:\\s*(#[0-9a-fA-F]{6})`))?.[1]?.toLowerCase()
+for (const token of usedTokens) {
+  const scope = tokenScopes[token]
+  assert.ok(scope, `showcase uses an unmapped token type: ${token}`)
+  // A token with no color rule inherits the editor foreground, same as --preview-text.
+  const rule = siteCss.match(new RegExp(`\\.token-${token}[^{]*\\{[^}]*color:\\s*var\\(--preview-([a-z]+)\\)`))
+  const rendered = previewValue(rule?.[1] ?? 'text')
+  assert.equal(
+    rendered,
+    resolveScope(scope),
+    `showcase .token-${token} misrepresents ${scope}: the editor theme paints it ${resolveScope(scope)}`,
+  )
+}
+
+// Scope mapping alone cannot tell that a given word was labelled correctly, so
+// pin the member access the sample renders: neither half of `prophecy.isReady`
+// is cyan in a real editor, only object keys, builtins and operators are.
+for (const [token, text] of [
+  ['punctuation', '.'],
+  ['plain', 'isReady'],
+  ['plain', 'prophecy'],
+] as const) {
+  assert.match(
+    showcaseData,
+    new RegExp(`\\[\\s*'${token}'\\s*,\\s*'${text.replace('.', '\\.')}'\\s*\\]`),
+    `showcase must render ${JSON.stringify(text)} as a ${token} token`,
+  )
+}
+
 // Every generated port must be advertised, or it ships and nobody finds it.
 const portDirectories = (await fs.readdir('ports', { withFileTypes: true }))
   .filter((entry) => entry.isDirectory())

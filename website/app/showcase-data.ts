@@ -1,5 +1,5 @@
 export type ShowcaseToken = readonly [
-  'keyword' | 'plain' | 'operator' | 'function' | 'punctuation' | 'string' | 'comment' | 'property' | 'number',
+  'keyword' | 'plain' | 'operator' | 'function' | 'punctuation' | 'string' | 'comment' | 'number',
   string,
 ]
 
@@ -18,8 +18,8 @@ export const showcaseCode = [
   ['plain', ' '],
   ['punctuation', '('],
   ['plain', 'prophecy'],
-  ['operator', '.'],
-  ['property', 'isReady'],
+  ['punctuation', '.'],
+  ['plain', 'isReady'],
   ['punctuation', ') {'],
   ['plain', ''],
   ['plain', '  '],

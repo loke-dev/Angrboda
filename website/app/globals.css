@@ -362,8 +362,7 @@ h1 strong {
   color: var(--preview-red);
 }
 
-.token-operator,
-.token-property {
+.token-operator {
   color: var(--preview-cyan);
 }
 
