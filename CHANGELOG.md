@@ -1,5 +1,24 @@
 # Changelog
 
+## 2.0.0
+
+- Restored the original red and violet syntax colouring. The generator rewrite
+  had quietly re-coloured 41 of 89 syntax scopes, inventing cyan for storage,
+  operators, properties and constants, moving numbers to orange and regex to
+  yellow. Operators, storage, literals and regex are red again, keywords, names,
+  properties and types are violet, and numbers, constants and identifiers stay
+  neutral. Updating from 1.8.x visibly changes your editor.
+- Restored translucent comments and punctuation, at the original alpha per mode.
+- Added native dark and light themes for Claude Code, installable with
+  `npx angrboda claude`.
+- Aligned the Zed, OpenCode, Sublime Text, Codex and Helix ports with the same
+  syntax roles, so no port contradicts the editor theme. ANSI slots are
+  unchanged, since terminals still need a cyan.
+- Fixed the website mockup misrepresenting the theme: it painted property access
+  and `const` in colours the editor never produced. Both are now pinned to the
+  generated theme, along with the palette, so the demo cannot drift again.
+- Fixed the light theme painting bracket highlights white on white.
+
 ## 1.8.1
 
 - Fixed horizontal page overflow at mobile widths.
