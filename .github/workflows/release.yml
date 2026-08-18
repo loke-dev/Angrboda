@@ -36,30 +36,7 @@ jobs:
           cache: npm
           registry-url: https://registry.npmjs.org
 
-      # Fail before anything is tagged, rather than stranding a version that
-      # never reached a registry. npm needs no secret: it publishes over OIDC.
-      - name: Check publishing secrets
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
-          OVSX_PAT: ${{ secrets.OVSX_PAT }}
-        run: |
-          missing=()
-          [ -n "$VSCE_PAT" ] || missing+=("VSCE_PAT (VS Code Marketplace)")
-          [ -n "$OVSX_PAT" ] || missing+=("OVSX_PAT (Open VSX, which is what Cursor installs from)")
-          if [ ${#missing[@]} -gt 0 ]; then
-            for name in "${missing[@]}"; do echo "::error::Missing repository secret: $name"; done
-            exit 1
-          fi
-
       - run: npm ci
-
-      # Prove the Marketplace token can actually publish for the publisher in
-      # package.json before anything is tagged. Presence of a secret is not the
-      # same as permission, and a publisher rename is exactly how that diverges.
-      - name: Check Marketplace publish rights
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
-        run: npx vsce verify-pat "$(node -p 'require("./package.json").publisher')" --pat "$VSCE_PAT"
 
       - run: npm run check
 
@@ -79,6 +56,31 @@ jobs:
       - name: Nothing to release
         if: steps.bump.outputs.level == 'none'
         run: echo "::notice::No feat, fix, perf or breaking commits since the last tag. Skipping the release."
+
+      # Fail before anything is tagged, rather than stranding a version that
+      # never reached a registry. npm needs no secret: it publishes over OIDC.
+      - name: Check publishing secrets
+        if: steps.bump.outputs.level != 'none'
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: |
+          missing=()
+          [ -n "$VSCE_PAT" ] || missing+=("VSCE_PAT (VS Code Marketplace)")
+          [ -n "$OVSX_PAT" ] || missing+=("OVSX_PAT (Open VSX, which is what Cursor installs from)")
+          if [ ${#missing[@]} -gt 0 ]; then
+            for name in "${missing[@]}"; do echo "::error::Missing repository secret: $name"; done
+            exit 1
+          fi
+
+      # Prove the Marketplace token can actually publish for the publisher in
+      # package.json before anything is tagged. Presence of a secret is not the
+      # same as permission, and a publisher rename is exactly how that diverges.
+      - name: Check Marketplace publish rights
+        if: steps.bump.outputs.level != 'none'
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: npx vsce verify-pat "$(node -p 'require("./package.json").publisher')" --pat "$VSCE_PAT"
 
       - name: Bump, tag and push
         id: version
