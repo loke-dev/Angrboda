@@ -1,0 +1,124 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      level:
+        description: 'Bump level. "auto" reads the conventional commits since the last tag.'
+        type: choice
+        default: auto
+        options: [auto, patch, minor, major]
+
+permissions:
+  contents: read
+
+# Never let two releases race for the same version number.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # push the version commit and tag, create the release
+      id-token: write # npm trusted publishing, no token needed
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0 # tags and history, so the bump can be worked out
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      # Fail before anything is tagged, rather than stranding a version that
+      # never reached a registry. npm needs no secret: it publishes over OIDC.
+      - name: Check publishing secrets
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: |
+          missing=()
+          [ -n "$VSCE_PAT" ] || missing+=("VSCE_PAT (VS Code Marketplace)")
+          [ -n "$OVSX_PAT" ] || missing+=("OVSX_PAT (Open VSX, which is what Cursor installs from)")
+          if [ ${#missing[@]} -gt 0 ]; then
+            for name in "${missing[@]}"; do echo "::error::Missing repository secret: $name"; done
+            exit 1
+          fi
+
+      - run: npm ci
+      - run: npm run check
+
+      - name: Work out the bump
+        id: bump
+        env:
+          FORCED: ${{ inputs.level }}
+        run: |
+          if [ -n "$FORCED" ] && [ "$FORCED" != "auto" ]; then
+            level="$FORCED"
+            echo "Forced bump: $level"
+          else
+            level="$(node scripts/next-release.mjs --explain)"
+          fi
+          echo "level=$level" >> "$GITHUB_OUTPUT"
+
+      - name: Nothing to release
+        if: steps.bump.outputs.level == 'none'
+        run: echo "::notice::No feat, fix, perf or breaking commits since the last tag. Skipping the release."
+
+      - name: Bump, tag and push
+        id: version
+        if: steps.bump.outputs.level != 'none'
+        env:
+          LEVEL: ${{ steps.bump.outputs.level }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          # The `chore(release):` subject is also the loop guard: it is not a
+          # releasing type, and the tag lands on it, so the resulting push
+          # computes `none` and stops here.
+          npm version "$LEVEL" -m 'chore(release): %s'
+          version="$(node -p 'require("./package.json").version')"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          git push origin HEAD:master
+          git push origin "refs/tags/v$version"
+
+      - name: Package
+        if: steps.bump.outputs.level != 'none'
+        run: |
+          npm run package:vsix
+          npm run package:bundle
+          unzip -t dist/*.zip
+
+      - name: Create the GitHub release
+        if: steps.bump.outputs.level != 'none'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: gh release create "$TAG" --title "$TAG" --generate-notes ./*.vsix dist/*.zip
+
+      # Every registry gets the same bytes that are attached to the release,
+      # rather than a fresh package built per registry.
+      - name: Publish to the VS Code Marketplace
+        if: steps.bump.outputs.level != 'none'
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: npm run publish:marketplace -- --packagePath "angrboda-$VERSION.vsix" --pat "$VSCE_PAT" --skip-duplicate
+
+      - name: Publish to Open VSX
+        if: steps.bump.outputs.level != 'none'
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: npm run publish:openvsx -- --packagePath "angrboda-$VERSION.vsix" --pat "$OVSX_PAT" --skip-duplicate
+
+      - name: Publish to npm
+        if: steps.bump.outputs.level != 'none'
+        run: npm run publish:npm

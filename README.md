@@ -119,33 +119,42 @@ npm run check
 npm run package:vsix
 ```
 
-### Release fallback (GitHub Actions minutes backup)
+### Releases
 
-For a local fallback release flow:
+Releases are automatic. Push to `master` and the Release workflow reads the
+conventional commits since the last tag, then bumps, tags, packages, creates the
+GitHub release and publishes to the VS Code Marketplace, Open VSX and npm.
+
+| Commit type               | Bump  |
+| ------------------------- | ----- |
+| `feat:`                   | minor |
+| `fix:` `perf:` `revert:`  | patch |
+| `!` or `BREAKING CHANGE:` | major |
+| anything else             | none  |
+
+A push with no releasing commits does nothing, so docs and chore work never cuts
+a version. To force a level, run the workflow by hand:
 
 ```sh
-pnpm run release
-# or
-pnpm run release -- minor
-pnpm run release -- major
+gh workflow run release.yml -f level=minor
 ```
 
-This runs full checks, bumps the version (default `patch`), builds packages,
-and publishes to VS Code Marketplace if `VSCE_PAT` is set in your shell.
-Then create the GitHub release from the printed tag:
+Check what the next push would do:
 
 ```sh
-gh release create vX.Y.Z --generate-notes --title vX.Y.Z *.vsix dist/*.zip
+node scripts/next-release.mjs --explain
 ```
 
 Edit `src/colors.ts` and `src/theme.ts`. The build regenerates both VS Code
 themes and every port, keeping the system in sync. See
 [CONTRIBUTING.md](CONTRIBUTING.md) for the project workflow.
 
-Tagged releases are packaged automatically. If repository secrets are present,
-the same workflow also publishes to the VS Code Marketplace and Open VSX. Each
-release contains both the editor VSIX and a checksummed ZIP with every generated
-port, its documentation, and source themes.
+Every release contains both the editor VSIX and a checksummed ZIP with every
+generated port, its documentation, and source themes. The exact VSIX attached to
+the release is the one published to both marketplaces. Publishing needs two
+repository secrets, `VSCE_PAT` and `OVSX_PAT`; the workflow fails before tagging
+if either is missing. npm needs no secret, it publishes over OIDC with
+provenance.
 
 ## Name
 
