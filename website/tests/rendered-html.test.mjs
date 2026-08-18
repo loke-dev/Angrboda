@@ -32,6 +32,7 @@ test('server-renders the Angrboða marketing site', async () => {
   assert.match(html, /Angrboða/)
   assert.match(html, /Color for the/)
   assert.match(html, /OpenCode/)
+  assert.match(html, /Claude Code/)
   assert.match(html, /Zed/)
   assert.match(html, /Base16/)
   assert.match(html, /Install for VS Code/)

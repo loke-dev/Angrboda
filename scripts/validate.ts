@@ -223,4 +223,62 @@ for (const mode of ['dark', 'light']) {
   assert.equal(base16.match(/  base[0-9A-F]{2}: ['"]#[0-9A-F]{6}['"]/g)?.length, 16)
 }
 
-console.log('Validated palette contrast and generated theme formats.')
+// The marketing site hand-writes the palette as CSS, so the editor mockup can
+// silently drift away from the real theme. Pin both showcase variants to it.
+const siteCss = await fs.readFile('website/app/globals.css', 'utf8')
+const showcaseVariables: Record<string, keyof typeof palette> = {
+  bg: 'background',
+  surface: 'surface',
+  raised: 'surfaceRaised',
+  text: 'foreground',
+  muted: 'muted',
+  subtle: 'subtle',
+  red: 'red',
+  violet: 'violet',
+  cyan: 'cyan',
+  orange: 'orange',
+  border: 'border',
+}
+for (const mode of ['dark', 'light'] as const) {
+  const block = siteCss.match(new RegExp(`\\.showcase\\.${mode}\\s*\\{([^}]*)\\}`))?.[1]
+  assert.ok(block, `website showcase is missing a .showcase.${mode} block`)
+  const declared = Object.fromEntries(
+    [...block.matchAll(/--preview-([a-z]+):\s*(#[0-9a-fA-F]{6})/g)].map((match) => [
+      match[1] ?? '',
+      (match[2] ?? '').toLowerCase(),
+    ]),
+  )
+  for (const [variable, key] of Object.entries(showcaseVariables)) {
+    assert.equal(
+      declared[variable],
+      palette[key][mode === 'dark' ? 0 : 1].toLowerCase(),
+      `--preview-${variable} in .showcase.${mode} must match palette.${key}`,
+    )
+  }
+}
+
+// Every generated port must be advertised, or it ships and nobody finds it.
+const portDirectories = (await fs.readdir('ports', { withFileTypes: true }))
+  .filter((entry) => entry.isDirectory())
+  .map((entry) => entry.name)
+  .sort()
+assert.ok(portDirectories.length >= 16, 'expected the full set of generated port directories')
+const portsReadme = await fs.readFile('ports/README.md', 'utf8')
+const rootReadme = await fs.readFile('README.md', 'utf8')
+const sitePage = await fs.readFile('website/app/page.tsx', 'utf8')
+const installer = await fs.readFile('install.mjs', 'utf8')
+for (const directory of portDirectories) {
+  const files = await fs.readdir(`ports/${directory}`)
+  assert.ok(files.length > 0, `ports/${directory} generated no files`)
+  assert.ok(sitePage.includes(`ports/${directory}`), `website platform list is missing ports/${directory}`)
+  assert.ok(
+    installer.includes(`ports/${directory}/`) || portsReadme.includes(`${directory}/`),
+    `ports/${directory} needs either an installer target or manual instructions`,
+  )
+}
+for (const label of ['Claude Code', 'Codex', 'Gemini CLI', 'OpenCode', 'Base16', 'Chrome']) {
+  assert.ok(rootReadme.includes(label), `root README support table is missing ${label}`)
+  assert.ok(portsReadme.includes(label), `ports README is missing ${label}`)
+}
+
+console.log('Validated palette contrast, generated theme formats, and port coverage.')

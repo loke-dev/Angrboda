@@ -15,6 +15,7 @@ const platforms = [
   ['WezTerm', 'A ready-to-require Lua module', 'ports/wezterm'],
   ['iTerm2', 'Importable macOS color presets', 'ports/iterm2'],
   ['Windows Terminal', 'Importable color schemes', 'ports/windows-terminal'],
+  ['Claude Code', 'Native dark and light session themes', 'ports/claude-code'],
   ['Gemini CLI', 'Native dark and light AI harness themes', 'ports/gemini-cli'],
   ['OpenCode', 'A native adaptive AI harness theme', 'ports/opencode'],
   ['Codex', 'CLI and app theme surfaces', 'ports/codex'],
@@ -158,7 +159,7 @@ export default function Home() {
               <span>$</span> npx angrboda zed
             </code>
           </pre>
-          <p>Alacritty · Codex · Gemini CLI · Ghostty · Helix · Kitty · OpenCode · WezTerm · Zed</p>
+          <p>Alacritty · Claude Code · Codex · Gemini CLI · Ghostty · Helix · Kitty · OpenCode · WezTerm · Zed</p>
         </div>
       </section>
 
