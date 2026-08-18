@@ -53,10 +53,7 @@ export default function Home() {
           tools—with dark and light modes built from one accessible palette.
         </p>
         <div className="hero-actions">
-          <a
-            className="button primary"
-            href="https://marketplace.visualstudio.com/items?itemName=carlssonloke.angrboda"
-          >
+          <a className="button primary" href="https://marketplace.visualstudio.com/items?itemName=loke-dev.angrboda">
             Install for VS Code
             <span aria-hidden="true">↗</span>
           </a>

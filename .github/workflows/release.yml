@@ -52,6 +52,15 @@ jobs:
           fi
 
       - run: npm ci
+
+      # Prove the Marketplace token can actually publish for the publisher in
+      # package.json before anything is tagged. Presence of a secret is not the
+      # same as permission, and a publisher rename is exactly how that diverges.
+      - name: Check Marketplace publish rights
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: npx vsce verify-pat "$(node -p 'require("./package.json").publisher')" --pat "$VSCE_PAT"
+
       - run: npm run check
 
       - name: Work out the bump

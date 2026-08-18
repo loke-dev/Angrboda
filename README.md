@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://angrboda.loke.dev">Website</a> ·
-  <a href="https://marketplace.visualstudio.com/items?itemName=carlssonloke.angrboda">VS Code Marketplace</a> ·
+  <a href="https://marketplace.visualstudio.com/items?itemName=loke-dev.angrboda">VS Code Marketplace</a> ·
   <a href="https://github.com/loke-dev/Angrboda/releases/latest">Download every port</a>
 </p>
 
@@ -29,8 +29,8 @@ contrast for ordinary text and consistent generated ports.
 
 ### VS Code and Cursor
 
-Install `carlssonloke.angrboda` from the
-[VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=carlssonloke.angrboda),
+Install `loke-dev.angrboda` from the
+[VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=loke-dev.angrboda),
 or download the `.vsix` from the
 [latest GitHub release](https://github.com/loke-dev/Angrboda/releases/latest):
 
