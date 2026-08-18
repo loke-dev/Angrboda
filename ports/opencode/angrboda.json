@@ -138,20 +138,20 @@
       "light": "#B52643"
     },
     "syntaxNumber": {
-      "dark": "#F39A70",
-      "light": "#98401D"
+      "dark": "#F5EFF8",
+      "light": "#211B24"
     },
     "syntaxType": {
-      "dark": "#F4C86A",
-      "light": "#805C00"
+      "dark": "#D6A4FF",
+      "light": "#68459B"
     },
     "syntaxOperator": {
-      "dark": "#80CBC4",
-      "light": "#176E6B"
+      "dark": "#FF718A",
+      "light": "#B52643"
     },
     "syntaxPunctuation": {
-      "dark": "#827686",
-      "light": "#807384"
+      "dark": "#B3A8B8",
+      "light": "#665B6A"
     }
   }
 }

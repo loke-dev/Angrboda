@@ -56,6 +56,13 @@ export const brightAnsiPalette = [
   palette.foreground,
 ] as const
 
+/**
+ * Comments and punctuation are deliberately translucent rather than a flat
+ * grey, matching the original theme. Dark carries less alpha than light
+ * because the dark background swallows more of it.
+ */
+const dim = pair(`${palette.muted[0]}60`, `${palette.muted[1]}80`)
+
 export const themeColors = {
   primary: palette.red,
   secondary: palette.violet,
@@ -64,6 +71,8 @@ export const themeColors = {
   foreground: palette.foreground,
   activeForeground: palette.foreground,
   secondaryForeground: palette.muted,
+  // Ignored and untracked markup sit behind body text without going fully grey.
+  dimForeground: suf(palette.foreground, '90'),
   ignored: palette.subtle,
   border: palette.border,
   background: palette.background,
@@ -72,26 +81,30 @@ export const themeColors = {
   dropdownBackground: palette.surface,
   tabBackground: pair(`${palette.violet[0]}18`, `${palette.violet[1]}12`),
 
-  comment: palette.muted,
-  bracket: palette.subtle,
-  punctuation: palette.subtle,
+  // Syntax roles follow the original hand-written theme: red carries operators,
+  // storage and literals, violet carries keywords and names, and everything else
+  // stays neutral. Comments keep their translucency, so they sit back further
+  // than an opaque muted grey would.
+  comment: dim,
+  bracket: dim,
+  punctuation: dim,
   variable: palette.foreground,
-  constant: palette.cyan,
-  number: palette.orange,
+  constant: palette.foreground,
+  number: palette.foreground,
   namespace: palette.foreground,
 
   string: palette.red,
   literal: palette.red,
-  boolean: palette.orange,
-  builtin: palette.cyan,
-  regex: palette.yellow,
+  boolean: palette.red,
+  builtin: palette.red,
+  regex: palette.red,
   red: palette.red,
   keyword: palette.violet,
   function: palette.violet,
-  property: palette.cyan,
+  property: palette.violet,
 
-  class: palette.yellow,
-  interface: palette.cyan,
+  class: palette.violet,
+  interface: palette.foreground,
   decorator: palette.red,
 
   green: palette.green,

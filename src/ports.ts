@@ -197,10 +197,10 @@ function openCode() {
         syntaxFunction: pair('violet'),
         syntaxVariable: pair('foreground'),
         syntaxString: pair('red'),
-        syntaxNumber: pair('orange'),
-        syntaxType: pair('yellow'),
-        syntaxOperator: pair('cyan'),
-        syntaxPunctuation: pair('subtle'),
+        syntaxNumber: pair('foreground'),
+        syntaxType: pair('violet'),
+        syntaxOperator: pair('red'),
+        syntaxPunctuation: pair('muted'),
       },
     },
     null,
@@ -446,11 +446,11 @@ ${rule(
   'Deleted',
 )}
 ${rule('keyword', [['foreground', color('violet', mode)]], 'Keywords')}
-${rule('keyword.operator', [['foreground', color('cyan', mode)]], 'Operators')}
+${rule('keyword.operator', [['foreground', color('red', mode)]], 'Operators')}
 ${rule('support.function', [['foreground', color('violet', mode)]], 'Support')}
 ${rule('string', [['foreground', color('red', mode)]], 'Strings')}
 ${rule('variable', [['foreground', color('foreground', mode)]], 'Variables')}
-${rule('punctuation', [['foreground', color('subtle', mode)]], 'Punctuation')}
+${rule('punctuation', [['foreground', color('muted', mode)]], 'Punctuation')}
 ${rule('diff.header', [['foreground', color('violet', mode)]], 'Diff Headers')}
 ${rule('diff.deleted', [['foreground', color('red', mode)]], 'Diff Deleted')}
 ${rule('diff.inserted', [['foreground', color('green', mode)]], 'Diff Inserted')}
@@ -553,14 +553,14 @@ function zed() {
           comment: { color: color('muted', mode), font_style: 'italic' },
           keyword: { color: color('violet', mode) },
           function: { color: color('violet', mode) },
-          type: { color: color('yellow', mode) },
+          type: { color: color('violet', mode) },
           string: { color: color('red', mode) },
-          number: { color: color('orange', mode) },
-          constant: { color: color('cyan', mode) },
+          number: { color: color('foreground', mode) },
+          constant: { color: color('foreground', mode) },
           variable: { color: color('foreground', mode) },
-          property: { color: color('cyan', mode) },
-          operator: { color: color('cyan', mode) },
-          punctuation: { color: color('subtle', mode) },
+          property: { color: color('violet', mode) },
+          operator: { color: color('red', mode) },
+          punctuation: { color: color('muted', mode) },
         },
       },
     }
@@ -582,18 +582,18 @@ function helix(mode: Mode) {
   const roles: Array<[string, PaletteKey]> = [
     ['attribute', 'red'],
     ['type', 'yellow'],
-    ['constructor', 'yellow'],
-    ['constant', 'cyan'],
+    ['constructor', 'violet'],
+    ['constant', 'foreground'],
     ['string', 'red'],
     ['variable', 'foreground'],
-    ['label', 'cyan'],
-    ['punctuation', 'subtle'],
+    ['label', 'violet'],
+    ['punctuation', 'muted'],
     ['keyword', 'violet'],
-    ['operator', 'cyan'],
+    ['operator', 'red'],
     ['function', 'violet'],
     ['tag', 'red'],
     ['namespace', 'foreground'],
-    ['special', 'orange'],
+    ['special', 'red'],
     ['error', 'red'],
     ['warning', 'yellow'],
     ['info', 'blue'],
@@ -671,13 +671,13 @@ function sublime(mode: Mode) {
         rule('Comments', 'comment', 'muted', 'italic'),
         rule('Keywords', 'keyword, storage', 'violet'),
         rule('Functions', 'entity.name.function, support.function', 'violet'),
-        rule('Types', 'entity.name.type, support.type, storage.type', 'yellow'),
+        rule('Types', 'entity.name.type, support.type, storage.type', 'red'),
         rule('Strings', 'string', 'red'),
-        rule('Numbers', 'constant.numeric', 'orange'),
-        rule('Constants', 'constant, support.constant', 'cyan'),
-        rule('Properties', 'variable.other.member, meta.object-literal.key', 'cyan'),
-        rule('Operators', 'keyword.operator', 'cyan'),
-        rule('Punctuation', 'punctuation', 'subtle'),
+        rule('Numbers', 'constant.numeric', 'foreground'),
+        rule('Constants', 'constant, support.constant', 'foreground'),
+        rule('Properties', 'variable.other.member, meta.object-literal.key', 'violet'),
+        rule('Operators', 'keyword.operator', 'red'),
+        rule('Punctuation', 'punctuation', 'muted'),
         rule('Invalid', 'invalid', 'red', 'bold'),
       ],
     },

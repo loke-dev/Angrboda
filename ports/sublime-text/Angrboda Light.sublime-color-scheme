@@ -55,7 +55,7 @@
     {
       "name": "Types",
       "scope": "entity.name.type, support.type, storage.type",
-      "foreground": "var(yellow)",
+      "foreground": "var(red)",
     },
     {
       "name": "Strings",
@@ -65,27 +65,27 @@
     {
       "name": "Numbers",
       "scope": "constant.numeric",
-      "foreground": "var(orange)",
+      "foreground": "var(foreground)",
     },
     {
       "name": "Constants",
       "scope": "constant, support.constant",
-      "foreground": "var(cyan)",
+      "foreground": "var(foreground)",
     },
     {
       "name": "Properties",
       "scope": "variable.other.member, meta.object-literal.key",
-      "foreground": "var(cyan)",
+      "foreground": "var(violet)",
     },
     {
       "name": "Operators",
       "scope": "keyword.operator",
-      "foreground": "var(cyan)",
+      "foreground": "var(red)",
     },
     {
       "name": "Punctuation",
       "scope": "punctuation",
-      "foreground": "var(subtle)",
+      "foreground": "var(muted)",
     },
     {
       "name": "Invalid",

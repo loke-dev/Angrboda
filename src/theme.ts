@@ -325,7 +325,7 @@ export default function getTheme({ style, name }: { style: Style; name: string }
       },
       {
         scope: 'string.regexp constant.character.escape',
-        settings: { fontStyle: 'bold', foreground: t(style, 'green') },
+        settings: { fontStyle: 'bold', foreground: t(style, 'purple') },
       },
       { scope: 'support.constant', settings: { foreground: t(style, 'constant') } },
       { scope: 'support.variable', settings: { foreground: t(style, 'literal') } },
@@ -333,7 +333,7 @@ export default function getTheme({ style, name }: { style: Style; name: string }
       { scope: 'keyword.other.unit', settings: { foreground: t(style, 'builtin') } },
       { scope: 'constant.language.boolean', settings: { foreground: t(style, 'boolean') } },
       { scope: 'meta.module-reference', settings: { foreground: primary } },
-      { scope: 'punctuation.definition.list.begin.markdown', settings: { foreground: t(style, 'orange') } },
+      { scope: 'punctuation.definition.list.begin.markdown', settings: { foreground: t(style, 'red') } },
       { scope: ['markup.heading', 'markup.heading entity.name'], settings: { fontStyle: 'bold', foreground: primary } },
       { scope: 'markup.quote', settings: { foreground: primary } },
       { scope: 'markup.italic', settings: { fontStyle: 'italic', foreground } },
@@ -353,7 +353,7 @@ export default function getTheme({ style, name }: { style: Style; name: string }
       },
       {
         scope: ['markup.ignored', 'markup.untracked'],
-        settings: { foreground: secondaryForeground, background: t(style, 'blue') },
+        settings: { foreground: t(style, 'dimForeground'), background: t(style, 'blue') },
       },
       { scope: 'meta.diff.range', settings: { foreground: t(style, 'purple'), fontStyle: 'bold' } },
       { scope: 'meta.diff.header', settings: { foreground: t(style, 'uiInfo') } },
@@ -382,7 +382,7 @@ export default function getTheme({ style, name }: { style: Style; name: string }
       },
       {
         scope: ['markup.underline.link.markdown'],
-        settings: { foreground: secondaryForeground, fontStyle: 'underline' },
+        settings: { foreground: t(style, 'dimForeground'), fontStyle: 'underline' },
       },
     ],
   }

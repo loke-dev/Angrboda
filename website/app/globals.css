@@ -227,6 +227,7 @@ h1 strong {
   --preview-violet: #d6a4ff;
   --preview-cyan: #80cbc4;
   --preview-orange: #f39a70;
+  --preview-dim: #b3a8b860;
   --preview-border: #332b37;
 }
 
@@ -241,6 +242,7 @@ h1 strong {
   --preview-violet: #68459b;
   --preview-cyan: #176e6b;
   --preview-orange: #98401d;
+  --preview-dim: #665b6a80;
   --preview-border: #ded2e2;
 }
 
@@ -364,19 +366,19 @@ h1 strong {
 
 .token-operator,
 .token-storage {
-  color: var(--preview-cyan);
+  color: var(--preview-red);
 }
 
 .token-comment {
-  color: var(--preview-muted);
+  color: var(--preview-dim);
 }
 
 .token-number {
-  color: var(--preview-orange);
+  color: var(--preview-text);
 }
 
 .token-punctuation {
-  color: var(--preview-subtle);
+  color: var(--preview-dim);
 }
 
 .status-bar {

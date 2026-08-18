@@ -61,28 +61,28 @@
             "color": "#D6A4FF"
           },
           "type": {
-            "color": "#F4C86A"
+            "color": "#D6A4FF"
           },
           "string": {
             "color": "#FF718A"
           },
           "number": {
-            "color": "#F39A70"
+            "color": "#F5EFF8"
           },
           "constant": {
-            "color": "#80CBC4"
+            "color": "#F5EFF8"
           },
           "variable": {
             "color": "#F5EFF8"
           },
           "property": {
-            "color": "#80CBC4"
+            "color": "#D6A4FF"
           },
           "operator": {
-            "color": "#80CBC4"
+            "color": "#FF718A"
           },
           "punctuation": {
-            "color": "#827686"
+            "color": "#B3A8B8"
           }
         }
       }
@@ -145,28 +145,28 @@
             "color": "#68459B"
           },
           "type": {
-            "color": "#805C00"
+            "color": "#68459B"
           },
           "string": {
             "color": "#B52643"
           },
           "number": {
-            "color": "#98401D"
+            "color": "#211B24"
           },
           "constant": {
-            "color": "#176E6B"
+            "color": "#211B24"
           },
           "variable": {
             "color": "#211B24"
           },
           "property": {
-            "color": "#176E6B"
+            "color": "#68459B"
           },
           "operator": {
-            "color": "#176E6B"
+            "color": "#B52643"
           },
           "punctuation": {
-            "color": "#807384"
+            "color": "#665B6A"
           }
         }
       }

@@ -294,7 +294,7 @@ const showcaseData = await fs.readFile('website/app/showcase-data.ts', 'utf8')
 const usedTokens = new Set([...showcaseData.matchAll(/\[\s*'([a-z]+)'\s*,/g)].map((match) => match[1] ?? ''))
 const darkShowcase = siteCss.match(/\.showcase\.dark\s*\{([^}]*)\}/)?.[1] ?? ''
 const previewValue = (name: string) =>
-  darkShowcase.match(new RegExp(`--preview-${name}:\\s*(#[0-9a-fA-F]{6})`))?.[1]?.toLowerCase()
+  darkShowcase.match(new RegExp(`--preview-${name}:\\s*(#[0-9a-fA-F]{6,8})`))?.[1]?.toLowerCase()
 for (const token of usedTokens) {
   const scope = tokenScopes[token]
   assert.ok(scope, `showcase uses an unmapped token type: ${token}`)
@@ -314,6 +314,8 @@ for (const token of usedTokens) {
 for (const [token, text] of [
   ['storage', 'const'],
   ['operator', '='],
+  ['number', '3'],
+  ['comment', '// Build softly. Ship boldly.'],
   ['punctuation', '.'],
   ['plain', 'isReady'],
   ['plain', 'prophecy'],
