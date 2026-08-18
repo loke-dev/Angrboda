@@ -479,14 +479,13 @@ h1 strong {
 
 .palette-grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   min-height: 320px;
 }
 
 .swatch {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 20px;
   color: #141216;
   transition: transform 180ms ease;
@@ -501,7 +500,16 @@ h1 strong {
   font-weight: 700;
 }
 
+.swatch em {
+  margin-top: 8px;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.5;
+  opacity: 0.75;
+}
+
 .swatch code {
+  margin-top: auto;
   font-size: 11px;
   opacity: 0.7;
 }
@@ -529,6 +537,56 @@ h1 strong {
 
 .swatch.blue {
   background: #78b9f2;
+}
+
+.palette-accents {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 40px;
+  padding: 28px 0 0;
+}
+
+.palette-accents p {
+  margin: 0;
+  max-width: 52ch;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.palette-accents ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.palette-accents li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.palette-accents i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.palette-accents code {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+@media (max-width: 900px) {
+  .palette-accents {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 .platforms {

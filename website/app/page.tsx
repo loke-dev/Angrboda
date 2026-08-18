@@ -91,20 +91,40 @@ export default function Home() {
               belongs.
             </p>
           </div>
-          <div className="palette-grid" aria-label="Angrboða color palette">
+          <div className="palette-grid" aria-label="Angrboða core colors">
             {[
-              ['Ember', '#FF718A', 'red'],
-              ['Seiðr', '#D6A4FF', 'violet'],
-              ['Ironwood', '#141216', 'ink'],
-              ['Mist', '#F5EFF8', 'mist'],
-              ['Moss', '#78C98D', 'green'],
-              ['Sky', '#78B9F2', 'blue'],
-            ].map(([name, hex, className]) => (
+              ['Ember', '#FF718A', 'red', 'Operators, storage, strings'],
+              ['Seiðr', '#D6A4FF', 'violet', 'Keywords, names, types'],
+              ['Ironwood', '#141216', 'ink', 'Editor and terminal ground'],
+              ['Mist', '#F5EFF8', 'mist', 'Identifiers and body text'],
+            ].map(([name, hex, className, role]) => (
               <div className={`swatch ${className}`} key={name}>
                 <span>{name}</span>
+                <em>{role}</em>
                 <code>{hex}</code>
               </div>
             ))}
+          </div>
+          <div className="palette-accents">
+            <p>
+              Code is red, violet and neutral. The rest of the palette stays out of your syntax and works behind the
+              scenes, on git decorations, diagnostics and the sixteen ANSI slots every terminal port needs.
+            </p>
+            <ul aria-label="Angrboða supporting colors">
+              {[
+                ['Moss', '#78C98D'],
+                ['Sky', '#78B9F2'],
+                ['Rune', '#80CBC4'],
+                ['Forge', '#F39A70'],
+                ['Amber', '#F4C86A'],
+              ].map(([name, hex]) => (
+                <li key={name}>
+                  <i style={{ background: hex }} aria-hidden="true" />
+                  <span>{name}</span>
+                  <code>{hex}</code>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
