@@ -1,10 +1,10 @@
 export type ShowcaseToken = readonly [
-  'keyword' | 'plain' | 'operator' | 'function' | 'punctuation' | 'string' | 'comment' | 'number',
+  'keyword' | 'storage' | 'plain' | 'operator' | 'function' | 'punctuation' | 'string' | 'comment' | 'number',
   string,
 ]
 
 export const showcaseCode = [
-  ['keyword', 'const'],
+  ['storage', 'const'],
   ['plain', ' prophecy '],
   ['operator', '='],
   ['plain', ' '],

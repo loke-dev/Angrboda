@@ -281,6 +281,7 @@ const resolveScope = (scope: string) => {
 // The scope each showcase token type represents in the sample TypeScript.
 const tokenScopes: Record<string, string> = {
   keyword: 'keyword.control.flow',
+  storage: 'storage.type',
   function: 'entity.name.function',
   string: 'string.quoted.double',
   comment: 'comment.line.double-slash',
@@ -311,6 +312,8 @@ for (const token of usedTokens) {
 // pin the member access the sample renders: neither half of `prophecy.isReady`
 // is cyan in a real editor, only object keys, builtins and operators are.
 for (const [token, text] of [
+  ['storage', 'const'],
+  ['operator', '='],
   ['punctuation', '.'],
   ['plain', 'isReady'],
   ['plain', 'prophecy'],
@@ -321,6 +324,14 @@ for (const [token, text] of [
     `showcase must render ${JSON.stringify(text)} as a ${token} token`,
   )
 }
+
+// ThemeShowcase splits the sample into lines by hardcoded token offsets, so
+// adding or removing a token silently reflows the mockup.
+assert.equal(
+  [...showcaseData.matchAll(/\[\s*'[a-z]+'\s*,/g)].length,
+  25,
+  'showcaseCode changed length; update the line offsets in theme-showcase.tsx',
+)
 
 // Every generated port must be advertised, or it ships and nobody finds it.
 const portDirectories = (await fs.readdir('ports', { withFileTypes: true }))

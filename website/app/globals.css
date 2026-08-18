@@ -362,7 +362,8 @@ h1 strong {
   color: var(--preview-red);
 }
 
-.token-operator {
+.token-operator,
+.token-storage {
   color: var(--preview-cyan);
 }
 
