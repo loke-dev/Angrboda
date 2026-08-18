@@ -14,8 +14,8 @@ npx angrboda ghostty --dry-run
 npx angrboda ghostty
 ```
 
-It supports Alacritty, Codex, Gemini CLI, Ghostty, Helix, Kitty, OpenCode,
-WezTerm, and Zed. Pass `--target <directory>` to use a custom config location.
+It supports Alacritty, Claude Code, Codex, Gemini CLI, Ghostty, Helix, Kitty,
+OpenCode, WezTerm, and Zed. Pass `--target <directory>` to use a custom config location.
 The installer
 does not edit activation settings; it prints the exact final step for the
 selected tool. It refuses differing existing files by default. `--force`
@@ -118,6 +118,33 @@ The installer prints the full path to each theme. Set `ui.theme` in
 `~/.gemini/settings.json` to the dark or light JSON path, or select the theme
 with `/theme` after registering it in `ui.customThemes`.
 
+## Claude Code
+
+Install both custom themes:
+
+```sh
+npx angrboda claude
+```
+
+That writes `angrboda-dark.json` and `angrboda-light.json` to
+`~/.claude/themes/`. Run `/theme` in Claude Code and choose **Angrboða Dark** or
+**Angrboða Light**, or set the theme directly in `~/.claude/settings.json`:
+
+```json
+{ "theme": "custom:angrboda-dark" }
+```
+
+The slug is the filename, so `angrboda-light.json` activates as
+`custom:angrboda-light`. Claude Code watches the directory and reloads on
+change. Custom themes carry their own base, so a custom theme and the
+"Auto (match terminal)" setting do not combine; pick the variant you want.
+
+These themes drive the Claude Code session UI: prompt, spinners, mode
+indicators, diffs, and the message and composer surfaces. They do not feed the
+desktop app's **Settings -> Code appearance** dropdowns, which pick a syntax
+highlighting theme for rendered code blocks from a fixed built-in list and have
+no local extension point.
+
 ## Codex
 
 Copy both `.tmTheme` files to `~/.codex/themes/`:
@@ -158,6 +185,7 @@ of additional applications.
 Gemini CLI has native dark and light custom themes, and OpenCode has a native
 adaptive port. Codex is supported through `.tmTheme` files for CLI and
 codex-theme-v1 payloads for the app. Cursor and Windsurf can use the VSIX,
-Zed's assistant uses the Zed theme, and terminal-native tools such as Claude
-Code inherit Angrboða from the surrounding terminal. This avoids fragile or
-unsupported UI overrides while keeping the full session visually coherent.
+Zed's assistant uses the Zed theme. Claude Code has native dark and light
+custom themes for its session UI, in the CLI and in the desktop app. This avoids
+fragile or unsupported UI overrides while keeping the full session visually
+coherent.

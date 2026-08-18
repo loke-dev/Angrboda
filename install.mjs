@@ -41,6 +41,16 @@ const tools = {
     next: ({ directory }) =>
       `Set ui.theme in ~/.gemini/settings.json to "${path.join(directory, 'angrboda-dark.json')}" or "${path.join(directory, 'angrboda-light.json')}".`,
   },
+  claude: {
+    description: 'Claude Code custom themes',
+    directory: () => path.join(homeDirectory, '.claude', 'themes'),
+    files: [
+      ['ports/claude-code/angrboda-dark.json', 'angrboda-dark.json'],
+      ['ports/claude-code/angrboda-light.json', 'angrboda-light.json'],
+    ],
+    next: () =>
+      'Run /theme in Claude Code and choose Angrboða Dark or Angrboða Light, or set theme to "custom:angrboda-dark" in ~/.claude/settings.json.',
+  },
   codex: {
     description: 'Codex CLI TextMate themes',
     directory: () => path.join(homeDirectory, '.codex', 'themes'),
