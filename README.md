@@ -69,8 +69,8 @@ node install.mjs zed --dry-run
 node install.mjs zed
 ```
 
-The installer supports Alacritty, Codex, Gemini CLI, Ghostty, Helix, Kitty,
-OpenCode, WezTerm, and Zed. It never edits an application's main
+The installer supports Alacritty, Claude Code, Codex, Gemini CLI, Ghostty, Helix,
+Kitty, OpenCode, WezTerm, and Zed. It never edits an application's main
 configuration file.
 
 | Tool              | Format                    | Modes        |
@@ -86,6 +86,7 @@ configuration file.
 | WezTerm           | Lua color schemes         | dark + light |
 | iTerm2            | importable color presets  | dark + light |
 | Windows Terminal  | JSON schemes              | dark + light |
+| Claude Code       | native custom themes      | dark + light |
 | Codex CLI         | TextMate `.tmTheme`       | dark + light |
 | Gemini CLI        | native AI harness themes  | dark + light |
 | OpenCode          | native adaptive AI theme  | automatic    |

@@ -11,6 +11,21 @@ const color = (key: PaletteKey, mode: Mode) => palette[key][index(mode)]
 const ansi = (mode: Mode) => ansiPalette.map((pair) => pair[index(mode)])
 const brightAnsi = (mode: Mode) => brightAnsiPalette.map((pair) => pair[index(mode)])
 
+const channels = (hex: string) => [1, 3, 5].map((offset) => parseInt(hex.slice(offset, offset + 2), 16))
+
+/**
+ * Blends two opaque hex colors. Ports that only accept six-digit hex cannot
+ * lean on the alpha suffixes the editor themes use, so tints are baked here.
+ */
+function mix(from: string, to: string, ratio: number) {
+  const start = channels(from)
+  const end = channels(to)
+  const blended = start.map((value, i) => Math.round(value + ((end[i] ?? 0) - value) * ratio))
+  return `#${blended.map((value) => value.toString(16).padStart(2, '0')).join('')}`.toUpperCase()
+}
+
+const tint = (key: PaletteKey, mode: Mode, ratio: number) => mix(color('background', mode), color(key, mode), ratio)
+
 function ghostty(mode: Mode) {
   return [
     `# Angrboða ${mode[0]?.toUpperCase()}${mode.slice(1)}`,
@@ -186,6 +201,113 @@ function openCode() {
         syntaxType: pair('yellow'),
         syntaxOperator: pair('cyan'),
         syntaxPunctuation: pair('subtle'),
+      },
+    },
+    null,
+    2,
+  )}\n`
+}
+
+/**
+ * Claude Code reads custom themes from ~/.claude/themes/*.json and only honors
+ * override keys that exist in the chosen base theme, so unknown keys are
+ * dropped silently. Colors must be six-digit hex, three-digit hex, rgb(), or an
+ * ansi reference; alpha is not supported.
+ */
+function claudeCode(mode: Mode) {
+  const title = mode[0]?.toUpperCase() + mode.slice(1)
+  const c = (key: PaletteKey) => color(key, mode)
+  const shimmer = (key: PaletteKey) => mix(c(key), '#FFFFFF', 0.3)
+  const dark = mode === 'dark'
+  const pink = mix(c('red'), c('violet'), 0.4)
+  const indigo = mix(c('blue'), c('violet'), 0.5)
+
+  return `${JSON.stringify(
+    {
+      name: `Angrboða ${title}`,
+      base: mode,
+      overrides: {
+        text: c('foreground'),
+        inverseText: c('background'),
+        inactive: c('muted'),
+        inactiveShimmer: shimmer('muted'),
+        subtle: mix(c('border'), c('subtle'), 0.5),
+
+        claude: c('orange'),
+        claudeShimmer: shimmer('orange'),
+        claudeBlue_FOR_SYSTEM_SPINNER: c('blue'),
+        claudeBlueShimmer_FOR_SYSTEM_SPINNER: shimmer('blue'),
+        clawd_body: c('orange'),
+        clawd_background: c('background'),
+
+        autoAccept: c('violet'),
+        autoAcceptShimmer: shimmer('violet'),
+        skill: c('violet'),
+        planMode: c('cyan'),
+        permission: c('blue'),
+        permissionShimmer: shimmer('blue'),
+        suggestion: c('blue'),
+        remember: c('violet'),
+        merged: c('violet'),
+        ide: c('blue'),
+        effortUltra: c('violet'),
+        fastMode: c('orange'),
+        fastModeShimmer: shimmer('orange'),
+
+        success: c('green'),
+        error: c('red'),
+        warning: c('yellow'),
+        warningShimmer: shimmer('yellow'),
+
+        bashBorder: c('red'),
+        promptBorder: c('subtle'),
+        promptBorderShimmer: dark ? c('muted') : c('terminalBlack'),
+
+        userMessageBackground: c('surface'),
+        userMessageBackgroundHover: c('surfaceRaised'),
+        composerSidebarBackground: c('surface'),
+        bashMessageBackgroundColor: tint('red', mode, dark ? 0.12 : 0.1),
+        memoryBackgroundColor: tint('cyan', mode, dark ? 0.12 : 0.1),
+        selectionBg: tint('violet', mode, dark ? 0.28 : 0.22),
+
+        diffAdded: tint('green', mode, dark ? 0.3 : 0.34),
+        diffAddedDimmed: tint('green', mode, 0.14),
+        diffAddedWord: tint('green', mode, dark ? 0.58 : 0.6),
+        diffRemoved: tint('red', mode, dark ? 0.3 : 0.34),
+        diffRemovedDimmed: tint('red', mode, 0.14),
+        diffRemovedWord: tint('red', mode, dark ? 0.58 : 0.6),
+
+        rate_limit_fill: c('blue'),
+        rate_limit_empty: mix(c('border'), c('subtle'), 0.35),
+
+        briefLabelYou: c('blue'),
+        briefLabelClaude: c('orange'),
+        professionalBlue: c('blue'),
+        chromeYellow: c('yellow'),
+
+        red_FOR_SUBAGENTS_ONLY: c('red'),
+        blue_FOR_SUBAGENTS_ONLY: c('blue'),
+        green_FOR_SUBAGENTS_ONLY: c('green'),
+        yellow_FOR_SUBAGENTS_ONLY: c('yellow'),
+        purple_FOR_SUBAGENTS_ONLY: c('violet'),
+        orange_FOR_SUBAGENTS_ONLY: c('orange'),
+        pink_FOR_SUBAGENTS_ONLY: pink,
+        cyan_FOR_SUBAGENTS_ONLY: c('cyan'),
+
+        rainbow_red: c('red'),
+        rainbow_orange: c('orange'),
+        rainbow_yellow: c('yellow'),
+        rainbow_green: c('green'),
+        rainbow_blue: c('blue'),
+        rainbow_indigo: indigo,
+        rainbow_violet: c('violet'),
+        rainbow_red_shimmer: shimmer('red'),
+        rainbow_orange_shimmer: shimmer('orange'),
+        rainbow_yellow_shimmer: shimmer('yellow'),
+        rainbow_green_shimmer: shimmer('green'),
+        rainbow_blue_shimmer: shimmer('blue'),
+        rainbow_indigo_shimmer: mix(indigo, '#FFFFFF', 0.3),
+        rainbow_violet_shimmer: shimmer('violet'),
       },
     },
     null,
@@ -633,6 +755,8 @@ export async function generatePorts() {
     'ports/base16/angrboda-dark.yaml': base16('dark'),
     'ports/base16/angrboda-light.yaml': base16('light'),
     'ports/chrome/manifest.json': chromeTheme(),
+    'ports/claude-code/angrboda-dark.json': claudeCode('dark'),
+    'ports/claude-code/angrboda-light.json': claudeCode('light'),
     'ports/ghostty/Angrboda Dark': ghostty('dark'),
     'ports/ghostty/Angrboda Light': ghostty('light'),
     'ports/helix/angrboda-dark.toml': helix('dark'),

@@ -60,6 +60,8 @@ const requiredFiles = [
   'ports/base16/angrboda-dark.yaml',
   'ports/base16/angrboda-light.yaml',
   'ports/chrome/manifest.json',
+  'ports/claude-code/angrboda-dark.json',
+  'ports/claude-code/angrboda-light.json',
   'ports/ghostty/Angrboda Dark',
   'ports/ghostty/Angrboda Light',
   'ports/gemini-cli/angrboda-dark.json',
@@ -141,6 +143,30 @@ for (const mode of ['dark', 'light']) {
   assert.ok(gemini.status.success)
   assert.ok(gemini.status.warning)
   assert.ok(gemini.status.error)
+}
+for (const mode of ['dark', 'light'] as const) {
+  const claude = JSON.parse(await fs.readFile(`ports/claude-code/angrboda-${mode}.json`, 'utf8')) as {
+    name: string
+    base: string
+    overrides: Record<string, string>
+  }
+  const shade = mode === 'dark' ? 0 : 1
+  assert.equal(claude.name, `Angrboða ${mode[0]?.toUpperCase()}${mode.slice(1)}`)
+  assert.equal(claude.base, mode, 'base must name the built-in theme Claude Code merges onto')
+  assert.equal(claude.overrides.text, palette.foreground[shade])
+  assert.equal(claude.overrides.inverseText, palette.background[shade])
+  assert.equal(claude.overrides.error, palette.red[shade])
+  assert.equal(claude.overrides.success, palette.green[shade])
+  assert.equal(claude.overrides.planMode, palette.cyan[shade])
+  for (const [key, value] of Object.entries(claude.overrides)) {
+    // Claude Code drops any override it cannot parse, and it has no alpha channel.
+    assert.match(value, /^#[0-9A-F]{6}$/, `${key} must be an opaque six-digit hex color`)
+  }
+  for (const key of ['diffAdded', 'diffRemoved', 'diffAddedWord', 'diffRemovedWord']) {
+    assert.notEqual(claude.overrides[key], palette.background[shade], `${key} must stay visible against the background`)
+  }
+  assert.notEqual(claude.overrides.diffAdded, claude.overrides.diffAddedWord)
+  assert.notEqual(claude.overrides.diffRemoved, claude.overrides.diffRemovedWord)
 }
 const windowsTerminal = JSON.parse(await fs.readFile('ports/windows-terminal/angrboda.json', 'utf8')) as {
   schemes: Array<{ background: string; black: string; brightBlack: string }>
