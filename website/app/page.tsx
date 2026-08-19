@@ -49,8 +49,8 @@ export default function Home() {
           and the <strong>buried.</strong>
         </h1>
         <p className="hero-copy">
-          Angrboða is a carefully balanced red and violet theme for editors, terminals, browsers, and AI coding
-          tools—with dark and light modes built from one accessible palette.
+          Angrboða is a carefully balanced red and violet theme for editors, terminals, browsers, and AI coding tools,
+          with dark and light modes built from one accessible palette.
         </p>
         <div className="hero-actions">
           <a className="button primary" href="https://marketplace.visualstudio.com/items?itemName=loke-dev.angrboda">
@@ -84,8 +84,8 @@ export default function Home() {
               <h2>Contrast you can feel.</h2>
             </div>
             <p>
-              Text colors are opaque and measured. Transparency is reserved for selections and surfaces, where it
-              belongs.
+              Every palette color is checked for WCAG AA contrast against both backgrounds. Comments and punctuation are
+              the deliberate exception, translucent so they sit behind the code without disappearing.
             </p>
           </div>
           <div className="palette-grid" aria-label="Angrboða core colors">
@@ -153,11 +153,11 @@ export default function Home() {
 
       <section className="installer-section shell" id="install">
         <div className="installer-copy">
-          <span className="kicker">One bundle · nine direct installs</span>
+          <span className="kicker">One bundle · ten direct installs</span>
           <h2>Skip the config scavenger hunt.</h2>
           <p>
-            Install directly with npx—no cloning, global package, or config scavenger hunt. Preview every change first;
-            existing files are protected and forced replacements are backed up.
+            Install directly with npx, no cloning and no global package. Preview every change first, existing files are
+            protected, and forced replacements are backed up.
           </p>
         </div>
         <div className="command-card" aria-label="Angrboða installer commands">
