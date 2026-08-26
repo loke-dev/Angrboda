@@ -35,9 +35,9 @@ or download the `.vsix` from the
 [latest GitHub release](https://github.com/loke-dev/Angrboda/releases/latest):
 
 ```sh
-code --install-extension angrboda-1.8.1.vsix
+code --install-extension angrboda-2.0.2.vsix
 # or
-cursor --install-extension angrboda-1.8.1.vsix
+cursor --install-extension angrboda-2.0.2.vsix
 ```
 
 Then choose **Angrboda Dark** or **Angrboda Light** from
@@ -57,12 +57,12 @@ No global package or project dependency is added. The installer protects
 existing files, identifies conflicts during `--dry-run`, and creates backups
 only when you explicitly use `--force`.
 
-Alternatively, download `angrboda-themes-1.8.1.zip` from the
+Alternatively, download `angrboda-themes-2.0.2.zip` from the
 [latest release](https://github.com/loke-dev/Angrboda/releases/latest), or use
 the generated files in [`ports/`](ports):
 
 ```sh
-unzip angrboda-themes-1.8.1.zip
+unzip angrboda-themes-2.0.2.zip
 cd angrboda
 node install.mjs list
 node install.mjs zed --dry-run
